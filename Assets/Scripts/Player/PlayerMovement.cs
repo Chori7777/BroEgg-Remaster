@@ -2,30 +2,29 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public int speed;
+    public int dashForce;
+    public StateMachine statemachine;
+
+    public Rigidbody2D rb;
+
+    public float x;
+    public float y;
+
+    Vector2 direction;
+    
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody2D>();
+        statemachine = new StateMachine(this);
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
-        if (Input.GetKey(KeyCode.W))
-        {
-            transform.Translate(0, 5*Time.deltaTime, 0);
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            transform.Translate(-5*Time.deltaTime, 0, 0);
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            transform.Translate(0, -5*Time.deltaTime, 0);
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            transform.Translate(5*Time.deltaTime, 0, 0);
-        }
+        x = Input.GetAxisRaw("Horizontal");
+        y = Input.GetAxisRaw("Vertical");
+
+        statemachine.UpdateMachine();
     }
 }

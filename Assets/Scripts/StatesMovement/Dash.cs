@@ -4,7 +4,11 @@ public class Dash : IState
 {
     PlayerMovement player;
 
-    Vector2 direction;
+    Vector2 dashDirection;
+    bool isDashing;
+    bool canDash;
+
+    public float currentDashDuration; 
 
     public Dash(PlayerMovement player)
     {
@@ -12,22 +16,46 @@ public class Dash : IState
     }
     public void Enter()
     {
-        Debug.Log("Dash");
+            currentDashDuration = player.DashDuration;
 
-        direction = new Vector2(player.x, player.y).normalized;
+            dashDirection = new Vector2(player.x, player.y).normalized;
 
-        Vector2 move = direction * player.dashForce * Time.fixedDeltaTime;
+            if (dashDirection == Vector2.zero)
+            {
+                dashDirection = player.transform.forward;
+            }
 
-        player.rb.AddForce(move, ForceMode2D.Impulse);
+            isDashing = true;
     }
 
     public void Exit()
     {
-
+        Debug.Log("Saliendo de Dash");
+        player.rb.linearVelocity = Vector2.zero;
     }
 
     public void UpdateState()
     {
+        if(isDashing)
+        {
+            currentDashDuration -= Time.deltaTime;
+            player.rb.linearVelocity = dashDirection * player.DashForce;
+        }
 
+        // Si se acaba el tiempo de duración del Dash, volvemos a Walk o Idle
+        if (currentDashDuration <= 0)
+        {
+            if (player.x == 0 && player.y == 0)
+            {
+                player.statemachine.ChangeState(player.statemachine.IdleState);
+                isDashing = false;
+            }
+
+            else
+            {
+                player.statemachine.ChangeState(player.statemachine.WalkState);
+                isDashing = false;
+            }
+        }
     }
 }

@@ -5,7 +5,10 @@ public class StateMachine
     public IState IdleState;
     public IState WalkState;
     public IState DashState;
+
     public IState CurrentState;
+
+
     public StateMachine(PlayerMovement player)
     {
         IdleState = new Idle(player);

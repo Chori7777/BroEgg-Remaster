@@ -28,9 +28,7 @@ public class Walk : IState
 
         direction = new Vector2(player.x, player.y).normalized;
 
-        Vector2 move = direction * player.speed * Time.fixedDeltaTime;
-
-        player.rb.MovePosition(player.rb.position + move);
+        player.rb.linearVelocity = direction * player.speed; //lo tuve que cambiar a linear velocity nico, perdon, pero addforce no funciona con moveposition
 
         if (player.x == 0 && player.y == 0) 
         {
@@ -39,7 +37,11 @@ public class Walk : IState
 
         if(Input.GetKey(KeyCode.Space))
         {
-         player.statemachine.ChangeState(player.statemachine.DashState);
+            if(player.DashCooldown >= 2)
+            {
+                player.statemachine.ChangeState(player.statemachine.DashState);
+                player.DashCooldown = 0;
+            }
         }
     }
 }

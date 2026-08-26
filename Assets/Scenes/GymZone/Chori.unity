@@ -624,6 +624,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   speed: 5
+  DashForce: 15
+  DashCooldown: 2
+  DashDuration: 0.2
+  rb: {fileID: 0}
+  <x>k__BackingField: 0
+  <y>k__BackingField: 0
 --- !u!61 &385439026
 BoxCollider2D:
   m_ObjectHideFlags: 0

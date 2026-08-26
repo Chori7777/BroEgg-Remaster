@@ -1236,6 +1236,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5e2ee7122419964dbfbfcc633d3a38c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  bulletPrefab: {fileID: 1416032101}
+  defaultBulletSpeed: 30
 --- !u!1 &1416032101 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2054224592274332075, guid: f26900abd1941fc4e90851112dce64f6, type: 3}

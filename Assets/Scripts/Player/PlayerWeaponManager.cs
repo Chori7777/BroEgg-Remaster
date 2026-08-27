@@ -32,6 +32,7 @@ public class PlayerWeaponManager : MonoBehaviour
     {
         this.weapon = weapon;
     }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         IWeapon weaponComponent= other.GetComponent<IWeapon>();

@@ -5,7 +5,7 @@ public class PlayerWeaponManager : MonoBehaviour
 {
     IWeapon weapon;
 
-    [SerializeField] GameObject hand;
+    [SerializeField] GameObject hand;//empty que sostiene el arma
     void Start()
     {
        
@@ -42,8 +42,10 @@ public class PlayerWeaponManager : MonoBehaviour
             SetWeapon(weaponComponent);
             Debug.Log("Arma recogida");
             Transform weaponTransform = weaponComponent.getTransform();
+
             // Se creo un metodo de getTransform en IWeapon para obtener la transform del arma y poder setearla como hija de la mano del jugador
             weaponTransform.SetParent(hand.transform);
+
             //lo coloco en donde esta la manito del jugadorsillo y ahi queda
             weaponTransform.localPosition = Vector3.zero;
             weaponTransform.localRotation = Quaternion.identity;

@@ -32,7 +32,7 @@ public class Walk : IState
 
         if (player.x == 0 && player.y == 0) 
         {
-         player.statemachine.ChangeState(player.statemachine.IdleState);
+            player.statemachine.ChangeState(player.statemachine.IdleState);
         }
 
         if(Input.GetKey(KeyCode.Space))

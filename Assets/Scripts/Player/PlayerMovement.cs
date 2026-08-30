@@ -15,7 +15,6 @@ public class PlayerMovement : MonoBehaviour
     [field: SerializeField] public float x { get; private set; } //ahi lo encontre nico, public get (se puede leer), private set (se cambia de forma privada)
     [field: SerializeField] public float y { get; private set; }
 
-
     Vector2 direction;
     
     void Start()

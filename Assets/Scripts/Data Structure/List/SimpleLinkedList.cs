@@ -1,8 +1,9 @@
 using System;
 
-
 namespace ED262C
 {
+
+    [Serializable]
     public class SimpleLinkedList<T> : ISimpleList<T>
     {
         // Referencias al primer y ultimo nodo

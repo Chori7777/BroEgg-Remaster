@@ -7,15 +7,15 @@ using UnityEngine.UIElements;
 
 public class InventoryManager : MonoBehaviour
 {
-    [SerializeField] UnityEngine.UI.Image[] paraLaLinked; 
-    [SerializeField] SimpleLinkedList<UnityEngine.UI.Image> invImages = new SimpleLinkedList<UnityEngine.UI.Image>();
+    [SerializeField] UnityEngine.UI.Image[] toTheList; 
+    [SerializeField] SimpleArrayList<UnityEngine.UI.Image> invImages = new SimpleArrayList<UnityEngine.UI.Image>();
     int ItemActual = 0;
 
     void Start()
     {
-        for(int i = 0;  i < paraLaLinked.Length; i++)
+        for(int i = 0;  i < toTheList.Length; i++)
         {
-            invImages.Add(paraLaLinked[i]);
+            invImages.Add(toTheList[i]);
         }
         UpdateSelection();
     }

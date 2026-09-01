@@ -3,41 +3,35 @@ using UnityEngine;
 public class PistolScript : MonoBehaviour, IWeapon
 {
     [SerializeField] GameObject bulletPrefab;
-    [SerializeField] float defaultBulletSpeed; 
+
+    [SerializeField] private BulletPool bulletPool;
 
     public void shoot()
     {
-        //La logica para pensar como disparar en nuestro juego es la siguiente:
-        // Al hacer click en la pantalla, se guarda un punto en el mapa, a partir de ese punto
-        // hay que calcular la distancia entre el click y nuestro personaje, para luego disparar en esa direccion
-        // despues se hacen los calculos para que la bala se mueva en esa direccion y a la velocidad que queremos
+        // 1. Pedimos la bala al pool
+        Bullet bullet = bulletPool.Get();
 
+        // 2. Le asignamos la referencia del pool a la bala
+        bullet.pool = bulletPool;
 
-        //Transforma las coordenadas del mouse en la pantalla a Coordenadas de Unity
+        // 3. Posicionamos la bala en la pistola
+        bullet.transform.position = transform.position;
+        bullet.transform.rotation = transform.rotation;
+
+        // 4. Calculamos la dirección del mouse desde la pistola UNA sola vez
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //Calcula la dirección del disparo desde la posición de la pistola hacia el mouse
-        Vector2 direction = mousePosition - transform.position;
-        //Se normaliza la direcion 
-        direction.Normalize();
 
-        GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+        // sin esto, dependiendo que tan cerca esta el mouse de la pistola, cambia la velocidad de la bala
+        mousePosition.z = transform.position.z;
 
-        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+        Vector2 direction = (mousePosition - transform.position).normalized;
 
-        rb.linearVelocity = direction * defaultBulletSpeed;
-        Debug.Log("la pistola esta disparando");
+        // 5. Mandamo la direccion a la bala noma, para que le diga a su linear velocity para donde ir
+        bullet.Setup(direction);
+        Debug.Log("la pistola está disparando");
     }
     public Transform getTransform()
     {
         return transform;
-    }
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
     }
 }

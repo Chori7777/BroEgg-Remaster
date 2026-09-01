@@ -24,7 +24,7 @@ public class InventoryManager : MonoBehaviour
     {
         if (invImages.Count == 0) return;
 
-        if (Input.GetKeyDown(KeyCode.Backspace)) Debug.Log("soy el slot " + ItemActual);
+        if (Input.GetKeyDown(KeyCode.Backspace)) Debug.Log("soy el slot " + ItemActual); //mostrar que slot es del inventario
 
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {

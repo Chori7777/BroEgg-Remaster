@@ -4,14 +4,11 @@ using UnityEngine;
 public class PlayerWeaponManager : MonoBehaviour
 {
     IWeapon weapon;
-
+    [SerializeField] Bullet bullet;
     [SerializeField] GameObject hand;//empty que sostiene el arma
-    void Start()
-    {
-       
-    }
+    //Bullet bulletScript;
 
-    // Update is called once per frame
+
     void Update()
     {
        if(Input.GetMouseButtonDown(0))
@@ -19,7 +16,6 @@ public class PlayerWeaponManager : MonoBehaviour
             if(weapon!= null)
             {
                 weapon.shoot();
-              
             }
             else
             {

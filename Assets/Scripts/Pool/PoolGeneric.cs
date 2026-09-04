@@ -17,7 +17,7 @@ public class PoolGeneric<T> : MonoBehaviour where T : Component
         }
     }
 
-    private T InstantiateNew()
+    private T InstantiateNew() //funcion que se encarga devfolver un T instanciado y desactivado
     {
         T newObject = Instantiate(prefab);
         newObject.gameObject.SetActive(false);

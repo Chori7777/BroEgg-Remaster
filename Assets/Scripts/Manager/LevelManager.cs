@@ -16,6 +16,21 @@ public class LevelManager : MonoBehaviour
 
     private WaveData currentWave;
 
+    public WaveData CurrentWave => currentWave;
+
+    private float timeRemaining;
+    public float TimeRemaining
+    {
+        get => timeRemaining;
+        set => timeRemaining = value;
+    }
+
+    private int currentRound;
+
+    public int CurrentRound => currentRound;
+
+    
+
     private void Awake()
     {
         if (instance == null)
@@ -30,6 +45,8 @@ public class LevelManager : MonoBehaviour
 
     void Start()
     {
+        
+
         // Cargamos todas las waves del Inspector a la cola, en orden
         for (int i = 0; i < waveList.Count; i++)
         {
@@ -38,10 +55,12 @@ public class LevelManager : MonoBehaviour
 
         // Arrancamos con la primera wave
         currentWave = waveQueue.Dequeue();
+
+        
     }
 
     void Update()
     {
-
+        
     }
 }

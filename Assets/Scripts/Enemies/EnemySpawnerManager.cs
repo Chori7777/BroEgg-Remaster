@@ -5,6 +5,7 @@ namespace ED262C
     {
         private SimpleArrayList<Transform> spawnPoints = new SimpleArrayList<Transform>();
 
+       
 
         FactoryEnemy factoryEnemy;
 
@@ -12,6 +13,8 @@ namespace ED262C
 
         void Start()
         {
+           
+
             factoryEnemy=GetComponent<FactoryEnemy>();
             GameObject[] points = GameObject.FindGameObjectsWithTag("spawnPoint");
 

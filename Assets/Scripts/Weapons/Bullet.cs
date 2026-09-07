@@ -28,10 +28,15 @@ public class Bullet : MonoBehaviour
         rb.linearVelocity = direction * defaultBulletSpeed;
     }
 
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Enemy"))
+        IDamageable damageable = collision.GetComponent<IDamageable>();
+
+        if (damageable != null)
         {
+            damageable.TakeDamage(10);
+
             pool.Recycle(this);
         }
     }

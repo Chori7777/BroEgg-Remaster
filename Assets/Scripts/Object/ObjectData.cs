@@ -6,7 +6,7 @@ public class Object : ScriptableObject
 {
     [SerializeField] private string idObject;
 
-    [SerializeField] private Image spriteShop;
+    [SerializeField] private Sprite spriteShop;
 
     [SerializeField] private int baseHealth;
     [SerializeField] private int baseArmor;
@@ -23,7 +23,8 @@ public class Object : ScriptableObject
     public int BaseArmor => baseArmor;
     public int BaseDamage => baseDamage;
     public int BaseSpeed => baseSpeed;
-
+    public string IdObject => idObject;
+    public Sprite SpriteShop => spriteShop;
 
 
 

@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 4140220500339200606}
   - component: {fileID: 2838208364866067399}
   - component: {fileID: 8908924682604131844}
-  - component: {fileID: 2319769706303959523}
   - component: {fileID: 7794200599967994939}
+  - component: {fileID: 3686492368101557334}
+  - component: {fileID: 7401072332159786791}
   m_Layer: 0
   m_Name: Zombie
   m_TagString: Enemy
@@ -140,20 +141,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &2319769706303959523
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1272270320147426439}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c052160753d4ee41927f23f0072ccf9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  id: Zombie
-  speedEnemy: 1
 --- !u!50 &7794200599967994939
 Rigidbody2D:
   serializedVersion: 5
@@ -181,3 +168,35 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &3686492368101557334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1272270320147426439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b9a4586eecca8443bae3f81c6fb1266, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyStats
+  enemyData: {fileID: 11400000, guid: cabe3d4315873d74dbf252b675def0b8, type: 2}
+  health: 50
+  armor: 3
+  damage: 1
+  speed: 3
+  isBoss: 0
+--- !u!114 &7401072332159786791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1272270320147426439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b132499dcfbca84dac0510f90b67a00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Zombie
+  id: Zombie
+  stats: {fileID: 3686492368101557334}

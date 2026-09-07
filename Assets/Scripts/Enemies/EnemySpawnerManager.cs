@@ -7,6 +7,9 @@ namespace ED262C
 
 
         FactoryEnemy factoryEnemy;
+
+        [SerializeField] private int currentRound;
+
         void Start()
         {
             factoryEnemy=GetComponent<FactoryEnemy>();
@@ -32,6 +35,7 @@ namespace ED262C
 
         void spawnWave()
         {
+            Debug.Log("Spawner currentRound: " + currentRound);
 
             for (int i = 0; i < spawnPoints.Count; i++)
             {
@@ -41,6 +45,8 @@ namespace ED262C
                 Vector3 spawnpoint = spawnPoints[randomSpawnPoint].position;
                 // Y aca se crea, recorre un for y deberia funcionar!
                 Enemy enemy = factoryEnemy.CreateEnemy(factoryEnemy.enemyList[Random.Range(0, factoryEnemy.enemyList.Count)].id, spawnpoint);
+
+                enemy.Initialize(currentRound);
             }
            
 

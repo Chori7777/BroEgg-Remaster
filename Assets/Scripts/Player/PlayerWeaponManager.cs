@@ -22,7 +22,6 @@ public class PlayerWeaponManager : MonoBehaviour
                 Debug.Log("no tengo arma we");
             }
         }
-       
     }
     public void SetWeapon(IWeapon weapon)
     {

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using ED262C;
 using UnityEngine;
 
 public class PoolGeneric<T> : MonoBehaviour where T : Component
@@ -6,7 +7,7 @@ public class PoolGeneric<T> : MonoBehaviour where T : Component
     [SerializeField] private T prefab; // Podés arrastrar directamente tu script/componente desde el Inspector
     [SerializeField] private int initialSize = 20;
 
-    private Queue<T> pool = new Queue<T>();
+    private SimpleArrayQueue<T> pool = new SimpleArrayQueue<T>();
 
     private void Start()
     {

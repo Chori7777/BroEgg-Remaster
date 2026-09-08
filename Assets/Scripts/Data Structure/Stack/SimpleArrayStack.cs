@@ -24,7 +24,7 @@ namespace ED262C
         public T Peek()
         {
             if (IsEmpty) throw new InvalidOperationException("Cannot Peek from empty Stack");
-            return internalArray[count - 1];
+            return internalArray[count];
         }
         
 

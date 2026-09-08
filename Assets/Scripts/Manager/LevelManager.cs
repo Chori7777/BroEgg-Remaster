@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using ED262C;
+using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
@@ -15,6 +16,12 @@ public class LevelManager : MonoBehaviour
     private ISimpleQueue<WaveData> waveQueue = new SimpleArrayQueue<WaveData>();
 
     private WaveData currentWave;
+    public Image shopPanel;
+    public Image Objeto1;
+    public Image Objeto2;
+    public Image Objeto3;
+    public Image Objeto4;
+    public ObjectsInventory inventory;
 
     public LevelStateMachine levelStateMachine;
 

@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7758827061769272933
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6032054013691886529}
+  - component: {fileID: 2058798061657069260}
+  - component: {fileID: 4307846656239576062}
+  m_Layer: 0
+  m_Name: ShopManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6032054013691886529
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7758827061769272933}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.0866, y: -0.20136, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2058798061657069260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7758827061769272933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f5ad77a578342242b5ca353f1e1db02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShopActivate
+  shopPanel: {fileID: 0}
+  Objeto1: {fileID: 0}
+  Objeto2: {fileID: 0}
+  Objeto3: {fileID: 0}
+  Objeto4: {fileID: 0}
+  inventory: {fileID: 4307846656239576062}
+  timershop: 2
+--- !u!114 &4307846656239576062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7758827061769272933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36d4bd20f9a337e469631e375efc15c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectsInventory
+  objectList:
+  - {fileID: 11400000, guid: 7003920ab68e29b43a30f137161cb614, type: 2}
+  - {fileID: 11400000, guid: d18efa7a6c48cec41bb7dc59688bf653, type: 2}
+  - {fileID: 11400000, guid: db5a428004d598f4e8f952337011cf76, type: 2}
+  - {fileID: 11400000, guid: 38c8b59c1c069234c85e5a37264b97e8, type: 2}
+  - {fileID: 11400000, guid: a99947ed513d1b442b2f16339c7448fb, type: 2}
+  - {fileID: 11400000, guid: 8ab0674901e42f24ab2a36218edf89ea, type: 2}
+  - {fileID: 11400000, guid: 1295ff5735ada2d41bdd1a82928ecad4, type: 2}

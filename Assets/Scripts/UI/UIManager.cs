@@ -32,10 +32,10 @@ public class UIManager : MonoBehaviour
         {
             GoBack();
         }
-        /*if (Input.GetKeyDown(KeyCode.Escape) && historyStack.Count == 0)
+        if (Input.GetKeyDown(KeyCode.Escape) && historyStack.Count == 0)
         {
             OpenPanelByID("Pause");
-        }*/
+        }
     }
 
     public void OpenPanelByID(string id) //el id hay que escribirlo en cada panel que tenga el script PanelUI
@@ -88,7 +88,7 @@ public class UIManager : MonoBehaviour
     }
 
 
-    /// Desapila el panel actual y reactiva el anterior (POP & PEEK)
+    // Desapila el panel actual y reactiva el anterior (POP & PEEK)
 
     public void GoBack()
     {
@@ -121,11 +121,11 @@ public class UIManager : MonoBehaviour
     }
 
 
-    /// Vuelve al menú base limpiando todos los paneles emergentes de la Pila
+    // Vuelve al menú base limpiando todos los paneles emergentes de la Pila
 
     public void ClearToRoot()
     {
-        while (historyStack.Count > 1)
+        while (historyStack.Count > 0)
         {
             PanelUI topPanel = historyStack.Pop();
             if (topPanel != null) topPanel.ClosePanel();

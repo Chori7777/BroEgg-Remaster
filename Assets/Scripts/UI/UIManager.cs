@@ -17,16 +17,25 @@ public class UIManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        Instance = this;
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+            
     }
 
     private void Update()
     {
         // Pequeño atajo guiño guiño
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && historyStack.Count != 0)
         {
             GoBack();
         }
+        /*if (Input.GetKeyDown(KeyCode.Escape) && historyStack.Count == 0)
+        {
+            OpenPanelByID("Pause");
+        }*/
     }
 
     public void OpenPanelByID(string id) //el id hay que escribirlo en cada panel que tenga el script PanelUI

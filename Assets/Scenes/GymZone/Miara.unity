@@ -674,6 +674,76 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 317349ffd54d1b643bec3ef22cef2055, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BackButton
+--- !u!1 &202338223
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 202338225}
+  - component: {fileID: 202338224}
+  m_Layer: 0
+  m_Name: LevelManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &202338224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 202338223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0209398da6fa0145b57aebd47133f5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelManager
+  waveList:
+  - EnemiesPerWave: 4
+    Time: 15
+    WaveRate: 4
+    enemyProbabilities:
+    - EnemyId: Zombie
+      Probability: 100
+  - EnemiesPerWave: 4
+    Time: 15
+    WaveRate: 4
+    enemyProbabilities:
+    - EnemyId: Zombie
+      Probability: 100
+  - EnemiesPerWave: 4
+    Time: 15
+    WaveRate: 4
+    enemyProbabilities:
+    - EnemyId: Zombie
+      Probability: 100
+  shopPanel: {fileID: 308553226}
+  Objeto1: {fileID: 1034498953}
+  Objeto2: {fileID: 167552926}
+  Objeto3: {fileID: 632895239}
+  Objeto4: {fileID: 454674817}
+  inventory: {fileID: 7862889200735666099}
+  enemySpawnerManager: {fileID: 1296118798}
+--- !u!4 &202338225
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 202338223}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.88053, y: -0.8477, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &241375648
 GameObject:
   m_ObjectHideFlags: 0
@@ -3019,6 +3089,65 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1266672751}
   m_CullTransparentMesh: 1
+--- !u!1 &1296118797
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1296118800}
+  - component: {fileID: 1296118798}
+  - component: {fileID: 1296118799}
+  m_Layer: 0
+  m_Name: Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1296118798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1296118797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09940e6b4c9a48d4d81648de5a94cf33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ED262C.EnemySpawnerManager
+--- !u!114 &1296118799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1296118797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 690935722d4d141419ee6aac5a007583, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FactoryEnemy
+  enemyList:
+  - {fileID: 7401072332159786791, guid: 2bea55a5d39fb0845925472ecbc26dc4, type: 3}
+--- !u!4 &1296118800
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1296118797}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.88053, y: -0.8477, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1313084516
 GameObject:
   m_ObjectHideFlags: 0
@@ -3785,86 +3914,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!1 &1969471459
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1969471461}
-  - component: {fileID: 1969471460}
-  - component: {fileID: 1969471462}
-  - component: {fileID: 1969471463}
-  m_Layer: 0
-  m_Name: EnemySpawnerManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1969471460
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1969471459}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09940e6b4c9a48d4d81648de5a94cf33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
---- !u!4 &1969471461
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1969471459}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.66, y: 5.18, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1969471462
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1969471459}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 690935722d4d141419ee6aac5a007583, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FactoryEnemy
-  enemyList:
-  - {fileID: 7401072332159786791, guid: 2bea55a5d39fb0845925472ecbc26dc4, type: 3}
---- !u!114 &1969471463
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1969471459}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0209398da6fa0145b57aebd47133f5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LevelManager
-  waveList:
-  - EnemiesPerWave: 0
-    Time: 0
-    WaveRate: 0
-    enemyProbabilities:
-    - EnemyId: 
-      Probability: 0
-  enemySpawnerManager: {fileID: 0}
 --- !u!1 &2025856631
 GameObject:
   m_ObjectHideFlags: 0
@@ -4106,7 +4155,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4290345104802154651, guid: e8acc73cc203c5549bf3bc26f2eaff71, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7024870132098525485, guid: e8acc73cc203c5549bf3bc26f2eaff71, type: 3}
       propertyPath: m_Pivot.x
@@ -4270,6 +4319,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f1e1ea32bdbfce4096687cef9a6ceed, type: 3}
+--- !u!114 &7862889200735666099 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4307846656239576062, guid: 6f1e1ea32bdbfce4096687cef9a6ceed, type: 3}
+  m_PrefabInstance: {fileID: 7862889200735666098}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36d4bd20f9a337e469631e375efc15c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectsInventory
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -4285,7 +4345,8 @@ SceneRoots:
   - {fileID: 1183552494}
   - {fileID: 1027600272}
   - {fileID: 459956768}
-  - {fileID: 1969471461}
+  - {fileID: 1296118800}
+  - {fileID: 202338225}
   - {fileID: 370694752}
   - {fileID: 348357284}
   - {fileID: 1313084517}

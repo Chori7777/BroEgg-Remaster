@@ -183,7 +183,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -8
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.2830189, g: 0.23277646, b: 0.20692419, a: 1}
@@ -254,7 +254,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09940e6b4c9a48d4d81648de5a94cf33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ED262C.EnemySpawnerManager
-  currentRound: 0
 --- !u!4 &182620347
 Transform:
   m_ObjectHideFlags: 0
@@ -409,7 +408,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -420,7 +419,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &385439026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -513,6 +512,10 @@ PrefabInstance:
     - target: {fileID: 1272270320147426439, guid: 2bea55a5d39fb0845925472ecbc26dc4, type: 3}
       propertyPath: m_Name
       value: Zombie
+      objectReference: {fileID: 0}
+    - target: {fileID: 2838208364866067399, guid: 2bea55a5d39fb0845925472ecbc26dc4, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4140220500339200606, guid: 2bea55a5d39fb0845925472ecbc26dc4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -683,7 +686,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LevelManager
   waveList:
   - EnemiesPerWave: 4
-    Time: 10
+    Time: 15
     WaveRate: 4
     enemyProbabilities:
     - EnemyId: Zombie
@@ -694,78 +697,7 @@ MonoBehaviour:
     enemyProbabilities:
     - EnemyId: Zombie
       Probability: 100
-  - EnemiesPerWave: 0
-    Time: 0
-    WaveRate: 0
-    enemyProbabilities: []
-  - EnemiesPerWave: 0
-    Time: 0
-    WaveRate: 0
-    enemyProbabilities: []
-  - EnemiesPerWave: 0
-    Time: 0
-    WaveRate: 0
-    enemyProbabilities: []
-  - EnemiesPerWave: 0
-    Time: 0
-    WaveRate: 0
-    enemyProbabilities: []
-  - EnemiesPerWave: 0
-    Time: 0
-    WaveRate: 0
-    enemyProbabilities: []
-  - EnemiesPerWave: 0
-    Time: 0
-    WaveRate: 0
-    enemyProbabilities: []
-  - EnemiesPerWave: 0
-    Time: 0
-    WaveRate: 0
-    enemyProbabilities: []
-  - EnemiesPerWave: 0
-    Time: 0
-    WaveRate: 0
-    enemyProbabilities: []
-  - EnemiesPerWave: 0
-    Time: 0
-    WaveRate: 0
-    enemyProbabilities: []
-  - EnemiesPerWave: 0
-    Time: 0
-    WaveRate: 0
-    enemyProbabilities: []
-  - EnemiesPerWave: 0
-    Time: 0
-    WaveRate: 0
-    enemyProbabilities: []
-  - EnemiesPerWave: 0
-    Time: 0
-    WaveRate: 0
-    enemyProbabilities: []
-  - EnemiesPerWave: 0
-    Time: 0
-    WaveRate: 0
-    enemyProbabilities: []
-  - EnemiesPerWave: 0
-    Time: 0
-    WaveRate: 0
-    enemyProbabilities: []
-  - EnemiesPerWave: 0
-    Time: 0
-    WaveRate: 0
-    enemyProbabilities: []
-  - EnemiesPerWave: 0
-    Time: 0
-    WaveRate: 0
-    enemyProbabilities: []
-  - EnemiesPerWave: 0
-    Time: 0
-    WaveRate: 0
-    enemyProbabilities: []
-  - EnemiesPerWave: 0
-    Time: 0
-    WaveRate: 0
-    enemyProbabilities: []
+  enemySpawnerManager: {fileID: 182620346}
 --- !u!4 &1591000297
 Transform:
   m_ObjectHideFlags: 0

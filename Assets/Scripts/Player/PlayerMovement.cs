@@ -2,20 +2,22 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public int speed;
-    [field: SerializeField] public float DashForce = 20f;
+    [SerializeField] private PlayerStats playerStats;
+    [SerializeField] private Rigidbody2D rb;
+
+    
+    public Rigidbody2D Rb => rb;
+    public PlayerStats PlayerStats => playerStats;
+    [field:SerializeField] public float DashForce = 20f;
 
     public float DashCooldown = 2f;
     [field: SerializeField] public float DashDuration = 0.3f;
 
     public StateMachine statemachine;
 
-    public Rigidbody2D rb;
 
     [field: SerializeField] public float x { get; private set; } //ahi lo encontre nico, public get (se puede leer), private set (se cambia de forma privada)
     [field: SerializeField] public float y { get; private set; }
-
-    Vector2 direction;
     
     void Start()
     {

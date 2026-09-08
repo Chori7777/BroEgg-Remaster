@@ -28,7 +28,7 @@ public class Walk : IState
 
         direction = new Vector2(player.x, player.y).normalized;
 
-        player.rb.linearVelocity = direction * player.speed; //lo tuve que cambiar a linear velocity nico, perdon, pero addforce no funciona con moveposition
+        player.Rb.linearVelocity = direction * player.PlayerStats.Speed; //lo tuve que cambiar a linear velocity nico, perdon, pero addforce no funciona con moveposition
 
         if (player.x == 0 && player.y == 0) 
         {

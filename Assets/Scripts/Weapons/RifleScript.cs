@@ -8,6 +8,11 @@ public class RifleScript : MonoBehaviour,IWeapon
 
     public void shoot()
     {
+        PlayerStats stats = GetComponentInParent<PlayerStats>();
+        Collider2D playerCollider = stats.GetComponent<Collider2D>();
+
+        int damage = DamageCalculator.CalculateDamage(stats, DamageCalculator.DamageType.Normal);
+
         // 1. Pedimos la bala al pool
         Bullet bullet = bulletPool.Get();
 
@@ -26,9 +31,19 @@ public class RifleScript : MonoBehaviour,IWeapon
 
         Vector2 direction = (mousePosition - transform.position).normalized;
 
-        // 5. Mandamo la direccion a la bala noma, para que le diga a su linear velocity para donde ir
-        bullet.Setup(direction);
+        // 5. Mandamo la direccion a la bala noma Y EL DAÑO, TAMBIEN EL DAÑO, para que le diga a su linear velocity para donde ir y saber que daño hacer
+        bullet.Setup(direction,damage,playerCollider);
         Debug.Log("el rifle está disparando");
+
+       
+
+     
+
+       
+      
+    
+
+      
     }
     public Transform getTransform()
     {

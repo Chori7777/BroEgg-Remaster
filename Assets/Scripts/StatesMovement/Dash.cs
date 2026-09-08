@@ -5,6 +5,7 @@ public class Dash : IState
     PlayerMovement player;
 
     Vector2 dashDirection;
+
     bool isDashing;
     bool canDash;
 
@@ -31,7 +32,7 @@ public class Dash : IState
     public void Exit()
     {
         Debug.Log("Saliendo de Dash");
-        player.rb.linearVelocity = Vector2.zero;
+        player.Rb.linearVelocity = Vector2.zero;
     }
 
     public void UpdateState()
@@ -39,7 +40,7 @@ public class Dash : IState
         if(isDashing)
         {
             currentDashDuration -= Time.deltaTime;
-            player.rb.linearVelocity = dashDirection * player.DashForce;
+            player.Rb.linearVelocity = dashDirection * player.DashForce;
         }
 
         // Si se acaba el tiempo de duración del Dash, volvemos a Walk o Idle

@@ -1,3 +1,4 @@
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public class PistolScript : MonoBehaviour, IWeapon
@@ -8,6 +9,11 @@ public class PistolScript : MonoBehaviour, IWeapon
 
     public void shoot()
     {
+        PlayerStats stats= GetComponentInParent<PlayerStats>();
+        Collider2D playerCollider = stats.GetComponent<Collider2D>();
+
+        int damage = DamageCalculator.CalculateDamage(stats, DamageCalculator.DamageType.Normal);
+
         // 1. Pedimos la bala al pool
         Bullet bullet = bulletPool.Get();
 
@@ -27,7 +33,7 @@ public class PistolScript : MonoBehaviour, IWeapon
         Vector2 direction = (mousePosition - transform.position).normalized;
 
         // 5. Mandamo la direccion a la bala noma, para que le diga a su linear velocity para donde ir
-        bullet.Setup(direction);
+        bullet.Setup(direction, damage, playerCollider);
         Debug.Log("la pistola está disparando");
     }
     public Transform getTransform()

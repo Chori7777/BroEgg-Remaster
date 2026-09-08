@@ -767,9 +767,9 @@ MonoBehaviour:
     enemyProbabilities:
     - EnemyId: Zombie
       Probability: 100
-  - EnemiesPerWave: 4
+  - EnemiesPerWave: 30
     Time: 15
-    WaveRate: 4
+    WaveRate: 8
     enemyProbabilities:
     - EnemyId: Zombie
       Probability: 100

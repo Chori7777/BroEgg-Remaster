@@ -13,7 +13,7 @@ public class StateMachine
     {
         IdleState = new Idle(player);
         WalkState = new Walk(player);
-       // DashState = new Dash(player);
+        DashState = new Dash(player);
         CurrentState = IdleState;
 
         CurrentState.Enter();

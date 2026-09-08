@@ -24,7 +24,7 @@ namespace ED262C
         public T Peek()
         {
             if (IsEmpty) throw new InvalidOperationException("Cannot Peek from empty Stack");
-            return internalArray[count];
+            return internalArray[count - 1];
         }
         
 
@@ -69,7 +69,7 @@ namespace ED262C
 
         void ValidateSize(int nextIndex)
         {
-            if (nextIndex >= internalArray.Length) Resize(nextIndex);
+            if (nextIndex > internalArray.Length) Resize(nextIndex);
         }
 
         // Le pasamos cuantos elementos va a tener despues de agregar

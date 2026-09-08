@@ -14,6 +14,7 @@ public class BackButton : MonoBehaviour
         if (UIManager.Instance != null)
         {
             UIManager.Instance.GoBack();
+            Time.timeScale = 1f;
         }
         else
         {

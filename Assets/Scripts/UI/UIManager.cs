@@ -35,6 +35,7 @@ public class UIManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape) && historyStack.Count == 0)
         {
             OpenPanelByID("Pause");
+            Time.timeScale = 0f;
         }
     }
 

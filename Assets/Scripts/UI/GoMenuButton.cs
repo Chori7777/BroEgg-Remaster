@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class GoMenuButton : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class GoMenuButton : MonoBehaviour
         if (UIManager.Instance != null)
         {
             UIManager.Instance.ClearToRoot();
+            Time.timeScale = 1f;
+            SceneManager.LoadScene("Main Menu");
         }
         else
         {

@@ -3,7 +3,7 @@ using UnityEngine;
 public class MouseAim : MonoBehaviour
 {
 
-    [SerializeField] private float speedCamera = 0.5f;
+   
     private void Start()
     {
         // Cursor.visible = false;
@@ -17,7 +17,7 @@ public class MouseAim : MonoBehaviour
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(MouseScreenPos);
         mouseWorldPos.z = 0f;
 
-        transform.position = Vector3.Lerp(transform.position, mouseWorldPos, speedCamera * Time.deltaTime);
+        transform.position = mouseWorldPos;
 
     }
 

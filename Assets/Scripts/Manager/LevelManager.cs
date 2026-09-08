@@ -16,6 +16,10 @@ public class LevelManager : MonoBehaviour
 
     private WaveData currentWave;
 
+    public LevelStateMachine levelStateMachine;
+
+    public EnemySpawnerManager enemySpawnerManager;
+
     public WaveData CurrentWave => currentWave;
 
     private float timeRemaining;
@@ -53,14 +57,19 @@ public class LevelManager : MonoBehaviour
             waveQueue.Enqueue(waveList[i]);
         }
 
-        // Arrancamos con la primera wave
-        currentWave = waveQueue.Dequeue();
-
-        
+        levelStateMachine = new LevelStateMachine(this);
     }
 
     void Update()
     {
-        
+        levelStateMachine.UpdateMachine();
     }
+
+    public void AdvanceToNextWave()
+    {
+        currentWave = waveQueue.Dequeue();
+        currentRound++;
+        Debug.Log("Ronda Actual" + currentRound);
+    }
+
 }

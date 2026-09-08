@@ -1,28 +1,39 @@
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class GameplayState : IState
 {
-
     LevelManager levelManager;
-    public GameplayState( LevelManager levelManager ) {  this.levelManager = levelManager; }
+    float spawnTimer;
 
-   
+    public GameplayState(LevelManager levelManager) { this.levelManager = levelManager; }
 
     public void Enter()
     {
-        LevelManager.Instance.TimeRemaining = LevelManager.Instance.CurrentWave.Time;
+        levelManager.AdvanceToNextWave();
+        levelManager.TimeRemaining = levelManager.CurrentWave.Time;
+        spawnTimer = levelManager.CurrentWave.WaveRate;
     }
 
     public void UpdateState()
     {
-        LevelManager.Instance.TimeRemaining -= Time.deltaTime;
+        levelManager.TimeRemaining -= Time.deltaTime;
 
-        if(LevelManager.Instance.TimeRemaining == 0) LevelManager.Instance.TimeRemaining = LevelManager.Instance.CurrentWave.Time;
+        if (levelManager.TimeRemaining <= 0)
+        {
+            levelManager.levelStateMachine.ChangeState(levelManager.levelStateMachine.Shop);
+            return;
+        }
+
+        spawnTimer -= Time.deltaTime;
+
+        if (spawnTimer <= 0)
+        {
+            levelManager.enemySpawnerManager.spawnWave(levelManager.CurrentWave.EnemiesPerWave, levelManager.CurrentWave.enemyProbabilities);
+            spawnTimer = levelManager.CurrentWave.WaveRate;
+        }
     }
 
     public void Exit()
     {
-
     }
 }

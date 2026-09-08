@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 namespace ED262C
 {
@@ -9,7 +10,7 @@ namespace ED262C
 
         FactoryEnemy factoryEnemy;
 
-        [SerializeField] private int currentRound;
+       
 
         void Start()
         {
@@ -32,27 +33,49 @@ namespace ED262C
            if(Input.GetKeyDown(KeyCode.Q))
             {
                 Debug.Log(spawnPoints.Count);
-                spawnWave();
+               
             }
         }
 
-        void spawnWave()
+        public void spawnWave(int count, List<EnemyProbability> probabilities)
         {
-            Debug.Log("Spawner currentRound: " + currentRound);
+            Debug.Log("Spawner currentRound: " + LevelManager.Instance.CurrentRound);
 
-            for (int i = 0; i < spawnPoints.Count; i++)
+            for (int i = 0; i < count; i++)
             {
-                //Aca lo que hice fue primeor q nada, q saque un randomSpawnPoint de la lista de spawnPoints y cree un enemigo
                 int randomSpawnPoint = Random.Range(0, spawnPoints.Count);
-                // aca se hace el traspase de Int a Transform para poder darselo al Factory
                 Vector3 spawnpoint = spawnPoints[randomSpawnPoint].position;
-                // Y aca se crea, recorre un for y deberia funcionar!
-                Enemy enemy = factoryEnemy.CreateEnemy(factoryEnemy.enemyList[Random.Range(0, factoryEnemy.enemyList.Count)].id, spawnpoint);
 
-                enemy.Initialize(currentRound);
+                string chosenId = ChooseEnemyByProbability(probabilities);
+                Enemy enemy = factoryEnemy.CreateEnemy(chosenId, spawnpoint);
+                enemy.Initialize(LevelManager.Instance.CurrentRound);
             }
-           
-
         }
+
+        string ChooseEnemyByProbability(List<EnemyProbability> probabilities)
+        {
+            float totalWeight = 0f;
+            for (int i = 0; i < probabilities.Count; i++)
+            {
+                totalWeight += probabilities[i].Probability;
+            }
+
+            float randomValue = Random.Range(0f, totalWeight);
+
+            float accumulated = 0f;
+            for (int i = 0; i < probabilities.Count; i++)
+            {
+                accumulated += probabilities[i].Probability;
+                if (randomValue <= accumulated)
+                {
+                    return probabilities[i].EnemyId;
+                }
+            }
+
+            // Por si algo falla (lista vacía, redondeos), devolvemos el primero como fallback
+            return probabilities[0].EnemyId;
+        }
+
+
     }
 }

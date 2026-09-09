@@ -10,7 +10,7 @@ public class Idle : IState
     }
     public void Enter()
     {
-        Debug.Log("IDLE");
+        
     }
 
     public void Exit()

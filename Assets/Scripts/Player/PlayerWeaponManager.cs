@@ -1,19 +1,27 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerWeaponManager : MonoBehaviour
 {
     IWeapon weapon;
-    [SerializeField] Bullet bullet;
-    [SerializeField] GameObject hand;//empty que sostiene el arma
-    //Bullet bulletScript;
+    [SerializeField] GameObject hand;
+    [SerializeField] FactoryWeapon factoryWeapon;
 
+    void Start()
+    {
+        WeaponController defaultWeapon = factoryWeapon.CreateWeapon("Pistol", hand.transform.position);
+        SetWeapon(defaultWeapon);
+
+        Transform weaponTransform = defaultWeapon.getTransform();
+        weaponTransform.SetParent(hand.transform);
+        weaponTransform.localPosition = Vector3.zero;
+        weaponTransform.localRotation = Quaternion.identity;
+    }
 
     void Update()
     {
-       if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
-            if(weapon!= null)
+            if (weapon != null)
             {
                 weapon.shoot();
             }
@@ -23,6 +31,7 @@ public class PlayerWeaponManager : MonoBehaviour
             }
         }
     }
+
     public void SetWeapon(IWeapon weapon)
     {
         this.weapon = weapon;
@@ -30,21 +39,15 @@ public class PlayerWeaponManager : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        IWeapon weaponComponent= other.GetComponent<IWeapon>();
-
+        IWeapon weaponComponent = other.GetComponent<IWeapon>();
         if (weaponComponent != null)
         {
             SetWeapon(weaponComponent);
             Debug.Log("Arma recogida");
             Transform weaponTransform = weaponComponent.getTransform();
-
-            // Se creo un metodo de getTransform en IWeapon para obtener la transform del arma y poder setearla como hija de la mano del jugador
             weaponTransform.SetParent(hand.transform);
-
-            //lo coloco en donde esta la manito del jugadorsillo y ahi queda
             weaponTransform.localPosition = Vector3.zero;
             weaponTransform.localRotation = Quaternion.identity;
         }
-
     }
 }

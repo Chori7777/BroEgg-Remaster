@@ -8,13 +8,10 @@ public static class DamageCalculator
     // y asi poder calcular el daño de cada arma sin tener que crear una instancia de DamageCalculator cada vez que queramos calcular el daño
     public enum DamageType { Normal, Magic }
 
-    public static int CalculateDamage(PlayerStats stats, DamageType type)
+    public static int CalculateDamage(PlayerStats stats, DamageType type, int weaponDamage)
     {
-       
-        int baseDamage = type == DamageType.Normal ? stats.Damage : stats.MagicDamage;
-
+        int baseDamage = (type == DamageType.Normal ? stats.Damage : stats.MagicDamage) + weaponDamage;
         bool isCritical = Random.Range(0, 100) < stats.CriticalChance;
-
         return isCritical ? baseDamage + stats.CritDamage : baseDamage;
     }
 }

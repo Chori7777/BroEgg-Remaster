@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0dc6aef7819556a4d810a69f3bd3b00e, type: 3}
-  m_Name: Rifle
+  m_Name: AutoRifle
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   tier: 0
-  idWeapon: Rifle
-  baseDamage: 12
-  magazineSize: 6
-  fireRate: 1
+  idWeapon: AutoRifle
+  baseDamage: 9
+  magazineSize: 30
+  fireRate: 0.3
   reloadTime: 0.6
-  weaponSprite: {fileID: -5483469642606233201, guid: 32bff1cb1917ccc42b20333da8ba2b46, type: 3}
+  weaponSprite: {fileID: -3391257396490946495, guid: 32bff1cb1917ccc42b20333da8ba2b46, type: 3}

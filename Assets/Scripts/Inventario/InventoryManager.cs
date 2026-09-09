@@ -1,19 +1,18 @@
-using System;
 using ED262C;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public class InventoryManager : MonoBehaviour
 {
-    [SerializeField] UnityEngine.UI.Image[] toTheList; 
+    [SerializeField] UnityEngine.UI.Image[] toTheList;
     [SerializeField] SimpleArrayList<UnityEngine.UI.Image> invImages = new SimpleArrayList<UnityEngine.UI.Image>();
+    SimpleArrayList<IWeapon> weapons = new SimpleArrayList<IWeapon>();
     int ItemActual = 0;
+
+    public IWeapon CurrentWeapon => weapons.Count > 0 ? weapons[ItemActual] : null;
 
     void Start()
     {
-        for(int i = 0;  i < toTheList.Length; i++)
+        for (int i = 0; i < toTheList.Length; i++)
         {
             invImages.Add(toTheList[i]);
         }
@@ -24,15 +23,15 @@ public class InventoryManager : MonoBehaviour
     {
         if (invImages.Count == 0) return;
 
-        if (Input.GetKeyDown(KeyCode.Backspace)) Debug.Log("soy el slot " + ItemActual); //mostrar que slot es del inventario
+        if (Input.GetKeyDown(KeyCode.Backspace)) Debug.Log("soy el slot " + ItemActual);
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             ItemActual--;
-            if(ItemActual < 0) ItemActual = invImages.Count - 1;
+            if (ItemActual < 0) ItemActual = invImages.Count - 1;
             UpdateSelection();
         }
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             ItemActual++;
             if (ItemActual > invImages.Count - 1) ItemActual = 0;
@@ -40,9 +39,23 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+    public void AddWeapon(IWeapon newWeapon)
+    {
+        weapons.Add(newWeapon);
+        ItemActual = weapons.Count - 1;
+
+        WeaponController weaponController = newWeapon as WeaponController;
+        if (weaponController != null && ItemActual < invImages.Count)
+        {
+            invImages[ItemActual].sprite = weaponController.WeaponData.WeaponSprite;
+        }
+
+        UpdateSelection();
+    }
+
     void UpdateSelection()
     {
-        for(int i = 0; i < invImages.Count; i++)
+        for (int i = 0; i < invImages.Count; i++)
         {
             if (i == ItemActual)
             {
@@ -52,6 +65,11 @@ public class InventoryManager : MonoBehaviour
             {
                 invImages[i].color = Color.white;
             }
+        }
+
+        for (int i = 0; i < weapons.Count; i++)
+        {
+            weapons[i].getTransform().gameObject.SetActive(i == ItemActual);
         }
     }
 }

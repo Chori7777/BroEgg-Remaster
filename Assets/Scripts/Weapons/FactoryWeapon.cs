@@ -23,6 +23,11 @@ public class FactoryWeapon : MonoBehaviour
             return weapon;
         }
         else
+        {
+            Debug.LogWarning($"No se encontro un arma con id '{weaponId}' en el diccionario.");
             return null;
+
+        }
+
     }
 }

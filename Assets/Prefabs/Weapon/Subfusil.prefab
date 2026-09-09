@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 651934202383108897}
   - component: {fileID: 6727152193817021128}
   m_Layer: 0
-  m_Name: Rifle
+  m_Name: Subfusil
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -83,7 +83,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -5483469642606233201, guid: 32bff1cb1917ccc42b20333da8ba2b46, type: 3}
+  m_Sprite: {fileID: 1721296169258792906, guid: 32bff1cb1917ccc42b20333da8ba2b46, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -131,7 +131,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.38, y: 0.16}
+    oldSize: {x: 0.23, y: 0.13}
     newSize: {x: 0.13, y: 0.11}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -151,4 +151,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5de8962c2c9506a42a56595b0dd59c92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponController
-  weaponData: {fileID: 11400000, guid: aa4a6f36dcc033a429c2283a32f66939, type: 2}
+  weaponData: {fileID: 11400000, guid: 22833cd233dba72438b39772cb3ceabb, type: 2}

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: Assembly-CSharp::PlayerData
   baseHealth: 100
-  baseArmor: 5
+  baseArmor: 1
   baseHealthRegeneration: 1
   baseDamage: 5
   baseCritDamage: 0
@@ -21,6 +21,6 @@ MonoBehaviour:
   baseCriticalChance: 0
   baseSpeed: 5
   baseDodgeChance: 0
-  baseRange: 0
   baseHarvesting: 0
   baseCurse: 0
+  baseGoldDrop: 0

@@ -9,6 +9,7 @@ public class EnemyStats : MonoBehaviour
     [SerializeField] private int armor;
     [SerializeField] private int damage;
     [SerializeField] private int speed;
+    [SerializeField] private int enemyGoldDrop;
     [SerializeField] private bool isBoss;
 
    
@@ -18,7 +19,7 @@ public class EnemyStats : MonoBehaviour
     public int Health => health;
     public int Armor => armor;
     public int Speed => speed; 
-  
+    public int EnemyGoldDrop => enemyGoldDrop;
     public int Damage=> damage;
 
     // Initialize se usa en dos scripts (en este y en Enemy) para inicializar las stats del enemigo, y se le pasa el round para poder escalar las stats segun el round
@@ -36,6 +37,7 @@ public class EnemyStats : MonoBehaviour
         armor = Mathf.RoundToInt(enemyData.BaseArmor*(1+ (enemyData.ArmorScaling/100f)*(round-1)));
         damage = Mathf.RoundToInt(enemyData.BaseDamage*(1+ (enemyData.DamageScaling/100f)*(round-1)));
         speed = Mathf.RoundToInt(enemyData.BaseSpeed*(1+ (enemyData.SpeedScaling/100f)*(round-1)));
+        enemyGoldDrop= Mathf.RoundToInt(enemyData.GoldDrop*(1+ (enemyData.GoldDropScaling/100f)*(round-1)));
 
         isBoss = enemyData.IsBoss;
     }

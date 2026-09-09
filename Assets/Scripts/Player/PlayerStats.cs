@@ -24,12 +24,17 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private int harvesting;
     [SerializeField] private int curse;
 
-  
+  // dinero
+
+
+
+    
 
     //Gets de Vida
     public int Health => health;
     public int Armor => armor;
 
+    public int MaxHealth => maxHealth;
     public int HealthRegeneration => healthRegeneration;
 
     //Gets de daño

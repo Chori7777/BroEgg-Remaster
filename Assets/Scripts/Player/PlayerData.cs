@@ -21,6 +21,7 @@ public class PlayerData : ScriptableObject
     [SerializeField] private int baseDodgeChance;
     [SerializeField] private int baseHarvesting;
     [SerializeField] private int baseCurse;
+    [SerializeField] private int baseGoldDrop;
 
     //Gets de Vida
     public int BaseHealth => baseHealth;
@@ -43,4 +44,5 @@ public class PlayerData : ScriptableObject
     public int BaseDodgeChance => baseDodgeChance;
     public int BaseHarvesting => baseHarvesting;
     public int BaseCurse => baseCurse;
+    public int BaseGoldDrop => baseGoldDrop;
 }

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class WeaponController : MonoBehaviour, IWeapon
@@ -11,19 +12,44 @@ public class WeaponController : MonoBehaviour, IWeapon
     private PlayerStats stats;
     private Collider2D playerCollider;
 
+    private float nextFireTime = 0f;
+    private int currentAmmo;
+    private bool isReloading = false;
+
     void Start()
     {
-        //Aca se asignan los comportamientos por ahora solo hay uno
         behavior = new SingleShootBehavior();
 
         stats = GetComponentInParent<PlayerStats>();
         playerCollider = stats.GetComponent<Collider2D>();
+
+        currentAmmo = weaponData.MagazineSize;
     }
 
     public void shoot()
     {
+        if (isReloading) return;
+        if (Time.time < nextFireTime) return;
+
+        if (currentAmmo <= 0)
+        {
+            StartCoroutine(Reload());
+            return;
+        }
+
+        nextFireTime = Time.time + weaponData.FireRate;
+        currentAmmo--;
+
         int damage = DamageCalculator.CalculateDamage(stats, DamageCalculator.DamageType.Normal, weaponData.BaseDamage);
         behavior.Shoot(transform, damage, playerCollider, bulletPool);
+    }
+
+    private IEnumerator Reload()
+    {
+        isReloading = true;
+        yield return new WaitForSeconds(weaponData.ReloadTime);
+        currentAmmo = weaponData.MagazineSize;
+        isReloading = false;
     }
 
     public Transform getTransform()
@@ -36,4 +62,3 @@ public class WeaponController : MonoBehaviour, IWeapon
         bulletPool = pool;
     }
 }
-

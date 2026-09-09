@@ -400,6 +400,10 @@ PrefabInstance:
       propertyPath: factoryWeapon
       value: 
       objectReference: {fileID: 244165716}
+    - target: {fileID: 7674318791540975734, guid: 355c7db4a7aca63459dba81972b9fde0, type: 3}
+      propertyPath: inventoryManager
+      value: 
+      objectReference: {fileID: 963326366}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -714,7 +718,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FactoryWeapon
   weaponList:
   - {fileID: 6727152193817021128, guid: 8113f91caea72c74da4949ddfc1ffa42, type: 3}
+  - {fileID: 6727152193817021128, guid: 65095a5deee44ff4d8365a6c1fbbd1cc, type: 3}
   - {fileID: 6727152193817021128, guid: 0c3207e530ea9ce448a5239813ee427d, type: 3}
+  - {fileID: 6727152193817021128, guid: e36e8a9f1bbc6834581ca32acfcf9fd3, type: 3}
+  - {fileID: 6727152193817021128, guid: d8e468cdb2dbe34479885a7eabbf83ef, type: 3}
+  - {fileID: 6727152193817021128, guid: a6cada9d5ecf7ab46b7771dc7bc84ebb, type: 3}
   bulletPool: {fileID: 1506191175}
 --- !u!4 &244165717
 Transform:
@@ -2178,6 +2186,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventoryManager
   toTheList:
   - {fileID: 693487842}
+  - {fileID: 1555967066}
+  - {fileID: 1555967066}
+  - {fileID: 1555967066}
+  - {fileID: 1555967066}
   - {fileID: 1555967066}
 --- !u!4 &963326367
 Transform:

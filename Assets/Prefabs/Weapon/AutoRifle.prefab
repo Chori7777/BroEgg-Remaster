@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4727973544696125532}
   - component: {fileID: 651934202383108897}
   - component: {fileID: 6727152193817021128}
+  - component: {fileID: -5556014900142051111}
   m_Layer: 0
   m_Name: AutoRifle
   m_TagString: Untagged
@@ -152,3 +153,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponController
   weaponData: {fileID: 11400000, guid: aa4a6f36dcc033a429c2283a32f66939, type: 2}
+--- !u!114 &-5556014900142051111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2595904899128115179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a0fadeebbf3eff4ca65fc37581713fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Weapon
+  id: AutoRifle
+  sprite: {fileID: -3391257396490946495, guid: 32bff1cb1917ccc42b20333da8ba2b46, type: 3}

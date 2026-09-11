@@ -10,10 +10,6 @@ public class PlayerWeaponManager : MonoBehaviour
     {
         GiveWeapon("Pistol");
         GiveWeapon("SemiAuRifle");
-        GiveWeapon("AutoRifle");
-        GiveWeapon("Subfusil");
-        GiveWeapon("Minigun");
-        GiveWeapon("Shotgun");
     }
 
     void GiveWeapon(string weaponId)

@@ -624,11 +624,10 @@ MonoBehaviour:
     - EnemyId: Zombie
       Probability: 100
   shopPanel: {fileID: 308553226}
-  botones:
-  - {fileID: 2073548601}
-  - {fileID: 817518755}
-  - {fileID: 1128773561}
-  - {fileID: 1045051096}
+  Objeto1: {fileID: 2073548601}
+  Objeto2: {fileID: 817518755}
+  Objeto3: {fileID: 1128773561}
+  Objeto4: {fileID: 1045051096}
   inventory: {fileID: 7862889200735666099}
   enemySpawnerManager: {fileID: 1296118798}
 --- !u!4 &202338225
@@ -1869,7 +1868,6 @@ GameObject:
   - component: {fileID: 817518757}
   - component: {fileID: 817518756}
   - component: {fileID: 817518755}
-  - component: {fileID: 817518758}
   m_Layer: 5
   m_Name: Objeto2boton
   m_TagString: Untagged
@@ -1939,19 +1937,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 817518756}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 817518758}
-        m_TargetAssemblyTypeName: ButtonLogic, Assembly-CSharp
-        m_MethodName: BuyProduct
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &817518756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1990,18 +1976,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 817518753}
   m_CullTransparentMesh: 1
---- !u!114 &817518758
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 817518753}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 544fe4c905aaf034aa59c4086be7d8ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ButtonLogic
 --- !u!1 &896542130
 GameObject:
   m_ObjectHideFlags: 0
@@ -2545,7 +2519,6 @@ GameObject:
   - component: {fileID: 1045051098}
   - component: {fileID: 1045051097}
   - component: {fileID: 1045051096}
-  - component: {fileID: 1045051099}
   m_Layer: 5
   m_Name: Objeto4boton
   m_TagString: Untagged
@@ -2615,19 +2588,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1045051097}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1045051099}
-        m_TargetAssemblyTypeName: ButtonLogic, Assembly-CSharp
-        m_MethodName: BuyProduct
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1045051097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2666,18 +2627,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1045051094}
   m_CullTransparentMesh: 1
---- !u!114 &1045051099
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1045051094}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 544fe4c905aaf034aa59c4086be7d8ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ButtonLogic
 --- !u!1 &1114360618
 GameObject:
   m_ObjectHideFlags: 0
@@ -2827,7 +2776,6 @@ GameObject:
   - component: {fileID: 1128773563}
   - component: {fileID: 1128773562}
   - component: {fileID: 1128773561}
-  - component: {fileID: 1128773564}
   m_Layer: 5
   m_Name: Objeto3boton
   m_TagString: Untagged
@@ -2897,19 +2845,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1128773562}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1128773564}
-        m_TargetAssemblyTypeName: ButtonLogic, Assembly-CSharp
-        m_MethodName: BuyProduct
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1128773562
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2948,18 +2884,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1128773559}
   m_CullTransparentMesh: 1
---- !u!114 &1128773564
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1128773559}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 544fe4c905aaf034aa59c4086be7d8ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ButtonLogic
 --- !u!1 &1155858304
 GameObject:
   m_ObjectHideFlags: 0
@@ -4132,7 +4056,6 @@ GameObject:
   - component: {fileID: 2073548603}
   - component: {fileID: 2073548602}
   - component: {fileID: 2073548601}
-  - component: {fileID: 2073548604}
   m_Layer: 5
   m_Name: Objeto1boton
   m_TagString: Untagged
@@ -4199,22 +4122,10 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 2073548602}
+  m_TargetGraphic: {fileID: 0}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2073548604}
-        m_TargetAssemblyTypeName: ButtonLogic, Assembly-CSharp
-        m_MethodName: BuyProduct
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &2073548602
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4253,18 +4164,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2073548599}
   m_CullTransparentMesh: 1
---- !u!114 &2073548604
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2073548599}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 544fe4c905aaf034aa59c4086be7d8ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ButtonLogic
 --- !u!1001 &327433620691560448
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4523,85 +4422,29 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4307846656239576062, guid: 6f1e1ea32bdbfce4096687cef9a6ceed, type: 3}
-      propertyPath: shopList.Array.size
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 4307846656239576062, guid: 6f1e1ea32bdbfce4096687cef9a6ceed, type: 3}
       propertyPath: 'gunList.Array.data[0]'
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: 22833cd233dba72438b39772cb3ceabb, type: 2}
     - target: {fileID: 4307846656239576062, guid: 6f1e1ea32bdbfce4096687cef9a6ceed, type: 3}
       propertyPath: 'gunList.Array.data[1]'
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: b33676ff123b932419153a986b1df933, type: 2}
     - target: {fileID: 4307846656239576062, guid: 6f1e1ea32bdbfce4096687cef9a6ceed, type: 3}
       propertyPath: 'gunList.Array.data[2]'
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: aeb55cfd3cbc6854c808925a684815a6, type: 2}
     - target: {fileID: 4307846656239576062, guid: 6f1e1ea32bdbfce4096687cef9a6ceed, type: 3}
       propertyPath: 'gunList.Array.data[3]'
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: ec5e317caaab5ed4fbe2cff531472018, type: 2}
     - target: {fileID: 4307846656239576062, guid: 6f1e1ea32bdbfce4096687cef9a6ceed, type: 3}
       propertyPath: 'gunList.Array.data[4]'
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: 81e3d9919f2f422428e7c796a5a4706b, type: 2}
     - target: {fileID: 4307846656239576062, guid: 6f1e1ea32bdbfce4096687cef9a6ceed, type: 3}
       propertyPath: 'gunList.Array.data[5]'
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4307846656239576062, guid: 6f1e1ea32bdbfce4096687cef9a6ceed, type: 3}
-      propertyPath: 'shopList.Array.data[0]'
-      value: 
-      objectReference: {fileID: 11400000, guid: cfc5d210dbba52d41a27195586220dd3, type: 2}
-    - target: {fileID: 4307846656239576062, guid: 6f1e1ea32bdbfce4096687cef9a6ceed, type: 3}
-      propertyPath: 'shopList.Array.data[1]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 5d0fa1a8438c6dc489b5f1d867a20a77, type: 2}
-    - target: {fileID: 4307846656239576062, guid: 6f1e1ea32bdbfce4096687cef9a6ceed, type: 3}
-      propertyPath: 'shopList.Array.data[2]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 4c448abb3f7a8a14e8f9f31a7cc882e6, type: 2}
-    - target: {fileID: 4307846656239576062, guid: 6f1e1ea32bdbfce4096687cef9a6ceed, type: 3}
-      propertyPath: 'shopList.Array.data[3]'
-      value: 
-      objectReference: {fileID: 11400000, guid: c16113c7d38bb93489e158d593849a51, type: 2}
-    - target: {fileID: 4307846656239576062, guid: 6f1e1ea32bdbfce4096687cef9a6ceed, type: 3}
-      propertyPath: 'shopList.Array.data[4]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 4bcc4458ce13770468e5510c893b8375, type: 2}
-    - target: {fileID: 4307846656239576062, guid: 6f1e1ea32bdbfce4096687cef9a6ceed, type: 3}
-      propertyPath: 'shopList.Array.data[5]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 0cb82bb8e6657f44ca5ffc8385c3b0e6, type: 2}
-    - target: {fileID: 4307846656239576062, guid: 6f1e1ea32bdbfce4096687cef9a6ceed, type: 3}
-      propertyPath: 'shopList.Array.data[6]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 4248ac953e3ad5749b19b4474c33221e, type: 2}
-    - target: {fileID: 4307846656239576062, guid: 6f1e1ea32bdbfce4096687cef9a6ceed, type: 3}
-      propertyPath: 'shopList.Array.data[7]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 113fecddda5f0184cbb50fbc711dc70a, type: 2}
-    - target: {fileID: 4307846656239576062, guid: 6f1e1ea32bdbfce4096687cef9a6ceed, type: 3}
-      propertyPath: 'shopList.Array.data[8]'
-      value: 
-      objectReference: {fileID: 11400000, guid: e8c1bfe3fa6e6c64ebb35494541e0757, type: 2}
-    - target: {fileID: 4307846656239576062, guid: 6f1e1ea32bdbfce4096687cef9a6ceed, type: 3}
-      propertyPath: 'shopList.Array.data[9]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 7365ede0bc9af48408804f7311814ca1, type: 2}
-    - target: {fileID: 4307846656239576062, guid: 6f1e1ea32bdbfce4096687cef9a6ceed, type: 3}
-      propertyPath: 'shopList.Array.data[10]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 2e61213e840ea9345af4ada0dafb0e20, type: 2}
-    - target: {fileID: 4307846656239576062, guid: 6f1e1ea32bdbfce4096687cef9a6ceed, type: 3}
-      propertyPath: 'shopList.Array.data[11]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 0b0f9ae606b1e5b4fa707bb932641e9d, type: 2}
-    - target: {fileID: 4307846656239576062, guid: 6f1e1ea32bdbfce4096687cef9a6ceed, type: 3}
-      propertyPath: 'shopList.Array.data[12]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 5e515c4ef3e2fb24f8b3020a2a25ac09, type: 2}
+      objectReference: {fileID: 11400000, guid: aa4a6f36dcc033a429c2283a32f66939, type: 2}
     - target: {fileID: 6032054013691886529, guid: 6f1e1ea32bdbfce4096687cef9a6ceed, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.0866

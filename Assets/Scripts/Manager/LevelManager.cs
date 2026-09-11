@@ -17,10 +17,7 @@ public class LevelManager : MonoBehaviour
 
     private WaveData currentWave;
     public Image shopPanel;
-    public Image Objeto1;
-    public Image Objeto2;
-    public Image Objeto3;
-    public Image Objeto4;
+    public Button[] botones;
     public ObjectsInventory inventory;
 
     public LevelStateMachine levelStateMachine;
@@ -78,5 +75,8 @@ public class LevelManager : MonoBehaviour
         currentRound++;
         Debug.Log("Ronda Actual" + currentRound);
     }
-
+    public void ChangeTime(float time)
+    {
+        Time.timeScale = time;
+    }
 }

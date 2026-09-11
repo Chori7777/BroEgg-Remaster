@@ -4,29 +4,29 @@ using UnityEngine;
 
 public class ObjectsInventory : MonoBehaviour
 {
-    public List<Object> objectList = new List<Object>();
-    public Dictionary<string, Object> objectDictionary = new Dictionary<string, Object>();
+    public List<ShopProductData> shopList = new List<ShopProductData>();
+    public Dictionary<string, ShopProductData> shopDictionary = new Dictionary<string, ShopProductData>();
 
-    // Se aplica toda la lista de objetos en el diccionario
+
+    //Se aplica toda la lista de objetos en el diccionario
     void Start()
     {
-        for (int i = 0; i < objectList.Count; i++)
+        for (int i = 0; i < shopList.Count; i++)
         {
-            objectDictionary.Add(objectList[i].IdObject, objectList[i]);
+            shopDictionary.Add(shopList[i].id, shopList[i]);
 
         }
     }
-    
-
-    public Object ChooseObject()
+    public ShopProductData ChooseObject()
     {
-        if(objectDictionary.Count == 0)
-        {  return null; }
+        if (shopDictionary.Count == 0)
+        { return null; }
 
-        int randomIndex = Random.Range(0, objectDictionary.Count);
-        return objectDictionary.Values.ElementAt(randomIndex);
-    //esta linea agarra todos los valores del diccionario en el "Values" y con elementAt en randomindex agarra un objeto random de los valores q reconocio antes en Values
+        int randomIndex = Random.Range(0, shopDictionary.Count);
+        return shopDictionary.Values.ElementAt(randomIndex);
+        //esta linea agarra todos los valores del diccionario en el "Values" y con elementAt en randomindex agarra un objeto random de los valores q reconocio antes en Values
     }
+
 
     void Update()
     {

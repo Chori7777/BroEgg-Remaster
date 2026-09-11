@@ -9,11 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d282e0cf8fb45c34daaef9ccf91672e4, type: 3}
-  m_Name: Nave de Juani
-  m_EditorClassIdentifier: Assembly-CSharp::Object
-  idObject: Nave_de_Juani
-  spriteShop: {fileID: -7349606042115111091, guid: 7fcceda30353c4b48b73aa4e7a3ceb26, type: 3}
+  m_Script: {fileID: 11500000, guid: c7f0311132eba124c97c28bdbf0a271d, type: 3}
+  m_Name: OBJ_Pancho
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectShopData
+  id: Pancho
+  displayName: Pancho
+  icon: {fileID: -2043600030600106530, guid: 7b38289d101773543b9c7485d8e87647, type: 3}
+  price: 0
   baseHealth: 0
   baseArmor: 0
   baseDamage: 0

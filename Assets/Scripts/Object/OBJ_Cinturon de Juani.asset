@@ -9,11 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d282e0cf8fb45c34daaef9ccf91672e4, type: 3}
-  m_Name: Polla
-  m_EditorClassIdentifier: Assembly-CSharp::Object
-  idObject: Polla
-  spriteShop: {fileID: -4936644330148155580, guid: 7011bd63b30e94342b01bd24f1da1f40, type: 3}
+  m_Script: {fileID: 11500000, guid: c7f0311132eba124c97c28bdbf0a271d, type: 3}
+  m_Name: OBJ_Cinturon de Juani
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectShopData
+  id: Cinturon de Juani
+  displayName: Cinturon de Juani
+  icon: {fileID: -3092852093837215433, guid: ff101bf996fce2f49adcd4474e85f587, type: 3}
+  price: 0
   baseHealth: 0
   baseArmor: 0
   baseDamage: 0

@@ -609,8 +609,10 @@ MonoBehaviour:
     Time: 5
     WaveRate: 4
     enemyProbabilities:
+    - EnemyId: Golem
+      Probability: 60
     - EnemyId: Zombie
-      Probability: 100
+      Probability: 60
   - EnemiesPerWave: 30
     Time: 15
     WaveRate: 8

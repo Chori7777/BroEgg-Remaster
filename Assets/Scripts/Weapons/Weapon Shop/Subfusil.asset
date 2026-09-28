@@ -16,4 +16,4 @@ MonoBehaviour:
   displayName: Subfusil
   icon: {fileID: 1721296169258792906, guid: 32bff1cb1917ccc42b20333da8ba2b46, type: 3}
   price: 0
-  weaponPrefab: {fileID: 2595904899128115179, guid: d8e468cdb2dbe34479885a7eabbf83ef, type: 3}
+  weaponPrefab: {fileID: 6727152193817021128, guid: d8e468cdb2dbe34479885a7eabbf83ef, type: 3}

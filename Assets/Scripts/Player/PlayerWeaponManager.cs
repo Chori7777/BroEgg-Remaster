@@ -12,7 +12,7 @@ public class PlayerWeaponManager : MonoBehaviour
         GiveWeapon("SemiAuRifle");
     }
 
-    void GiveWeapon(string weaponId)
+    public void GiveWeapon(string weaponId)
     {
         WeaponController newWeapon = factoryWeapon.CreateWeapon(weaponId, hand.transform.position);
 

@@ -16,4 +16,4 @@ MonoBehaviour:
   displayName: Pistol
   icon: {fileID: 2860768655726451345, guid: 32bff1cb1917ccc42b20333da8ba2b46, type: 3}
   price: 0
-  weaponPrefab: {fileID: 2595904899128115179, guid: 8113f91caea72c74da4949ddfc1ffa42, type: 3}
+  weaponPrefab: {fileID: 6727152193817021128, guid: 8113f91caea72c74da4949ddfc1ffa42, type: 3}

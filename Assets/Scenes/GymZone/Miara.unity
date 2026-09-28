@@ -2004,6 +2004,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 544fe4c905aaf034aa59c4086be7d8ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonLogic
+  weaponmanager: {fileID: 1332809551}
 --- !u!1 &896542130
 GameObject:
   m_ObjectHideFlags: 0
@@ -2680,6 +2681,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 544fe4c905aaf034aa59c4086be7d8ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonLogic
+  weaponmanager: {fileID: 1332809551}
 --- !u!1 &1114360618
 GameObject:
   m_ObjectHideFlags: 0
@@ -2962,6 +2964,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 544fe4c905aaf034aa59c4086be7d8ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonLogic
+  weaponmanager: {fileID: 1332809551}
 --- !u!1 &1155858304
 GameObject:
   m_ObjectHideFlags: 0
@@ -3313,6 +3316,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1332809551 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7674318791540975734, guid: 355c7db4a7aca63459dba81972b9fde0, type: 3}
+  m_PrefabInstance: {fileID: 50457970}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47d6edf8f58a8a648aa4ba20b9db9965, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerWeaponManager
 --- !u!1 &1506191174
 GameObject:
   m_ObjectHideFlags: 0
@@ -4267,6 +4281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 544fe4c905aaf034aa59c4086be7d8ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonLogic
+  weaponmanager: {fileID: 1332809551}
 --- !u!1001 &327433620691560448
 PrefabInstance:
   m_ObjectHideFlags: 0

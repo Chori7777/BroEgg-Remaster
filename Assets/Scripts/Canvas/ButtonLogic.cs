@@ -3,6 +3,7 @@ using UnityEngine;
 public class ButtonLogic : MonoBehaviour
 {
     private ShopProductData product;
+    [SerializeField] private PlayerWeaponManager weaponmanager;
 
     public void Setup(ShopProductData product)
     {
@@ -14,6 +15,7 @@ public class ButtonLogic : MonoBehaviour
         if (product is WeaponShopData weapon)
         {
             Debug.Log("compre arma");
+            weaponmanager.GiveWeapon(weapon.weaponPrefab.WeaponData.IdWeapon);
         }
         else if (product is ObjectShopData obj)
         {

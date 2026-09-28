@@ -41,14 +41,25 @@ public class InventoryManager : MonoBehaviour
 
     public void AddWeapon(IWeapon newWeapon)
     {
+        if (newWeapon == null)
+        {
+            Debug.LogError("AddWeapon recibió un IWeapon NULL");
+            return;
+        }
+        Debug.Log("Agregando arma: " + newWeapon);
+
         weapons.Add(newWeapon);
         ItemActual = weapons.Count - 1;
+
+        Debug.Log("Cantidad armas: " + weapons.Count);
+        Debug.Log("ItemActual: " + ItemActual);
 
         WeaponController weaponController = newWeapon as WeaponController;
         if (weaponController != null && ItemActual < invImages.Count)
         {
             invImages[ItemActual].sprite = weaponController.WeaponData.WeaponSprite;
         }
+
 
         UpdateSelection();
     }
@@ -69,7 +80,23 @@ public class InventoryManager : MonoBehaviour
 
         for (int i = 0; i < weapons.Count; i++)
         {
-            weapons[i].getTransform().gameObject.SetActive(i == ItemActual);
+            if (weapons[i] == null)
+            {
+                Debug.LogError("El arma " + i + " es NULL");
+                continue;
+            }
+
+            Transform weaponTransform = weapons[i].getTransform();
+
+            if (weaponTransform == null)
+            {
+                Debug.LogError("getTransform() devolvió NULL en arma " + i);
+                continue;
+            }
+
+            weaponTransform.gameObject.SetActive(i == ItemActual);
+
+            
         }
     }
 }

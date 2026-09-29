@@ -1,13 +1,13 @@
 using ED262C;
 using UnityEngine;
 
-public class ScoreManager : MonoBehaviour
+public class AchievementsManager : MonoBehaviour
 {
     public int killCount = 0;
     public int waveCount = 1;
-    private static ScoreManager instance;
-    public static ScoreManager Instance=> instance;
-    private Achievements logros;
+    private static AchievementsManager instance;
+    public static AchievementsManager Instance=> instance;
+    private Achievements thophies;
     private ISimpleSet<Achievements> achievementsSet = new SimpleArraySet<Achievements>();
 
 
@@ -33,31 +33,31 @@ public class ScoreManager : MonoBehaviour
         if (killCount == 5)
         {
             achievementsSet.Add(Achievements.Ultrakill);
-            Leedor();
+            Reader();
         }
 
 
         if(killCount == 10)
         {
             achievementsSet.Add(Achievements.Bloodthirsty);
-            Leedor();
+            Reader();
         }
 
         if(waveCount == 5)
         {
             achievementsSet.Add(Achievements.LastSurvivor);
-            Leedor();
+            Reader();
         }
 
         if (waveCount == 10)
         {
             achievementsSet.Add(Achievements.LastMan);
-            Leedor();
+            Reader();
         }
 
     }
 
-    void Leedor()
+    void Reader()
     {
         foreach (var item in achievementsSet.ToArray())
         {

@@ -85,7 +85,7 @@ public class Enemy : MonoBehaviour, IDamageable
     // Esto es virtual por q la muerte puede variar segun el enemigo!
     protected virtual void Die()
     {
-        ScoreManager.Instance.killCount++;
+        AchievementsManager.Instance.killCount++;
         OnEnemyGoldDrop?.Invoke(stats.EnemyGoldDrop);
         Destroy(gameObject);
     }

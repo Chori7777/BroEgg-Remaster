@@ -74,7 +74,7 @@ public class LevelManager : MonoBehaviour
     {
         currentWave = waveQueue.Dequeue();
         currentRound++;
-        ScoreManager.Instance.waveCount++;
+        AchievementsManager.Instance.waveCount++;
         Debug.Log("Ronda Actual" + currentRound);
     }
     public void ChangeTime(float time)

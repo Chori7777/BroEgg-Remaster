@@ -30,16 +30,11 @@ namespace ED262C
         // Update is called once per frame
         void Update()
         {
-           if(Input.GetKeyDown(KeyCode.Q))
-            {
-                Debug.Log(spawnPoints.Count);
-               
-            }
         }
 
         public void spawnWave(int count, List<EnemyProbability> probabilities)
         {
-            Debug.Log("Spawner currentRound: " + LevelManager.Instance.CurrentRound);
+            //Debug.Log("Spawner currentRound: " + LevelManager.Instance.CurrentRound);
 
             for (int i = 0; i < count; i++)
             {

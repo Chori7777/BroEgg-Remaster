@@ -24,6 +24,7 @@ public class LevelManager : MonoBehaviour
 
     public EnemySpawnerManager enemySpawnerManager;
 
+
     public WaveData CurrentWave => currentWave;
 
     private float timeRemaining;
@@ -73,6 +74,7 @@ public class LevelManager : MonoBehaviour
     {
         currentWave = waveQueue.Dequeue();
         currentRound++;
+        ScoreManager.Instance.waveCount++;
         Debug.Log("Ronda Actual" + currentRound);
     }
     public void ChangeTime(float time)

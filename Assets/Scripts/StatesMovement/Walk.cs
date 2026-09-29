@@ -15,7 +15,6 @@ public class Walk : IState
     }
     public void Enter()
     {
-        Debug.Log("WALK");
     }
 
     public void Exit()

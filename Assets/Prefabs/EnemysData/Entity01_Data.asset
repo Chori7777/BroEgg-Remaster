@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f2fb730ba1de8e45beedd05379e00b7, type: 3}
   m_Name: Entity01_Data
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  baseHealth: 50
+  baseHealth: 1
   baseArmor: 5
   baseDamage: 5
   baseSpeed: 1

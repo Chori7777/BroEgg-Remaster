@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour, IDamageable
     public string id;
     private bool initialized;
 
+
     // Estadisticas
     [SerializeField] protected EnemyStats stats;
 
@@ -84,7 +85,7 @@ public class Enemy : MonoBehaviour, IDamageable
     // Esto es virtual por q la muerte puede variar segun el enemigo!
     protected virtual void Die()
     {
-      
+        ScoreManager.Instance.killCount++;
         OnEnemyGoldDrop?.Invoke(stats.EnemyGoldDrop);
         Destroy(gameObject);
     }

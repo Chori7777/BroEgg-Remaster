@@ -17,8 +17,8 @@ public class FactoryEnemy : MonoBehaviour
    
     public Enemy CreateEnemy(string enemyType, Vector3 spawnPoint)
     {
-        Debug.Log("Enemigo:" + enemyType);
-        Debug.Log("esta en el diccionario?" + enemyDictionary.ContainsKey(enemyType));
+        //Debug.Log("Enemigo:" + enemyType);
+        //Debug.Log("esta en el diccionario?" + enemyDictionary.ContainsKey(enemyType));
 
         if (enemyDictionary.ContainsKey(enemyType))
         {

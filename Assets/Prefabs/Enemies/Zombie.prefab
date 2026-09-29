@@ -185,6 +185,7 @@ MonoBehaviour:
   armor: 0
   damage: 1
   speed: 3
+  enemyGoldDrop: 0
   isBoss: 0
 --- !u!114 &7401072332159786791
 MonoBehaviour:
@@ -199,4 +200,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zombie
   id: Zombie
+  scoreManager: {fileID: 5999097100806130503, guid: aaa78d96348061145a511d2e49e35477, type: 3}
   stats: {fileID: 3686492368101557334}

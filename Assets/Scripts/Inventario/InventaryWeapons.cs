@@ -1,7 +1,7 @@
 using ED262C;
 using UnityEngine;
 
-public class InventoryManager : MonoBehaviour
+public class InventaryWeapons : MonoBehaviour
 {
     [SerializeField] UnityEngine.UI.Image[] toTheList;
     [SerializeField] SimpleArrayList<UnityEngine.UI.Image> invImages = new SimpleArrayList<UnityEngine.UI.Image>();

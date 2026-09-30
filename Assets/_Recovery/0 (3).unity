@@ -2315,7 +2315,7 @@ GameObject:
   - component: {fileID: 963326367}
   - component: {fileID: 963326366}
   m_Layer: 0
-  m_Name: InverntoryWeapons
+  m_Name: InverntoryManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3240,9 +3240,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09940e6b4c9a48d4d81648de5a94cf33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ED262C.EnemySpawnerManager
-  spawnWarningPrefab: {fileID: 8031246413408026308, guid: e503eb2ae8b637d48983521ea4210a0d, type: 3}
-  WarningTime: 1
-  MinSpawnDistance: 3
 --- !u!114 &1296118799
 MonoBehaviour:
   m_ObjectHideFlags: 0

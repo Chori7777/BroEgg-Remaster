@@ -4,7 +4,7 @@ public class PlayerWeaponManager : MonoBehaviour
 {
     [SerializeField] GameObject hand;
     [SerializeField] FactoryWeapon factoryWeapon;
-    [SerializeField] InventoryManager inventoryManager;
+    [SerializeField] InventaryWeapons inventoryManager;
 
     void Start()
     {

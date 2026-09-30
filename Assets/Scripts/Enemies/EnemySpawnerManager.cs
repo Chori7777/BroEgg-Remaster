@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 namespace ED262C
@@ -9,14 +10,20 @@ namespace ED262C
        
 
         FactoryEnemy factoryEnemy;
+        private Transform player;
+
+        [SerializeField] private GameObject spawnWarningPrefab;
+        [SerializeField] private float WarningTime = 1.0f; // Cuando dura el aviso antes de que aparezca el enemigo fisico
+        [SerializeField] private float MinSpawnDistance = 3.0f; // El radio alrededor
 
        
 
         void Start()
         {
            
-
-            factoryEnemy=GetComponent<FactoryEnemy>();
+             
+            factoryEnemy = GetComponent<FactoryEnemy>();
+            player = GameObject.FindGameObjectWithTag("Player").transform;
             GameObject[] points = GameObject.FindGameObjectsWithTag("spawnPoint");
 
             Debug.Log("SpawnPoints encontrados: " + points.Length);
@@ -38,12 +45,11 @@ namespace ED262C
 
             for (int i = 0; i < count; i++)
             {
-                int randomSpawnPoint = Random.Range(0, spawnPoints.Count);
-                Vector3 spawnpoint = spawnPoints[randomSpawnPoint].position;
+                Vector3 spawnPoint = ChooseValidSpawn();
 
                 string chosenId = ChooseEnemyByProbability(probabilities);
-                Enemy enemy = factoryEnemy.CreateEnemy(chosenId, spawnpoint);
-                enemy.Initialize(LevelManager.Instance.CurrentRound);
+
+                StartCoroutine(SpawnConAviso(chosenId, spawnPoint)); // Como es una corrutina no se llama como una funcion normal necesita que comience la corrutina 
             }
         }
 
@@ -71,6 +77,45 @@ namespace ED262C
             return probabilities[0].EnemyId;
         }
 
+        bool ICanSpawnHere(Vector3 positionSpawn)
+        {
+            float distance = Vector2.Distance(positionSpawn, player.position); 
+            return distance >= MinSpawnDistance; // Si el jugador esta a 5 unidades es mayor osea que es true osea puedo spawnear aqui
+        }
 
+        Vector3 ChooseValidSpawn()
+        {
+            int attempts = 0;
+            int maxAttempts = 10;
+
+            while(attempts < maxAttempts)
+            {
+                int randomIndex = Random.Range(0, spawnPoints.Count); //Elijo un spawnPoint random
+                Vector3 candidate = spawnPoints[randomIndex].position; // Guardo esa posicion como posible candidato a spawnear
+
+                if(ICanSpawnHere(candidate))
+                    return candidate;
+
+                attempts++; 
+            }
+
+            // Si después de 10 intentos no encontró nada, devolvemos cualquiera igual
+            // Es un caso raro peropor si pasa para que detener el while y no explote todo
+            int fallback = Random.Range(0, spawnPoints.Count);
+            return spawnPoints[fallback].position;
+        }
+
+
+        IEnumerator SpawnConAviso(string enemyId, Vector3 positionSpawn) // Usa una corrutina para pausar en el medio de la funcion y despues de que pase cierto tiempo sigue con la funcion 
+        {
+            GameObject notice = Instantiate(spawnWarningPrefab, positionSpawn, Quaternion.identity); // Instancio el aviso 
+
+            yield return new WaitForSeconds(WarningTime); // Cuando pasa 1s sigue la funcion, destruye el aviso y ahi si spawnea el enemigo 
+
+            Destroy(notice);
+
+            Enemy enemy = factoryEnemy.CreateEnemy(enemyId, positionSpawn);
+            enemy.Initialize(LevelManager.Instance.CurrentRound);
+        }
     }
 }

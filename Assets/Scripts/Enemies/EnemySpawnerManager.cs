@@ -43,9 +43,13 @@ namespace ED262C
         {
             //Debug.Log("Spawner currentRound: " + LevelManager.Instance.CurrentRound);
 
+            SimpleArraySet<int> pointsUsedInThisBatch = new SimpleArraySet<int>(); // En cada llamada se crea uno nuevo, Osea se resetea solo 
+
+
             for (int i = 0; i < count; i++)
             {
-                Vector3 spawnPoint = ChooseValidSpawn();
+                Debug.Log("Intento de spawn numero: " + i);
+                Vector3 spawnPoint = ChooseValidSpawn(pointsUsedInThisBatch);
 
                 string chosenId = ChooseEnemyByProbability(probabilities);
 
@@ -83,7 +87,7 @@ namespace ED262C
             return distance >= MinSpawnDistance; // Si el jugador esta a 5 unidades es mayor osea que es true osea puedo spawnear aqui
         }
 
-        Vector3 ChooseValidSpawn()
+        Vector3 ChooseValidSpawn(SimpleArraySet<int> pointsUsed)
         {
             int attempts = 0;
             int maxAttempts = 10;
@@ -93,8 +97,12 @@ namespace ED262C
                 int randomIndex = Random.Range(0, spawnPoints.Count); //Elijo un spawnPoint random
                 Vector3 candidate = spawnPoints[randomIndex].position; // Guardo esa posicion como posible candidato a spawnear
 
-                if(ICanSpawnHere(candidate))
+                if(ICanSpawnHere(candidate) && !pointsUsed.Contains(randomIndex)) // Chequea si ese indice no se a usado ya en esa tanda 
+                {
+                    pointsUsed.Add(randomIndex); // Guarda en el set para que el proximo enemigo de la tanda no vuelva a elegir ese mismo punto
                     return candidate;
+                }
+                   
 
                 attempts++; 
             }
@@ -115,6 +123,8 @@ namespace ED262C
             Destroy(notice);
 
             Enemy enemy = factoryEnemy.CreateEnemy(enemyId, positionSpawn);
+            Debug.Log("Enemigo creado: " + (enemy != null));
+
             enemy.Initialize(LevelManager.Instance.CurrentRound);
         }
     }

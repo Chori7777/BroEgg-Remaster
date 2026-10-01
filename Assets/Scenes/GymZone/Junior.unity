@@ -407,6 +407,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09940e6b4c9a48d4d81648de5a94cf33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ED262C.EnemySpawnerManager
+  spawnWarningPrefab: {fileID: 0}
+  WarningTime: 1
+  MinSpawnDistance: 3
 --- !u!4 &182620347
 Transform:
   m_ObjectHideFlags: 0
@@ -712,8 +715,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47d6edf8f58a8a648aa4ba20b9db9965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerWeaponManager
-  bullet: {fileID: 1588384275635876967, guid: f26900abd1941fc4e90851112dce64f6, type: 3}
   hand: {fileID: 2109211101}
+  factoryWeapon: {fileID: 0}
+  inventoryManager: {fileID: 0}
 --- !u!114 &385439030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16137,10 +16141,7 @@ MonoBehaviour:
     - EnemyId: Zombie
       Probability: 100
   shopPanel: {fileID: 1397807260}
-  Objeto1: {fileID: 2144832562}
-  Objeto2: {fileID: 843949290}
-  Objeto3: {fileID: 651002778}
-  Objeto4: {fileID: 327069844}
+  botones: []
   inventory: {fileID: 216354045}
   enemySpawnerManager: {fileID: 182620346}
 --- !u!4 &1591000297

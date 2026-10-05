@@ -614,6 +614,8 @@ MonoBehaviour:
       Probability: 60
     - EnemyId: TwoHeaded
       Probability: 60
+    - EnemyId: SuicideEnemy
+      Probability: 60
   - EnemiesPerWave: 5
     Time: 60
     WaveRate: 8
@@ -3949,6 +3951,7 @@ MonoBehaviour:
   - {fileID: 7401072332159786791, guid: 2bea55a5d39fb0845925472ecbc26dc4, type: 3}
   - {fileID: 9120076383525775376, guid: 5490c36444a1b9244befc170c82d14ab, type: 3}
   - {fileID: 5763469596037733855, guid: 63eea95c265f4a546b0d553622e2dee3, type: 3}
+  - {fileID: 3335877043237586076, guid: ea40a3c6bd4917f45b363c1c1a9b7e0f, type: 3}
 --- !u!4 &1296118800
 Transform:
   m_ObjectHideFlags: 0
@@ -4873,7 +4876,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 1768679433190182986, guid: f60515c36aea9e6478c506eb2dbc00f4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.02745098}
   m_FlipX: 0
   m_FlipY: 0
@@ -4892,8 +4895,8 @@ Transform:
   m_GameObject: {fileID: 1691732763}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.4365, y: -1.8, z: 0}
-  m_LocalScale: {x: 89.91623, y: 57.308685, z: 1}
+  m_LocalPosition: {x: -9.0603, y: -1.1981, z: 0}
+  m_LocalScale: {x: 90.671524, y: 58.51217, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}

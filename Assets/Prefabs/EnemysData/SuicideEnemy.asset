@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f2fb730ba1de8e45beedd05379e00b7, type: 3}
   m_Name: SuicideEnemy
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  baseHealth: 0
+  baseHealth: 20
   baseArmor: 0
-  baseDamage: 0
-  baseSpeed: 0
-  goldDrop: 0
+  baseDamage: 25
+  baseSpeed: 5
+  goldDrop: 200
   isBoss: 0
   healthScaling: 0
   armorScaling: 0

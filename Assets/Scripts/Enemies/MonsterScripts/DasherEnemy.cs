@@ -105,7 +105,7 @@ public class DasherEnemy : Enemy
 
 
     // Copiado de Zombie: asi el Dasher tambien danea al chocar con el jugador.
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.gameObject.CompareTag("Player"))
             return;

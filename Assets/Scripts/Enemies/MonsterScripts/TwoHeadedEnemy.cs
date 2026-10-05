@@ -112,7 +112,7 @@ public class TwoHeadedEnemy : Enemy
         Vector2 direction = (player.transform.position - firePoint.position).normalized;
         GameObject projectile = Instantiate(prefab, firePoint.position, Quaternion.identity);
         projectile.GetComponent<EnemyBullet>().Setup(direction, stats.Damage);
-        Debug.Log((isLeft ? "IZQUIERDA" : "DERECHA") + " | distancia: " + DistanceToPlayer() + " | corte: " + cutDistance);
+       
     }
 
     private void OnDrawGizmosSelected()

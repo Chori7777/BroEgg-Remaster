@@ -1,66 +1,61 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 
-[System.Serializable]
-public class EnemyAction
+// El cerebro decide QUE comportamiento sigue, mas no lo ejecuta, de eso lo hace la StateMachine
+public class EnemyBrain
 {
-    public string name;
-    // 0% a 100% 
-    [Range(0f, 1f)] public float probability;
+    // la lista guarda solo los comportamientos ahora la prioridad la da cada comportamiento con GetPriority().
+    // La lista no se consume, pero la cola si, la lista sirve para resetear la cola y recargarla con los mismos comportamientos.
+    // En el enemigo que hice podriamos obviar el enemyBrain, pero lo estoy forzando para decir que lo tenemos implementado y que funciona. En enemigos mas complejos es util tenerlo.
 
-    public EnemyAction(string name, float probability)
+    private List<IEnemyBehavior> behaviors = new List<IEnemyBehavior>();
+    private ISimplePriorityQueue<IEnemyBehavior> queue = new SimpleArrayPriorityQueue<IEnemyBehavior>();
+
+    // false: carga la cola y la vacia en orden antes de recargar (secuencia fija).
+    // true: recarga la cola en cada decision (la prioridad depende de la situacion).
+    private bool reevaluateEachTime;
+    public EnemyBrain(bool reevaluateEachTime)
     {
-        this.name = name;
-        this.probability = probability;
-    }
-}
-
-public class EnemyBrain : MonoBehaviour
-{
-    public List<EnemyAction> possibleActions = new List<EnemyAction>();
-
-    ISimplePriorityQueue<EnemyAction> queue = new SimpleArrayPriorityQueue<EnemyAction>();
-
-    void Start()
-    {
-        possibleActions.Add(new EnemyAction("Attack", 0.5f));
-        possibleActions.Add(new EnemyAction("Defend", 0.3f));
-        possibleActions.Add(new EnemyAction("Flee", 0.2f));
-
-        LoadQueue();
+        this.reevaluateEachTime = reevaluateEachTime;
     }
 
-    void LoadQueue()
+    //recibe  el comportamiento.
+    public void Add(IEnemyBehavior behavior)
     {
-        queue.Clear();
-        Debug.Log("Queue cleared, reloading actions...");
+        behaviors.Add(behavior);
+    }
 
-        foreach (var action in possibleActions)
+    public IEnemyBehavior Next()
+    {
+     
+
+        if (reevaluateEachTime || queue.IsEmpty)
         {
-            int priority = 100 - Mathf.RoundToInt(action.probability * 100f);
-            queue.Enqueue(action, priority);
-            Debug.Log($"Enqueue {action.name} (priority: {priority})");
-        }
-    }
-
-    public void ExecuteNextAction()
-    {
-        if (queue.IsEmpty)
-        {
-            Debug.Log("Queue empty, reloading...");
+         
             LoadQueue();
         }
 
-        EnemyAction current = queue.Dequeue();
-        Debug.Log($"Dequeue -> {current.name}");
+        IEnemyBehavior next = queue.Dequeue();
 
-        switch (current.name)
+ 
+
+        return next;
+    }
+
+    // Vacia la cola pero conserva los comportamientos sirve en caso de que queramos reciclar al enemigo y que vuelva a empezar desde el primer comportamiento.
+    public void Reset()
+    {
+        queue.Clear();
+    }
+
+    private void LoadQueue()
+    {
+        queue.Clear();
+        foreach (IEnemyBehavior behavior in behaviors)
         {
-            case "Attack": Debug.Log("Enemy attacks!"); break;
-            case "Defend": Debug.Log("Enemy defends!"); break;
-            case "Flee": Debug.Log("Enemy flees!"); break;
+            // la prioridad se pide al comportamiento en este momento,
+            // asi un comportamiento dinamico su prioridad actual,puede depender de la situacion del enemigo o del jugador.
+            queue.Enqueue(behavior, behavior.GetPriority());
         }
-
-        Debug.Log($"Actions left in queue: {queue.Count}");
     }
 }

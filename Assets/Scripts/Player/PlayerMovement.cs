@@ -5,7 +5,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private PlayerStats playerStats;
     [SerializeField] private Rigidbody2D rb;
 
-    
+    public IState IdleState { get; private set; }
+    public IState WalkState { get; private set; }
+    public IState DashState { get; private set; }
+
+
     public Rigidbody2D Rb => rb;
     public PlayerStats PlayerStats => playerStats;
     [field:SerializeField] public float DashForce = 20f;
@@ -22,7 +26,14 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        statemachine = new StateMachine(this);
+        IdleState = new Idle(this);
+        WalkState = new Walk(this);
+        DashState = new Dash(this);
+
+        statemachine = new StateMachine();
+        statemachine.ChangeState(IdleState);
+
+
     }
 
     

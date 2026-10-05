@@ -30,7 +30,7 @@ public class HUDController : MonoBehaviour
 
     private void UpdateGoldText(int amount)
     {
-               goldText.text = amount.ToString();
+               goldText.text = amount.ToString()+ " Oro";
     }
     void Update()
     {

@@ -28,12 +28,12 @@ public class GameplayState : IState
 
         if (spawnTimer <= 0)
         {
+
             levelManager.enemySpawnerManager.spawnWave(levelManager.CurrentWave.EnemiesPerWave, levelManager.CurrentWave.enemyProbabilities);
             spawnTimer = levelManager.CurrentWave.WaveRate;
+            Debug.Log("Tanda: " + levelManager.CurrentWave.EnemiesPerWave + " | vivos: " + Object.FindObjectsByType<Enemy>(FindObjectsSortMode.None).Length + " | WaveRate: " + levelManager.CurrentWave.WaveRate);
         }
     }
 
-    public void Exit()
-    {
-    }
+    public void Exit() { }
 }

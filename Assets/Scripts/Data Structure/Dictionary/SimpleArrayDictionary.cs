@@ -8,15 +8,50 @@ public class SimpleArrayDictionary<TKey, TValue> : ISimpleDictionary<TKey, TValu
     int defaultCapacity = 4;
     int count = 0;
 
-    public TValue this[TKey key] 
-    { 
-        get => throw new System.NotImplementedException(); 
-        set => throw new System.NotImplementedException(); 
+    public TValue this[TKey key]
+    {
+        get
+        {
+            if (key == null)
+            {
+                throw new ArgumentNullException("Key is null");
+            }
+
+            int index = indexOf(key);
+
+            //si la key no esta, get no puede devolver nada valido: tira KeyNotFoundException
+            if (index < 0)
+            {
+                throw new KeyNotFoundException("Key is not in this Dictionary");
+            }
+
+            return internalArray[index].Value;
+        }
+        set
+        {
+            if (key == null)
+            {
+                throw new ArgumentNullException("Key is null");
+            }
+
+            int index = indexOf(key);
+
+            if (index >= 0)
+            {
+                //la key existe: KeyValuePair es un struct y no se puede modificar, creamos un par nuevo y lo pisamos
+                internalArray[index] = new KeyValuePair<TKey, TValue>(key, value);
+            }
+            else
+            {
+                //la key no existia: la agregamos al final como en Add y TryAdd
+                ExecuteAdd(key, value);
+            }
+        }
     }
 
     public int Count => count;
     public bool IsEmpty => count == 0;
-    
+
 
     public SimpleArrayDictionary()
     {
@@ -25,7 +60,7 @@ public class SimpleArrayDictionary<TKey, TValue> : ISimpleDictionary<TKey, TValu
 
     public void Add(TKey key, TValue value)
     {
-        if(ContainsKey(key))
+        if (ContainsKey(key))
         {
             throw new ArgumentException("Key is already use in this Dictionary");
         }
@@ -35,33 +70,73 @@ public class SimpleArrayDictionary<TKey, TValue> : ISimpleDictionary<TKey, TValu
 
     public bool Remove(TKey key)
     {
-        throw new System.NotImplementedException();
+        if (key == null)
+        {
+            throw new ArgumentNullException("Key is null");
+        }
+
+        int index = indexOf(key);
+
+        //si la key no existe no hay nada que remover
+        if (index < 0) return false;
+
+        //como el orden no se garantiza no corremos todo: el ultimo elemento ocupa el lugar vacio
+        internalArray[index] = internalArray[count - 1];
+
+        //limpiamos la ultima posicion (queda el par default) y bajamos count
+        internalArray[count - 1] = default(KeyValuePair<TKey, TValue>);
+        count--;
+
+        return true;
     }
 
     public void Clear()
     {
-        internalArray = new KeyValuePair<TKey, TValue>[count];
+        //el array nuevo vuelve a la capacidad inicial (con new ...[count] podia quedar de largo 0 y Resize nunca terminaba)
+        internalArray = new KeyValuePair<TKey, TValue>[defaultCapacity];
         count = 0;
     }
 
     public bool ContainsKey(TKey key)
     {
-        if(key == null)
+        if (key == null)
         {
             throw new ArgumentNullException("Key is null");
         }
 
-       return indexOf(key) >= 0;
+        return indexOf(key) >= 0;
     }
 
     public bool TryAdd(TKey key, TValue value)
     {
-        throw new System.NotImplementedException();
+        //ContainsKey ya valida que la key no sea null
+        if (ContainsKey(key))
+        {
+            return false;
+        }
+
+        ExecuteAdd(key, value);
+        return true;
     }
 
     public bool TryGetValue(TKey key, out TValue value)
     {
-        throw new System.NotImplementedException();
+        if (key == null)
+        {
+            throw new ArgumentNullException("Key is null");
+        }
+
+        int index = indexOf(key);
+
+        if (index >= 0)
+        {
+            value = internalArray[index].Value; //guardamos el valor en el parametro out
+            return true;
+        }
+
+        //out obliga a asignar value en todos los caminos, si no esta le damos su valor default
+        value = default(TValue);
+        return false;
     }
 
     public TKey[] Keys()

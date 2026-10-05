@@ -27,7 +27,6 @@ public class PlayerGold : MonoBehaviour
     {
         gold += amount;
         OnGoldChanged?.Invoke(gold);
-        Debug.Log("Yuan:" + gold);
     }
     // Futura variable para comprar objetos, si el jugador tiene suficiente oro, se gasta y devuelve true, sino devuelve false
     public bool SpendGold(int amount)

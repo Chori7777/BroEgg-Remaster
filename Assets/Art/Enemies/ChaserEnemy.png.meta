@@ -1,0 +1,581 @@
+fileFormatVersion: 2
+guid: 3cdf6df85bf3e734bba04af63f8e3a38
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1409448038111149204
+    second: ChaserEnemy_0
+  - first:
+      213: -5297330154540756488
+    second: ChaserEnemy_1
+  - first:
+      213: -7649073136278577628
+    second: ChaserEnemy_2
+  - first:
+      213: 7338495404686391394
+    second: ChaserEnemy_3
+  - first:
+      213: -3027619693864777979
+    second: ChaserEnemy_4
+  - first:
+      213: 2019855180141854131
+    second: ChaserEnemy_5
+  - first:
+      213: 2345950912054976974
+    second: ChaserEnemy_6
+  - first:
+      213: -2973597686767874920
+    second: ChaserEnemy_7
+  - first:
+      213: 4805841491143646429
+    second: ChaserEnemy_8
+  - first:
+      213: 8688761338297943981
+    second: ChaserEnemy_9
+  - first:
+      213: -990731007257620102
+    second: ChaserEnemy_10
+  - first:
+      213: 721384916506144018
+    second: ChaserEnemy_11
+  - first:
+      213: -6512094025465421691
+    second: ChaserEnemy_12
+  - first:
+      213: -8810000682913474894
+    second: ChaserEnemy_13
+  - first:
+      213: 6076656398784462786
+    second: ChaserEnemy_14
+  - first:
+      213: -8262032618392582813
+    second: ChaserEnemy_15
+  - first:
+      213: -5128515676464651423
+    second: ChaserEnemy_16
+  - first:
+      213: 7914861643139748357
+    second: ChaserEnemy_17
+  - first:
+      213: -5017102127395900575
+    second: ChaserEnemy_18
+  - first:
+      213: 3455781931481411148
+    second: ChaserEnemy_19
+  - first:
+      213: 5034377108423714707
+    second: ChaserEnemy_20
+  - first:
+      213: 6530349626327915172
+    second: ChaserEnemy_21
+  - first:
+      213: -8405332380436042168
+    second: ChaserEnemy_22
+  - first:
+      213: 4185272733261464605
+    second: ChaserEnemy_23
+  - first:
+      213: -4968102770062494080
+    second: ChaserEnemy_24
+  - first:
+      213: -2323444308375274844
+    second: ChaserEnemy_25
+  - first:
+      213: 1195346602147503506
+    second: ChaserEnemy_26
+  - first:
+      213: 7073868800177243196
+    second: ChaserEnemy_27
+  - first:
+      213: 7802948384639784310
+    second: ChaserEnemy_28
+  - first:
+      213: -38559382697485355
+    second: ChaserEnemy_29
+  - first:
+      213: -1291307297123459306
+    second: ChaserEnemy_30
+  - first:
+      213: 5309627728143848687
+    second: ChaserEnemy_31
+  - first:
+      213: 3934931760611131843
+    second: ChaserEnemy_32
+  - first:
+      213: -2943624102912019945
+    second: ChaserEnemy_33
+  - first:
+      213: -381471348976489814
+    second: ChaserEnemy_34
+  - first:
+      213: -8242815482005885883
+    second: ChaserEnemy_35
+  - first:
+      213: 3362912413447316081
+    second: ChaserEnemy_36
+  - first:
+      213: -8662137348585093442
+    second: ChaserEnemy_37
+  - first:
+      213: -1633405569611645809
+    second: ChaserEnemy_38
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 60
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ChaserEnemy_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6383071a72a07ce0800000000000000
+      internalID: -1409448038111149204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChaserEnemy_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f112a87a4a1c76b0800000000000000
+      internalID: -5297330154540756488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChaserEnemy_2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42ed123528809d590800000000000000
+      internalID: -7649073136278577628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChaserEnemy_3
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2683b2680b297d560800000000000000
+      internalID: 7338495404686391394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChaserEnemy_4
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5078630fdebbbf5d0800000000000000
+      internalID: -3027619693864777979
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChaserEnemy_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3bd761ea597f70c10800000000000000
+      internalID: 2019855180141854131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChaserEnemy_6
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec16a85dced7e8020800000000000000
+      internalID: 2345950912054976974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChaserEnemy_7
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89c074f98a8abb6d0800000000000000
+      internalID: -2973597686767874920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChaserEnemy_8
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ddc537eaf57c1b240800000000000000
+      internalID: 4805841491143646429
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChaserEnemy_9
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da78563f66ea49870800000000000000
+      internalID: 8688761338297943981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChaserEnemy_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a71d174e5673042f0800000000000000
+      internalID: -990731007257620102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChaserEnemy_11
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21d6cae62cfd20a00800000000000000
+      internalID: 721384916506144018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChaserEnemy_12
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 580a0348cf460a5a0800000000000000
+      internalID: -6512094025465421691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChaserEnemy_13
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b65ef76e079cb580800000000000000
+      internalID: -8810000682913474894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChaserEnemy_14
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2cff6a79cce945450800000000000000
+      internalID: 6076656398784462786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 269833e82e90dc948a7a298275bd8ef8
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      ChaserEnemy_0: -1409448038111149204
+      ChaserEnemy_1: -5297330154540756488
+      ChaserEnemy_10: -990731007257620102
+      ChaserEnemy_11: 721384916506144018
+      ChaserEnemy_12: -6512094025465421691
+      ChaserEnemy_13: -8810000682913474894
+      ChaserEnemy_14: 6076656398784462786
+      ChaserEnemy_2: -7649073136278577628
+      ChaserEnemy_3: 7338495404686391394
+      ChaserEnemy_4: -3027619693864777979
+      ChaserEnemy_5: 2019855180141854131
+      ChaserEnemy_6: 2345950912054976974
+      ChaserEnemy_7: -2973597686767874920
+      ChaserEnemy_8: 4805841491143646429
+      ChaserEnemy_9: 8688761338297943981
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

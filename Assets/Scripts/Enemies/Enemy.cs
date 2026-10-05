@@ -89,4 +89,17 @@ public class Enemy : MonoBehaviour, IDamageable
         OnEnemyGoldDrop?.Invoke(stats.EnemyGoldDrop);
         Destroy(gameObject);
     }
+    protected void FlipTowardsPlayer()
+    {
+        if (player.transform.position.x > transform.position.x)
+            transform.localScale = new Vector3(1, 1, 1);
+        else
+            transform.localScale = new Vector3(-1, 1, 1);
+    }
+
+    protected virtual void Update()
+    {
+        FlipTowardsPlayer();
+    }
+
 }

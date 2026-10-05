@@ -29,7 +29,7 @@ public class SimpleArrayPriorityQueue<T> : ISimplePriorityQueue<T>
     {
         if (IsEmpty) throw new System.Exception("Cannot Dequeue from this Queue");
         T result = internalArray[0];
-        ShiftLeft(1); //aca falta un offset que seria un segundo parametro
+        ShiftLeft(0); //aca falta un offset que seria un segundo parametro
         count--;
         return result;
     }
@@ -47,8 +47,8 @@ public class SimpleArrayPriorityQueue<T> : ISimplePriorityQueue<T>
           //movemos para la derecha, dejando un hueco en el indice anterior
           internalArray[i] = internalArray[i - 1];
           priorities[i] = priorities[i - 1];
-          insertIndex = i;
-      }
+            insertIndex = i - 1;   // el hueco quedo en i-1, no en i
+        }
 
         internalArray[insertIndex] = item;
         priorities[insertIndex] = priority;
@@ -117,7 +117,7 @@ public class SimpleArrayPriorityQueue<T> : ISimplePriorityQueue<T>
     //Corremos todo lo que viene despues de index, uno para adelante
     void ShiftLeft(int index)
     {
-        for (int i = index; i < count; i++)
+        for (int i = index; i < count-1; i++)
         {
             //lo que esta en el casillero actual se pisa con el siguiente
             internalArray[i] = internalArray[i + 1];

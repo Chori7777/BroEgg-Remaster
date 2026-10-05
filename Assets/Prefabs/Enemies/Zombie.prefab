@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7794200599967994939}
   - component: {fileID: 3686492368101557334}
   - component: {fileID: 7401072332159786791}
+  - component: {fileID: 1669377629505622935}
   m_Layer: 0
   m_Name: Zombie
   m_TagString: Enemy
@@ -129,7 +130,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.0033664703, y: 0.010099173}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -139,7 +140,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.5085068, y: 0.80474925}
   m_EdgeRadius: 0
 --- !u!50 &7794200599967994939
 Rigidbody2D:
@@ -199,6 +200,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b132499dcfbca84dac0510f90b67a00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zombie
-  id: Zombie
-  scoreManager: {fileID: 5999097100806130503, guid: aaa78d96348061145a511d2e49e35477, type: 3}
+  id: Ghost
   stats: {fileID: 3686492368101557334}
+--- !u!95 &1669377629505622935
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1272270320147426439}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: afc14bc0fc90a7e44af4818c285359ae, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

@@ -1,10 +1,12 @@
 using UnityEngine;
+using static WeaponData;
 
 public class PlayerWeaponManager : MonoBehaviour
 {
     [SerializeField] GameObject hand;
-    [SerializeField] FactoryWeapon factoryWeapon;
-    [SerializeField] InventaryWeapons inventoryManager;
+    public GameObject Hand => hand;
+    public FactoryWeapon factoryWeapon;
+    public InventaryWeapons inventoryManager;
 
     void Start()
     {
@@ -26,19 +28,34 @@ public class PlayerWeaponManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        IWeapon currentWeapon = inventoryManager.CurrentWeapon();
+        if (currentWeapon == null) Debug.Log("No tengo arma");
+
+        
+        bool isTriggering = false;
+
+        if (currentWeapon.GetShootingType() == ShootingType.Automatic)
         {
-            IWeapon currentWeapon = inventoryManager.CurrentWeapon;
-            if (currentWeapon != null)
-            {
-                currentWeapon.shoot();
-            }
-            else
-            {
-                Debug.Log("no tengo arma we");
-            }
+            // Automática
+            isTriggering = Input.GetMouseButton(0);
+        }
+        else if(currentWeapon.GetShootingType() == ShootingType.Single)
+        {
+            // Semiautomática
+            isTriggering = Input.GetMouseButtonDown(0);
+        }
+        else
+        {
+            // Escopeta
+            isTriggering = Input.GetMouseButtonDown(0);
+        }
+
+        if (isTriggering)
+        {
+            currentWeapon.shoot();
         }
     }
+
 
     private void OnTriggerEnter2D(Collider2D other)
     {

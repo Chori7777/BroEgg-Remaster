@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: AutoRifleData
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   tier: 0
+  shootingType: 1
   idWeapon: AutoRifle
   baseDamage: 9
   magazineSize: 30
-  fireRate: 0.1
+  fireRate: 0.4
   reloadTime: 0.6
   weaponSprite: {fileID: -3391257396490946495, guid: 32bff1cb1917ccc42b20333da8ba2b46, type: 3}

@@ -1,16 +1,27 @@
 using UnityEngine;
 
-public class AutoShoot : MonoBehaviour
+public class AutoShoot : IWeaponBehavior
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void Shoot(Transform weaponTransform, int damage, Collider2D shooterCollider, BulletPool bulletPool)
     {
-        
-    }
+        if (bulletPool == null) return;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        // Pedimos la bala al pool
+        Bullet bullet = bulletPool.Get();
+        if (bullet == null) return;
+
+        bullet.pool = bulletPool;
+
+        // Posicionamos la bala en el arma
+        bullet.transform.position = weaponTransform.position;
+        bullet.transform.rotation = weaponTransform.rotation;
+
+        // Calculamos la dirección del mouse desde el arma papu
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePosition.z = weaponTransform.position.z;
+        Vector2 direction = (mousePosition - weaponTransform.position).normalized;
+
+        // Mandamos la dirección y el daño a la bala
+        bullet.Setup(direction, damage, shooterCollider);
     }
 }

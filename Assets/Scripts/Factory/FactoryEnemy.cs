@@ -4,7 +4,7 @@ using UnityEngine;
 public class FactoryEnemy : MonoBehaviour
 {
     public List<Enemy> enemyList = new List<Enemy>();
-    public Dictionary<string,Enemy> enemyDictionary= new Dictionary<string, Enemy>();
+    public SimpleArrayDictionary<string,Enemy> enemyDictionary= new SimpleArrayDictionary<string, Enemy>();
     void Start()
     {
         for(int i =0; i< enemyList.Count; i++)
@@ -17,9 +17,6 @@ public class FactoryEnemy : MonoBehaviour
    
     public Enemy CreateEnemy(string enemyType, Vector3 spawnPoint)
     {
-        //Debug.Log("Enemigo:" + enemyType);
-        //Debug.Log("esta en el diccionario?" + enemyDictionary.ContainsKey(enemyType));
-
         if (enemyDictionary.ContainsKey(enemyType))
         {
 
@@ -31,9 +28,5 @@ public class FactoryEnemy : MonoBehaviour
             return null;
         }
 
-    }
-    void Update()
-    {
-        
     }
 }

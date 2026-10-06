@@ -3,13 +3,12 @@ using UnityEngine;
 
 public class InventaryWeapons : MonoBehaviour
 {
-    [SerializeField] UnityEngine.UI.Image[] toTheList;
-    [SerializeField] SimpleArrayList<UnityEngine.UI.Image> invImages = new SimpleArrayList<UnityEngine.UI.Image>();
-    SimpleArrayList<IWeapon> weapons = new SimpleArrayList<IWeapon>();
+    [SerializeField] UnityEngine.UI.Image[] toTheList; //array de imagenes
+    [SerializeField] SimpleArrayList<UnityEngine.UI.Image> invImages = new SimpleArrayList<UnityEngine.UI.Image>(); //lista con las imagenes que s erellena con el array
+    SimpleArrayList<IWeapon> weapons = new SimpleArrayList<IWeapon>(); //lista de armas
     int ItemActual = 0;
 
-    public IWeapon CurrentWeapon => weapons.Count > 0 ? weapons[ItemActual] : null;
-
+    
     void Start()
     {
         for (int i = 0; i < toTheList.Length; i++)
@@ -18,6 +17,18 @@ public class InventaryWeapons : MonoBehaviour
         }
         UpdateSelection();
     }
+    public IWeapon CurrentWeapon() //esto te dice el comportamiento del arma dependiendo de cual tenes en la mano en ese momento
+    {
+        if(weapons.Count > 0 && ItemActual < weapons.Count)
+        {
+            return weapons[ItemActual];
+        }
+        else
+        {
+            return null;
+        }
+    }
+    
 
     void Update()
     {
@@ -28,13 +39,23 @@ public class InventaryWeapons : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q))
         {
             ItemActual--;
-            if (ItemActual < 0) ItemActual = invImages.Count - 1;
+            if (ItemActual < 0)
+            {
+                ItemActual = invImages.Count - 1;
+                ItemActual = weapons.Count - 1;
+            }
+
+           
             UpdateSelection();
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
             ItemActual++;
-            if (ItemActual > invImages.Count - 1) ItemActual = 0;
+            if (ItemActual > invImages.Count - 1)
+            {
+                ItemActual = invImages.Count - 1;
+                ItemActual = 0;
+            }
             UpdateSelection();
         }
     }

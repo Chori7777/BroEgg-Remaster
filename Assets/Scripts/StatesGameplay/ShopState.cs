@@ -3,9 +3,12 @@ using UnityEngine.UI;
 
 public class ShopState : IState
 {
-    
     LevelManager levelManager;
-    public ShopState(LevelManager levelManager) { this.levelManager = levelManager; }
+
+    public ShopState(LevelManager levelManager) 
+    { 
+        this.levelManager = levelManager; 
+    }
 
     public void Enter()
     {
@@ -14,6 +17,7 @@ public class ShopState : IState
         for (int i = 0; i < levelManager.botones.Length; i++)
         {
             ShopProductData objeto = levelManager.inventory.ChooseObject();
+
             levelManager.botones[i].image.sprite = objeto.icon;
             levelManager.botones[i].GetComponent<ButtonLogic>().Setup(objeto);
         }

@@ -12,38 +12,26 @@ public class SimpleArrayDictionary<TKey, TValue> : ISimpleDictionary<TKey, TValu
     {
         get
         {
-            if (key == null)
-            {
-                throw new ArgumentNullException("Key is null");
-            }
+            if (key == null) throw new ArgumentNullException(nameof(key));
 
             int index = indexOf(key);
-
-            //si la key no esta, get no puede devolver nada valido: tira KeyNotFoundException
-            if (index < 0)
-            {
-                throw new KeyNotFoundException("Key is not in this Dictionary");
-            }
+            if (index < 0) throw new KeyNotFoundException($"La clave '{key}' no existe en el diccionario.");
 
             return internalArray[index].Value;
         }
         set
         {
-            if (key == null)
-            {
-                throw new ArgumentNullException("Key is null");
-            }
+            if (key == null) throw new ArgumentNullException(nameof(key));
 
             int index = indexOf(key);
-
             if (index >= 0)
             {
-                //la key existe: KeyValuePair es un struct y no se puede modificar, creamos un par nuevo y lo pisamos
+                // Si la clave existe, actualizamos su valor
                 internalArray[index] = new KeyValuePair<TKey, TValue>(key, value);
             }
             else
             {
-                //la key no existia: la agregamos al final como en Add y TryAdd
+                // Si no existe, lo agregamos como nuevo
                 ExecuteAdd(key, value);
             }
         }
@@ -70,21 +58,22 @@ public class SimpleArrayDictionary<TKey, TValue> : ISimpleDictionary<TKey, TValu
 
     public bool Remove(TKey key)
     {
-        if (key == null)
-        {
-            throw new ArgumentNullException("Key is null");
-        }
+        if (key == null) throw new ArgumentNullException(nameof(key));
 
         int index = indexOf(key);
 
-        //si la key no existe no hay nada que remover
+        // Si no existe la clave, no hay nada que eliminar papu
         if (index < 0) return false;
 
-        //como el orden no se garantiza no corremos todo: el ultimo elemento ocupa el lugar vacio
-        internalArray[index] = internalArray[count - 1];
+        //si es el ultio es una boludez
+        if (index == count - 1) internalArray[index] = default;
 
-        //limpiamos la ultima posicion (queda el par default) y bajamos count
-        internalArray[count - 1] = default(KeyValuePair<TKey, TValue>);
+        //si no es el ultimo
+        if (index != count - 1) internalArray[index] = internalArray[count - 1];
+
+
+        //Limpiamos la última referencia para evitar fugas de memoria (Garbage Collector)
+        internalArray[count - 1] = default;
         count--;
 
         return true;
@@ -92,8 +81,7 @@ public class SimpleArrayDictionary<TKey, TValue> : ISimpleDictionary<TKey, TValu
 
     public void Clear()
     {
-        //el array nuevo vuelve a la capacidad inicial (con new ...[count] podia quedar de largo 0 y Resize nunca terminaba)
-        internalArray = new KeyValuePair<TKey, TValue>[defaultCapacity];
+        internalArray = new KeyValuePair<TKey, TValue>[count];
         count = 0;
     }
 
@@ -109,33 +97,34 @@ public class SimpleArrayDictionary<TKey, TValue> : ISimpleDictionary<TKey, TValu
 
     public bool TryAdd(TKey key, TValue value)
     {
-        //ContainsKey ya valida que la key no sea null
-        if (ContainsKey(key))
-        {
-            return false;
-        }
+        if (key == null) return false;
+
+        // Si ya contiene la clave, devolvemos false sin tirar excepción
+        if (ContainsKey(key)) return false;
 
         ExecuteAdd(key, value);
         return true;
     }
 
+    // 3. IMPLEMENTACIÓN DE TRYGETVALUE
     public bool TryGetValue(TKey key, out TValue value)
     {
         if (key == null)
         {
-            throw new ArgumentNullException("Key is null");
+            value = default;
+            return false;
         }
 
         int index = indexOf(key);
 
         if (index >= 0)
         {
-            value = internalArray[index].Value; //guardamos el valor en el parametro out
+            value = internalArray[index].Value;
             return true;
         }
 
-        //out obliga a asignar value en todos los caminos, si no esta le damos su valor default
-        value = default(TValue);
+        // Si no se encuentra la clave, devolvemos el valor por defecto de TValue
+        value = default;
         return false;
     }
 
@@ -207,7 +196,7 @@ public class SimpleArrayDictionary<TKey, TValue> : ISimpleDictionary<TKey, TValu
     void ExecuteAdd(TKey key, TValue value)
     {
         ValidateSize(count);
-        internalArray[count] = new KeyValuePair<TKey, TValue>(key, value);
+        internalArray[count] = new KeyValuePair<TKey, TValue>(key, value); //agrego al diccionario un nuevo par de valores en la ultima pos del array
         count++;
     }
 }

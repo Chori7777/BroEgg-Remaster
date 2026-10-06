@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: ShotgunData
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   tier: 0
+  shootingType: 2
   idWeapon: Shotgun
   baseDamage: 6
   magazineSize: 8

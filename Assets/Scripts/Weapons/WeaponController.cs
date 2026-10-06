@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using static WeaponData;
 
 public class WeaponController : MonoBehaviour, IWeapon
 {
@@ -16,20 +17,41 @@ public class WeaponController : MonoBehaviour, IWeapon
     private int currentAmmo;
     private bool isReloading = false;
 
+    public ShootingType GetShootingType()
+    {
+        if (weaponData != null)
+        {
+            return weaponData.GetShootingType;
+        }
+
+        return ShootingType.Single; // Valor por defecto en caso de que weaponData sea null papu
+    }
+
     void Start()
     {
         behavior = new SingleShootBehavior();
 
         stats = GetComponentInParent<PlayerStats>();
-        playerCollider = stats.GetComponent<Collider2D>();
+        TryInitStats();
 
         currentAmmo = weaponData.MagazineSize;
     }
-
+    private void TryInitStats()
+    {
+        if (stats == null)
+        {
+            stats = GetComponentInParent<PlayerStats>();
+            if (stats != null)
+            {
+                playerCollider = stats.GetComponent<Collider2D>();
+            }
+        }
+    }
     public void shoot()
     {
         if (isReloading) return;
         if (Time.time < nextFireTime) return;
+        TryInitStats();
 
         if (currentAmmo <= 0)
         {

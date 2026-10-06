@@ -34,21 +34,25 @@ public class PlayerWeaponManager : MonoBehaviour
         
         bool isTriggering = false;
 
-        if (currentWeapon.GetShootingType() == ShootingType.Automatic)
+        if (currentWeapon != null)
         {
-            // Automática
-            isTriggering = Input.GetMouseButton(0);
+            if (currentWeapon.GetShootingType() == ShootingType.Automatic)
+            {
+                // Automática
+                isTriggering = Input.GetMouseButton(0);
+            }
+            else if (currentWeapon.GetShootingType() == ShootingType.Single)
+            {
+                // Semiautomática
+                isTriggering = Input.GetMouseButtonDown(0);
+            }
+            else
+            {
+                // Escopeta
+                isTriggering = Input.GetMouseButtonDown(0);
+            }
         }
-        else if(currentWeapon.GetShootingType() == ShootingType.Single)
-        {
-            // Semiautomática
-            isTriggering = Input.GetMouseButtonDown(0);
-        }
-        else
-        {
-            // Escopeta
-            isTriggering = Input.GetMouseButtonDown(0);
-        }
+            
 
         if (isTriggering)
         {

@@ -5,6 +5,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private PlayerStats playerStats;
     [SerializeField] private Rigidbody2D rb;
 
+    [SerializeField] private Animator animator;
+    public Animator Animator => animator;
+
+
     public IState IdleState { get; private set; }
     public IState WalkState { get; private set; }
     public IState DashState { get; private set; }
@@ -45,5 +49,7 @@ public class PlayerMovement : MonoBehaviour
         y = Input.GetAxisRaw("Vertical");
 
         statemachine.UpdateMachine();
+
+
     }
 }

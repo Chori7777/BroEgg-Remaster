@@ -140,5 +140,5 @@ public class UIManager : MonoBehaviour
 
     public void CloseGame() => Application.Quit();
 
-    public void StartGame() => SceneManager.LoadScene("Miara");
+    public void StartGame() => SceneManager.LoadScene("Game");
 }

@@ -1,25 +1,25 @@
 fileFormatVersion: 2
-guid: bf6307788ce2913448ac08e27df91716
+guid: f3774322dca8b8d43a0af82f0fbae118
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5116820198538261934
-    second: PERSONAJE DO PRINCIPIO-Sheet_0
+      213: 8231559270156761790
+    second: PERSONAJE DO PRINCIPIO_WALK_0
   - first:
-      213: 2195168285192501400
-    second: PERSONAJE DO PRINCIPIO-Sheet_1
+      213: 7796641140266609186
+    second: PERSONAJE DO PRINCIPIO_WALK_1
   - first:
-      213: 5479779090134519474
-    second: PERSONAJE DO PRINCIPIO-Sheet_2
+      213: -5634843124106597779
+    second: PERSONAJE DO PRINCIPIO_WALK_2
   - first:
-      213: -678177874876040059
-    second: PERSONAJE DO PRINCIPIO-Sheet_3
+      213: -3397313077646483853
+    second: PERSONAJE DO PRINCIPIO_WALK_3
   - first:
-      213: -8432912020083087721
-    second: PERSONAJE DO PRINCIPIO-Sheet_4
+      213: 6870287706566485402
+    second: PERSONAJE DO PRINCIPIO_WALK_4
   - first:
-      213: 2398268543808350379
-    second: PERSONAJE DO PRINCIPIO-Sheet_5
+      213: 9059920181755638013
+    second: PERSONAJE DO PRINCIPIO_WALK_5
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -63,7 +63,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 64
@@ -115,133 +115,133 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PERSONAJE DO PRINCIPIO-Sheet_0
+      name: PERSONAJE DO PRINCIPIO_WALK_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 1
-        width: 62
-        height: 62
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ea5ba694cd8920740800000000000000
-      internalID: 5116820198538261934
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PERSONAJE DO PRINCIPIO-Sheet_1
-      rect:
-        serializedVersion: 2
-        x: 68
+        x: 0
         y: 0
-        width: 56
-        height: 62
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8983a15ccedc67e10800000000000000
-      internalID: 2195168285192501400
+      spriteID: eba74452b8f5c3270800000000000000
+      internalID: 8231559270156761790
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PERSONAJE DO PRINCIPIO-Sheet_2
+      name: PERSONAJE DO PRINCIPIO_WALK_1
       rect:
         serializedVersion: 2
-        x: 136
-        y: 1
-        width: 48
-        height: 61
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2bec413ac061c0c40800000000000000
-      internalID: 5479779090134519474
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PERSONAJE DO PRINCIPIO-Sheet_3
-      rect:
-        serializedVersion: 2
-        x: 203
+        x: 64
         y: 0
-        width: 42
-        height: 62
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 58cfb71e0d0a696f0800000000000000
-      internalID: -678177874876040059
+      spriteID: 22aa9c60fcb333c60800000000000000
+      internalID: 7796641140266609186
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PERSONAJE DO PRINCIPIO-Sheet_4
+      name: PERSONAJE DO PRINCIPIO_WALK_2
       rect:
         serializedVersion: 2
-        x: 267
+        x: 128
         y: 0
-        width: 42
-        height: 61
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 79663dc723748fa80800000000000000
-      internalID: -8432912020083087721
+      spriteID: d6ae29688040dc1b0800000000000000
+      internalID: -5634843124106597779
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PERSONAJE DO PRINCIPIO-Sheet_5
+      name: PERSONAJE DO PRINCIPIO_WALK_3
       rect:
         serializedVersion: 2
-        x: 327
+        x: 192
         y: 0
-        width: 50
-        height: 62
+        width: 64
+        height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ba8a0b5b88c584120800000000000000
-      internalID: 2398268543808350379
+      spriteID: 37e971071c15ad0d0800000000000000
+      internalID: -3397313077646483853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PERSONAJE DO PRINCIPIO_WALK_4
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a95e0aec44a285f50800000000000000
+      internalID: 6870287706566485402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PERSONAJE DO PRINCIPIO_WALK_5
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df0ffee576d4bbd70800000000000000
+      internalID: 9059920181755638013
       vertices: []
       indices: 
       edges: []
@@ -250,7 +250,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: d2d030a21382f6040854c35138c4ac95
     internalID: 0
     vertices: []
     indices: 
@@ -258,14 +258,16 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      PERSONAJE DO PRINCIPIO-Sheet_0: 5116820198538261934
-      PERSONAJE DO PRINCIPIO-Sheet_1: 2195168285192501400
-      PERSONAJE DO PRINCIPIO-Sheet_2: 5479779090134519474
-      PERSONAJE DO PRINCIPIO-Sheet_3: -678177874876040059
-      PERSONAJE DO PRINCIPIO-Sheet_4: -8432912020083087721
-      PERSONAJE DO PRINCIPIO-Sheet_5: 2398268543808350379
+      PERSONAJE DO PRINCIPIO_WALK_0: 8231559270156761790
+      PERSONAJE DO PRINCIPIO_WALK_1: 7796641140266609186
+      PERSONAJE DO PRINCIPIO_WALK_2: -5634843124106597779
+      PERSONAJE DO PRINCIPIO_WALK_3: -3397313077646483853
+      PERSONAJE DO PRINCIPIO_WALK_4: 6870287706566485402
+      PERSONAJE DO PRINCIPIO_WALK_5: 9059920181755638013
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -23,5 +23,8 @@ public class WeaponAim : MonoBehaviour
         // Calcular el angulo entre el pivot y el mouse a partir del vector direccion, y rota el arma para que apunte ahi
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         weaponTransform.rotation = Quaternion.Euler(0, 0, angle);
+        Vector3 scale = weaponTransform.localScale;
+        scale.y = Mathf.Abs(scale.y) * (direction.x < 0 ? -1 : 1);
+        weaponTransform.localScale = scale;
     }
 }

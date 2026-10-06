@@ -10,7 +10,7 @@ public class Idle : IState
     }
     public void Enter()
     {
-        
+        player.Animator.CrossFade("PlayerIdle", 0.05f);
     }
 
     public void Exit()

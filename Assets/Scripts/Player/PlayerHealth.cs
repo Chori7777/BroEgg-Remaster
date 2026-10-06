@@ -1,6 +1,7 @@
 
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour, IDamageable
 {
@@ -10,6 +11,8 @@ public class PlayerHealth : MonoBehaviour, IDamageable
    [SerializeField] private float regenTimer;
     // Evento para notificar cambios en la salud del jugador
     public event Action<int, int> OnHealthChanged;
+    // Evento para notificar cuando el jugador recibe daño
+    public event Action OnDamaged;
 
     private void Start()
     {
@@ -32,7 +35,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
       playerStats.SetHealth(playerStats.Health - finalDamage);
 
         OnHealthChanged?.Invoke(playerStats.Health, playerStats.MaxHealth);
-
+        OnDamaged?.Invoke();
         if (playerStats.Health <= 0)
         {
             Die();
@@ -42,6 +45,8 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     private void Die()
     {
         Debug.Log("Murio el jugador");
+        SceneManager.LoadScene("LoseScreen");
+
     }
 
     void Update()

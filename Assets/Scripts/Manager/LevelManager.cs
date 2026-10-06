@@ -19,6 +19,7 @@ public class LevelManager : MonoBehaviour
     public Image shopPanel;
     public Button[] botones;
     public ObjectsInventory inventory;
+    public ShopManager shopManager;
 
     public LevelStateMachine levelStateMachine;
 

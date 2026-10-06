@@ -1,35 +1,67 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 
+// Este catálogo contiene los productos de la tienda, no los objetos del jugador.
 public class ObjectsInventory : MonoBehaviour
 {
+    [FormerlySerializedAs("objectList")]
     public List<ShopProductData> shopList = new List<ShopProductData>();
-    public Dictionary<string, ShopProductData> shopDictionary = new Dictionary<string, ShopProductData>();
 
-
-    //Se aplica toda la lista de objetos en el diccionario
-    void Start()
+    public List<ShopProductData> GenerateOffers(int count, InventaryManager inventory)
     {
-        for (int i = 0; i < shopList.Count; i++)
+        List<ShopProductData> candidates = GetAvailableProducts(inventory);
+        List<ShopProductData> offers = new List<ShopProductData>();
+
+        while (offers.Count < count && candidates.Count > 0)
         {
-            shopDictionary.Add(shopList[i].id, shopList[i]);
+            int randomIndex = Random.Range(0, candidates.Count);
+            ShopProductData selectedProduct = candidates[randomIndex];
 
+            offers.Add(selectedProduct);
+
+            // Se retira de la lista temporal para que no aparezca en otra oferta.
+            candidates.RemoveAt(randomIndex);
         }
-    }
-    public ShopProductData ChooseObject()
-    {
-        if (shopDictionary.Count == 0)
-        { return null; }
 
-        int randomIndex = Random.Range(0, shopDictionary.Count);
-        return shopDictionary.Values.ElementAt(randomIndex);
-        //esta linea agarra todos los valores del diccionario en el "Values" y con elementAt en randomindex agarra un objeto random de los valores q reconocio antes en Values
+        return offers;
     }
 
-
-    void Update()
+    private List<ShopProductData> GetAvailableProducts(InventaryManager inventory)
     {
+        List<ShopProductData> candidates = new List<ShopProductData>();
+        HashSet<string> includedIds = new HashSet<string>();
 
+        foreach (ShopProductData product in shopList)
+        {
+            if (product == null)
+            {
+                continue;
+            }
+
+            if (string.IsNullOrWhiteSpace(product.id))
+            {
+                continue;
+            }
+
+            if (product.price < 0)
+            {
+                continue;
+            }
+
+            if (product is ObjectShopData && inventory.Contains(product.id))
+            {
+                continue;
+            }
+
+            if (!includedIds.Add(product.id))
+            {
+                continue;
+            }
+
+            candidates.Add(product);
+        }
+
+        return candidates;
     }
 }

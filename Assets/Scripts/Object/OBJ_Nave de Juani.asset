@@ -15,8 +15,9 @@ MonoBehaviour:
   id: Nave de Juani
   displayName: Nave de Juani
   icon: {fileID: -7349606042115111091, guid: 7fcceda30353c4b48b73aa4e7a3ceb26, type: 3}
-  price: 0
-  baseHealth: 0
+  price: 10
+  baseHealth: 20
   baseArmor: 0
   baseDamage: 0
   baseSpeed: 0
+  sellPriceRatio: 0.5

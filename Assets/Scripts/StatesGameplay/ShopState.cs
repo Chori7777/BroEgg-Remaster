@@ -1,26 +1,18 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class ShopState : IState
 {
-    LevelManager levelManager;
+    private readonly LevelManager levelManager;
 
-    public ShopState(LevelManager levelManager) 
-    { 
-        this.levelManager = levelManager; 
+    public ShopState(LevelManager levelManager)
+    {
+        this.levelManager = levelManager;
     }
 
     public void Enter()
     {
         levelManager.shopPanel.gameObject.SetActive(true);
-
-        for (int i = 0; i < levelManager.botones.Length; i++)
-        {
-            ShopProductData objeto = levelManager.inventory.ChooseObject();
-
-            levelManager.botones[i].image.sprite = objeto.icon;
-            levelManager.botones[i].GetComponent<ButtonLogic>().Setup(objeto);
-        }
+        levelManager.shopManager.Open();
         levelManager.ChangeTime(0);
     }
 
@@ -30,12 +22,13 @@ public class ShopState : IState
         {
             levelManager.shopPanel.gameObject.SetActive(false);
             levelManager.levelStateMachine.ChangeState(levelManager.levelStateMachine.Gameplay);
-            return;
         }
     }
 
     public void Exit()
     {
+        levelManager.shopManager.Close();
+        levelManager.shopPanel.gameObject.SetActive(false);
         levelManager.ChangeTime(1f);
     }
 }

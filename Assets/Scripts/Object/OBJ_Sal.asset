@@ -15,8 +15,9 @@ MonoBehaviour:
   id: Sal
   displayName: Sal
   icon: {fileID: -722884648397021377, guid: 47d15ca978955274b99db90139c371a6, type: 3}
-  price: 0
-  baseHealth: 0
+  price: 10
+  baseHealth: 20
   baseArmor: 0
   baseDamage: 0
   baseSpeed: 0
+  sellPriceRatio: 0.5

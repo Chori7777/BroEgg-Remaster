@@ -1,26 +1,41 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ButtonLogic : MonoBehaviour
 {
-    private ShopProductData product;
-    [SerializeField] private PlayerWeaponManager weaponManager;
+    [SerializeField] private ShopManager shopManager;
 
-    public void Setup(ShopProductData product)
+    private ShopProductData product;
+
+    public void Setup(ShopProductData product, ShopManager manager)
     {
         this.product = product;
+        shopManager = manager;
+
+        gameObject.SetActive(product != null);
+
+        if (product == null)
+        {
+            return;
+        }
+
+        Button button = GetComponent<Button>();
+        button.interactable = true;
+        button.image.sprite = product.icon;
     }
 
     public void BuyProduct()
     {
-        if (product is WeaponShopData weapon)
+        if (shopManager == null)
         {
-            Debug.Log("compre arma");
-            weaponManager.GiveWeapon(weapon.weaponPrefab.WeaponData.IdWeapon);
+            return;
         }
-        else if (product is ObjectShopData obj)
+
+        bool bought = shopManager.TryBuy(product);
+
+        if (bought)
         {
-            Debug.Log("compre objeto");
+            GetComponent<Button>().interactable = false;
         }
     }
-
 }

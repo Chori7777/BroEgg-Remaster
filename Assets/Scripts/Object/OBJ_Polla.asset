@@ -15,8 +15,9 @@ MonoBehaviour:
   id: Polla
   displayName: Polla
   icon: {fileID: -4936644330148155580, guid: 7011bd63b30e94342b01bd24f1da1f40, type: 3}
-  price: 0
-  baseHealth: 0
+  price: 10
+  baseHealth: 20
   baseArmor: 0
   baseDamage: 0
   baseSpeed: 0
+  sellPriceRatio: 0.5

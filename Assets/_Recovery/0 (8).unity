@@ -409,7 +409,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.005, y: -0.01}
+  m_AnchoredPosition: {x: 0.022497278, y: 0.011662541}
   m_SizeDelta: {x: 0.09375, y: 0.28125}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &33077733
@@ -526,10 +526,6 @@ PrefabInstance:
     - target: {fileID: 1373675011906369707, guid: 355c7db4a7aca63459dba81972b9fde0, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 1373675011906369707, guid: 355c7db4a7aca63459dba81972b9fde0, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1685697761284713961, guid: 355c7db4a7aca63459dba81972b9fde0, type: 3}
       propertyPath: playerStats
@@ -740,7 +736,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LevelManager
   waveList:
   - EnemiesPerWave: 4
-    Time: 15
+    Time: 60
     WaveRate: 4
     enemyProbabilities:
     - EnemyId: Chaser

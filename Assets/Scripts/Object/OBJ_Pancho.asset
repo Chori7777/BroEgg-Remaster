@@ -15,8 +15,9 @@ MonoBehaviour:
   id: Pancho
   displayName: Pancho
   icon: {fileID: -2043600030600106530, guid: 7b38289d101773543b9c7485d8e87647, type: 3}
-  price: 0
-  baseHealth: 0
+  price: 10
+  baseHealth: 20
   baseArmor: 0
   baseDamage: 0
   baseSpeed: 0
+  sellPriceRatio: 0.5

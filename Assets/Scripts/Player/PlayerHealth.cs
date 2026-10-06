@@ -11,8 +11,23 @@ public class PlayerHealth : MonoBehaviour, IDamageable
    [SerializeField] private float regenTimer;
     // Evento para notificar cambios en la salud del jugador
     public event Action<int, int> OnHealthChanged;
-    // Evento para notificar cuando el jugador recibe daño
+    // Evento para notificar cuando el jugador recibe daÃ±o
     public event Action OnDamaged;
+
+    private void OnEnable()
+    {
+        playerStats.OnStatsChanged += NotifyHealthChanged;
+    }
+
+    private void OnDisable()
+    {
+        playerStats.OnStatsChanged -= NotifyHealthChanged;
+    }
+
+    private void NotifyHealthChanged()
+    {
+        OnHealthChanged?.Invoke(playerStats.Health, playerStats.MaxHealth);
+    }
 
     private void Start()
     {

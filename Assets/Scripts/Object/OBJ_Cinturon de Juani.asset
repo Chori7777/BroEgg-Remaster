@@ -15,8 +15,9 @@ MonoBehaviour:
   id: Cinturon de Juani
   displayName: Cinturon de Juani
   icon: {fileID: -3092852093837215433, guid: ff101bf996fce2f49adcd4474e85f587, type: 3}
-  price: 0
-  baseHealth: 0
+  price: 10
+  baseHealth: 20
   baseArmor: 0
   baseDamage: 0
   baseSpeed: 0
+  sellPriceRatio: 0.5

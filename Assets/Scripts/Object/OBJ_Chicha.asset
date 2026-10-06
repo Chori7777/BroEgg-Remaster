@@ -15,8 +15,9 @@ MonoBehaviour:
   id: Chicha
   displayName: Chicha
   icon: {fileID: -2228281330929224783, guid: f5c3e6da6fb423947a3451955c542dd2, type: 3}
-  price: 0
-  baseHealth: 0
+  price: 10
+  baseHealth: 20
   baseArmor: 0
   baseDamage: 0
   baseSpeed: 0
+  sellPriceRatio: 0.5

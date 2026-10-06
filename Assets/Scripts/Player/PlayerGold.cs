@@ -31,6 +31,10 @@ public class PlayerGold : MonoBehaviour
     // Futura variable para comprar objetos, si el jugador tiene suficiente oro, se gasta y devuelve true, sino devuelve false
     public bool SpendGold(int amount)
     {
+        if (amount < 0)
+        {
+            return false;
+        }
         if (gold >= amount)
         {
             gold -= amount;

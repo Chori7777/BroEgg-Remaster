@@ -1,62 +1,73 @@
-
+using System;
 using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-
-
     [SerializeField] private PlayerData playerData;
+    [SerializeField] private InventaryManager objectInventory;
 
+    // Vida
     [SerializeField] private int maxHealth;
     [SerializeField] private int health;
     [SerializeField] private int armor;
     [SerializeField] private int healthRegeneration;
 
-    //Da�o
+    // Daño
     [SerializeField] private int damage;
     [SerializeField] private int critDamage;
     [SerializeField] private int magicDamage;
     [SerializeField] private int criticalChance;
-    //Varios
 
+    // Otros atributos
     [SerializeField] private int speed;
     [SerializeField] private int dodgeChance;
     [SerializeField] private int harvesting;
     [SerializeField] private int curse;
 
-  // dinero
+    // Bonificaciones del inventario que ya están incluidas en las stats actuales.
+    private int appliedMaxHealthBonus;
+    private int appliedArmorBonus;
+    private int appliedDamageBonus;
+    private int appliedSpeedBonus;
 
-
-
-    
-
-    //Gets de Vida
     public int Health => health;
+    public int MaxHealth => Mathf.Max(1, maxHealth);
     public int Armor => armor;
-
-    public int MaxHealth => maxHealth;
     public int HealthRegeneration => healthRegeneration;
 
-    //Gets de da�o
-
+    public int Damage => damage;
     public int CritDamage => critDamage;
     public int MagicDamage => magicDamage;
-
     public int CriticalChance => criticalChance;
 
-    public int Damage => damage;
-
-
-
-    //Gets de varios
-    public int Speed => speed;
+    public int Speed => Mathf.Max(0, speed);
     public int DodgeChance => dodgeChance;
     public int Harvesting => harvesting;
     public int Curse => curse;
 
+    public event Action OnStatsChanged;
+
     private void Awake()
     {
         Initialize();
+    }
+
+    private void OnEnable()
+    {
+        if (objectInventory != null)
+        {
+            objectInventory.OnInventoryChanged += RecalculateObjectBonuses;
+        }
+
+        RecalculateObjectBonuses();
+    }
+
+    private void OnDisable()
+    {
+        if (objectInventory != null)
+        {
+            objectInventory.OnInventoryChanged -= RecalculateObjectBonuses;
+        }
     }
 
     public void Initialize()
@@ -70,41 +81,94 @@ public class PlayerStats : MonoBehaviour
         maxHealth = playerData.BaseHealth;
         health = playerData.BaseHealth;
         armor = playerData.BaseArmor;
-        damage = playerData.BaseDamage;
-        speed = playerData.BaseSpeed ;
         healthRegeneration = playerData.BaseHealthRegeneration;
+
+        damage = playerData.BaseDamage;
         critDamage = playerData.BaseCritDamage;
         magicDamage = playerData.BaseMagicDamage;
         criticalChance = playerData.BaseCriticalChance;
-        dodgeChance = playerData.BaseDodgeChance;
-        curse= playerData.BaseCurse;
-        harvesting=playerData.BaseHarvesting;
 
+        speed = playerData.BaseSpeed;
+        dodgeChance = playerData.BaseDodgeChance;
+        harvesting = playerData.BaseHarvesting;
+        curse = playerData.BaseCurse;
+
+        appliedMaxHealthBonus = 0;
+        appliedArmorBonus = 0;
+        appliedDamageBonus = 0;
+        appliedSpeedBonus = 0;
+
+        RecalculateObjectBonuses();
+    }
+
+    public void RecalculateObjectBonuses()
+    {
+        if (playerData == null)
+        {
+            return;
+        }
+
+        if (objectInventory == null)
+        {
+            return;
+        }
+
+        int maxHealthBonus = 0;
+        int armorBonus = 0;
+        int damageBonus = 0;
+        int speedBonus = 0;
+
+        foreach (ObjectShopData item in objectInventory.GetObjects())
+        {
+            maxHealthBonus += item.BonusMaxHealth;
+            armorBonus += item.BonusArmor;
+            damageBonus += item.BonusDamage;
+            speedBonus += item.BonusSpeed;
+        }
+
+        // Reemplaza la contribución anterior del inventario por la nueva.
+        // Así se conservan las mejoras obtenidas por otros medios.
+        maxHealth = maxHealth - appliedMaxHealthBonus + maxHealthBonus;
+        armor = armor - appliedArmorBonus + armorBonus;
+        damage = damage - appliedDamageBonus + damageBonus;
+        speed = speed - appliedSpeedBonus + speedBonus;
+
+        appliedMaxHealthBonus = maxHealthBonus;
+        appliedArmorBonus = armorBonus;
+        appliedDamageBonus = damageBonus;
+        appliedSpeedBonus = speedBonus;
+
+        // Cambiar la vida máxima no cura; limita la vida actual al nuevo máximo.
+        health = Mathf.Clamp(health, 0, MaxHealth);
+
+        OnStatsChanged?.Invoke();
     }
 
     public void SetHealth(int value)
     {
-        // para q la vida no se ponga en negativo, si eso llega a pasar se pone en 0, metodos de seguridad amigo!
-        health = Mathf.Clamp(value, 0, maxHealth);
+        health = Mathf.Clamp(value, 0, MaxHealth);
     }
-
 
     public void AddDamage(int amount)
     {
         damage += amount;
     }
+
     public void AddArmor(int amount)
     {
         armor += amount;
     }
+
     public void AddSpeed(int amount)
     {
         speed += amount;
     }
+
     public void AddCriticalChance(int amount)
     {
         criticalChance += amount;
     }
+
     public void AddDodgeChance(int amount)
     {
         dodgeChance += amount;
@@ -113,7 +177,7 @@ public class PlayerStats : MonoBehaviour
     public void AddMaxHealth(int amount)
     {
         maxHealth += amount;
-        health = Mathf.Clamp(health + amount, 0, maxHealth);
+        health = Mathf.Clamp(health + amount, 0, MaxHealth);
     }
 
     public void AddHarvesting(int amount)
@@ -125,8 +189,4 @@ public class PlayerStats : MonoBehaviour
     {
         curse += amount;
     }
-    //AMIGO LO SIENTO ESTE ES MI UNICO ERROR
 }
-
-
-

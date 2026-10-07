@@ -70,6 +70,11 @@ namespace ED262C
             throw new System.NotImplementedException();
         }
 
+        public void QuickSort(Comparison<T> criterion, int low, int high)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool Remove(T item)
         {
             LinkedNode<T> toRemove = GetNodeByValue(item);

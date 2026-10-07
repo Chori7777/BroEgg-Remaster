@@ -11,7 +11,7 @@ public class PlayerWeaponManager : MonoBehaviour
     void Start()
     {
         GiveWeapon("Pistol");
-        GiveWeapon("SemiAuRifle");
+        GiveWeapon("Shotgun");
     }
 
     public void GiveWeapon(string weaponId)
@@ -46,10 +46,11 @@ public class PlayerWeaponManager : MonoBehaviour
                 // Semiautomática
                 isTriggering = Input.GetMouseButtonDown(0);
             }
-            else
+            if (currentWeapon.GetShootingType() == ShootingType.Shotgun)
             {
                 // Escopeta
                 isTriggering = Input.GetMouseButtonDown(0);
+                Debug.Log("shotgun mode");
             }
         }
             

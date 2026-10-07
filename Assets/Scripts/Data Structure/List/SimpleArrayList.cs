@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Concurrent;
+using UnityEngine.Rendering;
 
 namespace ED262C
 {
@@ -212,6 +214,40 @@ namespace ED262C
 
             // Devolvemos el array completo
             return result;
+        }
+        public void Sort(Comparison<T> criterion)
+        {
+            QuickSort(criterion, 0, count - 1);
+        }
+        public void QuickSort(Comparison<T> criterion, int low, int high)
+        {
+            int pivot = Partition(criterion, low, high);
+
+            QuickSort(criterion, low, pivot - 1);
+            QuickSort(criterion, pivot + 1, high);
+        }
+        int Partition(Comparison<T> criterion, int low, int high)
+        {
+            T pivot = internalArray[high];
+
+            int i = low - 1;
+
+            for(int j = low; j < high; j++)
+            {
+                if (criterion(internalArray[j], pivot) < 0)
+                {
+                    i++;
+                    Swap(i, j);
+                }
+            }
+            Swap(i + 1, high);
+            return i + 1;
+        }
+        private void Swap(int a, int b)
+        {
+            T temporary = internalArray[a];
+            internalArray[a] = internalArray[b];
+            internalArray[b] = temporary;
         }
     }
 }

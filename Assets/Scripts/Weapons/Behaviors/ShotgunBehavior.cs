@@ -31,8 +31,8 @@ public class ShotgunBehavior : IWeaponBehavior
             bullet.transform.position = weaponTransform.position;
 
             // Variación aleatoria de ángulo dentro del cono de dispersión
-            float randomOffset = Random.Range(-spreadAngle / 2f, spreadAngle / 2f);
-            float finalAngle = baseAngle + randomOffset;
+            //float randomOffset = Random.Range(-spreadAngle / 2f, spreadAngle / 2f);
+            float finalAngle = baseAngle += 10;
 
             // Convertimos el ángulo final a vector de dirección 2D
             Vector2 pelletDirection = new Vector2(
@@ -44,6 +44,7 @@ public class ShotgunBehavior : IWeaponBehavior
 
             // Configuramos la bala con su dirección y daño individual
             bullet.Setup(pelletDirection, damagePerPellet, shooterCollider);
+            Debug.Log("bala");
         }
     }
 }

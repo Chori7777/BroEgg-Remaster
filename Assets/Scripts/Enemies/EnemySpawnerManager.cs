@@ -133,5 +133,17 @@ namespace ED262C
 
             enemy.Initialize(LevelManager.Instance.CurrentRound);
         }
+
+        public void ClearEnemies()
+        {
+            Enemy[] enemies = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
+
+            for (int i = 0; i < enemies.Length; i++)
+            {
+                Destroy(enemies[i].gameObject);
+            }
+        }
+
+
     }
 }

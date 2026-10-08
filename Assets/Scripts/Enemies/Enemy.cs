@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour, IDamageable
 {
     public static event Action<int> OnEnemyGoldDrop; // evento que avisa a la UI que el enemigo ha muerto y que debe actualizarse el oro del jugador
-    public static event Action<int> OnEnemyDeath; // Para cuando hagamos xp xd
+    //public static event Action<int> OnEnemyDeath; // Para cuando hagamos xp xd
     // Identificacion
     public string id;
     private bool initialized;

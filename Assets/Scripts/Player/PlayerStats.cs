@@ -15,7 +15,6 @@ public class PlayerStats : MonoBehaviour
     // Daño
     [SerializeField] private int damage;
     [SerializeField] private int critDamage;
-    [SerializeField] private int magicDamage;
     [SerializeField] private int criticalChance;
 
     // Otros atributos
@@ -37,7 +36,6 @@ public class PlayerStats : MonoBehaviour
 
     public int Damage => damage;
     public int CritDamage => critDamage;
-    public int MagicDamage => magicDamage;
     public int CriticalChance => criticalChance;
 
     public int Speed => Mathf.Max(0, speed);
@@ -85,7 +83,6 @@ public class PlayerStats : MonoBehaviour
 
         damage = playerData.BaseDamage;
         critDamage = playerData.BaseCritDamage;
-        magicDamage = playerData.BaseMagicDamage;
         criticalChance = playerData.BaseCriticalChance;
 
         speed = playerData.BaseSpeed;
@@ -138,7 +135,7 @@ public class PlayerStats : MonoBehaviour
         appliedDamageBonus = damageBonus;
         appliedSpeedBonus = speedBonus;
 
-        // Cambiar la vida máxima no cura; limita la vida actual al nuevo máximo.
+        // Cambiar la vida máxima no cura limita la vida actual al nuevo máximo.
         health = Mathf.Clamp(health, 0, MaxHealth);
 
         OnStatsChanged?.Invoke();
@@ -152,37 +149,45 @@ public class PlayerStats : MonoBehaviour
     public void AddDamage(int amount)
     {
         damage += amount;
+        OnStatsChanged?.Invoke();
     }
 
     public void AddArmor(int amount)
     {
         armor += amount;
+        OnStatsChanged?.Invoke();
     }
 
     public void AddSpeed(int amount)
     {
         speed += amount;
+        OnStatsChanged?.Invoke();
     }
 
     public void AddCriticalChance(int amount)
     {
         criticalChance += amount;
+        OnStatsChanged?.Invoke();
     }
 
     public void AddDodgeChance(int amount)
     {
         dodgeChance += amount;
+        OnStatsChanged?.Invoke();
     }
 
     public void AddMaxHealth(int amount)
     {
         maxHealth += amount;
         health = Mathf.Clamp(health + amount, 0, MaxHealth);
+        OnStatsChanged?.Invoke();
     }
 
     public void AddHarvesting(int amount)
     {
         harvesting += amount;
+        
+        OnStatsChanged?.Invoke();
     }
 
     public void Addcurse(int amount)

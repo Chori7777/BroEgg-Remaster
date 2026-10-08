@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 994e4727474b1d44e886b8d8a0a39645
+guid: f0c471bfd596df849a5bedd250a9c9d0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8396583098185557497
-    second: GeneralHUD_0
+      213: 944221029811815450
+    second: ButtonShop_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 2
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,23 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: GeneralHUD_0
+      name: ButtonShop_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 64
-        height: 64
+        height: 34
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 70ad991c828597b80800000000000000
-      internalID: -8396583098185557497
+      spriteID: a14036f160c8a1d00800000000000000
+      internalID: 944221029811815450
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 2b0ae7b98997cda448bd88e3d571365b
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      GeneralHUD_0: -8396583098185557497
+      ButtonShop_0: 944221029811815450
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

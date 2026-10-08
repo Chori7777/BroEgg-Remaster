@@ -11,6 +11,8 @@ public class ShopState : IState
 
     public void Enter()
     {
+        levelManager.enemySpawnerManager.ClearEnemies();
+        Cursor.visible = true;
         levelManager.shopPanel.gameObject.SetActive(true);
         levelManager.shopManager.Open();
         levelManager.ChangeTime(0);
@@ -30,5 +32,6 @@ public class ShopState : IState
         levelManager.shopManager.Close();
         levelManager.shopPanel.gameObject.SetActive(false);
         levelManager.ChangeTime(1f);
+        Cursor.visible = false;
     }
 }

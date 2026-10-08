@@ -780,7 +780,7 @@ MonoBehaviour:
   - {fileID: 1128773561}
   - {fileID: 1045051096}
   inventory: {fileID: 7862889200735666099}
-  shopManager: {fileID: 7862889200735666100}
+  shopManager: {fileID: 0}
   enemySpawnerManager: {fileID: 1296118798}
 --- !u!4 &202338225
 Transform:
@@ -2407,7 +2407,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 544fe4c905aaf034aa59c4086be7d8ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonLogic
-  shopManager: {fileID: 7862889200735666100}
+  shopManager: {fileID: 0}
 --- !u!1 &818346124
 GameObject:
   m_ObjectHideFlags: 0
@@ -3263,7 +3263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 544fe4c905aaf034aa59c4086be7d8ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonLogic
-  shopManager: {fileID: 7862889200735666100}
+  shopManager: {fileID: 0}
 --- !u!1 &1069491608
 GameObject:
   m_ObjectHideFlags: 0
@@ -3670,7 +3670,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 544fe4c905aaf034aa59c4086be7d8ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonLogic
-  shopManager: {fileID: 7862889200735666100}
+  shopManager: {fileID: 0}
 --- !u!1 &1183552493
 GameObject:
   m_ObjectHideFlags: 0
@@ -5807,7 +5807,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 544fe4c905aaf034aa59c4086be7d8ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonLogic
-  shopManager: {fileID: 7862889200735666100}
+  shopManager: {fileID: 0}
 --- !u!1 &2087535603
 GameObject:
   m_ObjectHideFlags: 0
@@ -6119,7 +6119,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4290345104802154651, guid: e8acc73cc203c5549bf3bc26f2eaff71, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4546465641253004129, guid: e8acc73cc203c5549bf3bc26f2eaff71, type: 3}
       propertyPath: m_Color.a
@@ -6487,17 +6487,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36d4bd20f9a337e469631e375efc15c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectsInventory
---- !u!114 &7862889200735666100 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3370120258997016567, guid: 6f1e1ea32bdbfce4096687cef9a6ceed, type: 3}
-  m_PrefabInstance: {fileID: 7862889200735666098}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cacbb2eb899aa5042b509ad4d7174d1a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ShopManager
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

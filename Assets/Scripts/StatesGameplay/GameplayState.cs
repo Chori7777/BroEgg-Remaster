@@ -12,6 +12,7 @@ public class GameplayState : IState
         levelManager.AdvanceToNextWave();
         levelManager.TimeRemaining = levelManager.CurrentWave.Time;
         spawnTimer = levelManager.CurrentWave.WaveRate;
+
     }
 
     public void UpdateState()

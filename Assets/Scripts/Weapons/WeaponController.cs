@@ -62,7 +62,7 @@ public class WeaponController : MonoBehaviour, IWeapon
         nextFireTime = Time.time + weaponData.FireRate;
         currentAmmo--;
 
-        int damage = DamageCalculator.CalculateDamage(stats, DamageCalculator.DamageType.Normal, weaponData.BaseDamage);
+        int damage = DamageCalculator.CalculateDamage(stats, weaponData.BaseDamage);
         behavior.Shoot(transform, damage, playerCollider, bulletPool);
     }
 

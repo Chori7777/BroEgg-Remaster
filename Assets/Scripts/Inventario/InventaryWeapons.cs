@@ -120,4 +120,19 @@ public class InventaryWeapons : MonoBehaviour
             
         }
     }
+    public bool HasWeapon(string weaponId)
+    {
+        for (int i = 0; i < weapons.Count; i++)
+        {
+            // es algo similar a un cast, pero con seguridad de tipo. Si weapons[i] es un WeaponController, lo asigna a wc; si no, wc será null.
+            WeaponController wc = weapons[i] as WeaponController;
+            if (wc != null && wc.WeaponData.IdWeapon == weaponId)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+  
 }

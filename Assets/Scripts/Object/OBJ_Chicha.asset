@@ -14,10 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectShopData
   id: Chicha
   displayName: Chicha
+  description: Rico suplemento Venezolano abierto para exportaciones nacionales
   icon: {fileID: -2228281330929224783, guid: f5c3e6da6fb423947a3451955c542dd2, type: 3}
   price: 10
   baseHealth: 20
-  baseArmor: 0
+  baseArmor: 2
+  baseHealthRegeneration: 1
   baseDamage: 0
+  baseCritDamage: 0
+  baseCriticalChance: 0
   baseSpeed: 0
+  baseDodgeChance: 0
+  baseHarvesting: 0
+  baseCurse: 0
   sellPriceRatio: 0.5

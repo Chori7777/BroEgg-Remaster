@@ -3,7 +3,7 @@ using UnityEngine;
 public class ShotgunBehavior : IWeaponBehavior
 {
     private int pelletsCount = 6;
-    private float spreadAngle = 20;
+    //private float spreadAngle = 20; lo dejo comentado nomas para q no tire la advertencia de variable no usada
 
 
     public void Shoot(Transform weaponTransform, int damage, Collider2D shooterCollider, BulletPool bulletPool)

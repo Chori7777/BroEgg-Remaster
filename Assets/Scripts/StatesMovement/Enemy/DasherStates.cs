@@ -29,7 +29,7 @@ public class DasherIdle : IEnemyBehavior
         alerted = false;
         timer = 0f;
         enemy.Stop();
-        enemy.ShowState("ChasingAnim");
+        enemy.ShowState("ChaserAnim");
     }
 
     public void Exit() { }
@@ -151,7 +151,7 @@ public class DasherChase : IEnemyBehavior
     public void Enter()
     {
         timer = 0f;
-        enemy.ShowState("ChaseAnim");
+        enemy.ShowState("ChaserAnim");
     }
 
     public void Exit() 

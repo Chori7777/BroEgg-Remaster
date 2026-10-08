@@ -28,6 +28,12 @@ public class PlayerStats : MonoBehaviour
     private int appliedArmorBonus;
     private int appliedDamageBonus;
     private int appliedSpeedBonus;
+    private int appliedHealthRegenBonus;
+    private int appliedCritDamageBonus;
+    private int appliedCritChanceBonus;
+    private int appliedDodgeBonus;
+    private int appliedHarvestingBonus;
+    private int appliedCurseBonus;
 
     public int Health => health;
     public int MaxHealth => Mathf.Max(1, maxHealth);
@@ -100,20 +106,20 @@ public class PlayerStats : MonoBehaviour
 
     public void RecalculateObjectBonuses()
     {
-        if (playerData == null)
-        {
-            return;
-        }
-
-        if (objectInventory == null)
-        {
-            return;
-        }
+        if (playerData == null) return;
+        if (objectInventory == null) return;
 
         int maxHealthBonus = 0;
         int armorBonus = 0;
         int damageBonus = 0;
         int speedBonus = 0;
+
+        int healthRegenBonus = 0;
+        int critDamageBonus = 0;
+        int critChanceBonus = 0;
+        int dodgeBonus = 0;
+        int harvestingBonus = 0;
+        int curseBonus = 0;
 
         foreach (ObjectShopData item in objectInventory.GetObjects())
         {
@@ -121,25 +127,47 @@ public class PlayerStats : MonoBehaviour
             armorBonus += item.BonusArmor;
             damageBonus += item.BonusDamage;
             speedBonus += item.BonusSpeed;
-        }
 
-        // Reemplaza la contribución anterior del inventario por la nueva.
-        // Así se conservan las mejoras obtenidas por otros medios.
+            healthRegenBonus += item.BonusHealthRegeneration;
+            critDamageBonus += item.BonusCritDamage;
+            critChanceBonus += item.BonusCriticalChance;
+            dodgeBonus += item.BonusDodgeChance;
+            harvestingBonus += item.BonusHarvesting;
+            curseBonus += item.BonusCurse;
+        }
+        // Reemplaza la contribucion anterior del inventario por la nueva.
+        // Asi se conservan las mejoras obtenidas por otros medios.
         maxHealth = maxHealth - appliedMaxHealthBonus + maxHealthBonus;
         armor = armor - appliedArmorBonus + armorBonus;
         damage = damage - appliedDamageBonus + damageBonus;
         speed = speed - appliedSpeedBonus + speedBonus;
+
+        // Todos los nuevos cambios de stats que se aplican por el inventario se suman a los valores actuales.
+        healthRegeneration = healthRegeneration - appliedHealthRegenBonus + healthRegenBonus;
+        critDamage = critDamage - appliedCritDamageBonus + critDamageBonus;
+        criticalChance = criticalChance - appliedCritChanceBonus + critChanceBonus;
+        dodgeChance = dodgeChance - appliedDodgeBonus + dodgeBonus;
+        harvesting = harvesting - appliedHarvestingBonus + harvestingBonus;
+        curse = curse - appliedCurseBonus + curseBonus;
 
         appliedMaxHealthBonus = maxHealthBonus;
         appliedArmorBonus = armorBonus;
         appliedDamageBonus = damageBonus;
         appliedSpeedBonus = speedBonus;
 
-        // Cambiar la vida máxima no cura limita la vida actual al nuevo máximo.
+        appliedHealthRegenBonus = healthRegenBonus;
+        appliedCritDamageBonus = critDamageBonus;
+        appliedCritChanceBonus = critChanceBonus;
+        appliedDodgeBonus = dodgeBonus;
+        appliedHarvestingBonus = harvestingBonus;
+        appliedCurseBonus = curseBonus;
+
+        // Cambiar la vida maxima no cura, limita la vida actual al nuevo maximo.
         health = Mathf.Clamp(health, 0, MaxHealth);
 
         OnStatsChanged?.Invoke();
     }
+
 
     public void SetHealth(int value)
     {

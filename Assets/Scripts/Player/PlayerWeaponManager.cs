@@ -76,4 +76,9 @@ public class PlayerWeaponManager : MonoBehaviour
             inventoryManager.AddWeapon(weaponComponent);
         }
     }
+    // Chequeamos si esta el arma, el inventoryManager se encarga de eso buscando el id q le damos desde el ButtonLogic
+    public bool HasWeapon(string weaponId)
+    {
+        return inventoryManager.HasWeapon(weaponId);
+    }
 }

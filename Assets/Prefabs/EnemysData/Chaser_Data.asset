@@ -16,7 +16,7 @@ MonoBehaviour:
   baseArmor: 0
   baseDamage: 8
   baseSpeed: 2
-  goldDrop: 90
+  goldDrop: 10
   isBoss: 0
   healthScaling: 0
   armorScaling: 0

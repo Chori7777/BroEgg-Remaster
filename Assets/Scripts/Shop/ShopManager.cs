@@ -185,4 +185,24 @@ public class ShopManager : MonoBehaviour
 
         return weaponPrefab != null;
     }
+
+    public void OfferReroll()
+    {
+        if (!IsOpen) return;
+
+        availableOffers.Clear();
+
+        List<ShopProductData> products = catalog.GenerateOffers(offerButtons.Length, inventory);
+
+        for (int i = 0; i < offerButtons.Length; i++)
+        {
+            ShopProductData product = null;
+            if (i < products.Count)
+            {
+                product = products[i];
+                availableOffers.Add(product);
+            }
+            offerButtons[i].Setup(product, this);
+        }
+    }
 }

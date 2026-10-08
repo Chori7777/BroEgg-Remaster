@@ -29,15 +29,10 @@ public class DasherEnemy : Enemy
 
     protected override void Update()
     {
-
         base.Update();
-
 
         if (player == null) return;
        
-        // La maquina y el cerebro se crean la primera vez que se llega aca, y no en Start.
-        // Por que: no se si tu Enemy ya usa Start o Awake para preparar player y rb. Si
-        // yo definiera uno propio, el de Enemy dejaria de ejecutarse.
         if (machine == null)
         {
             CreateBrain();
@@ -60,19 +55,19 @@ public class DasherEnemy : Enemy
 
 
         machine = new StateMachine();
-        brain = new EnemyBrain(false);   // false = secuencia: Dash, Rest, Chase, y otra vez
+        brain = new EnemyBrain(false);   // false = secuencia siempre igual Dashea, descansa, persigue y se repite el ciclo 
 
         brain.Add(new DasherDash(this));
         brain.Add(new DasherRest(this));
         brain.Add(new DasherChase(this));
 
-        // Idle no se agrega al cerebro: pasa una sola vez, al principio.
-        // Arranca directo, sin pasar por la cola.
+        // idle no se agrega al cerebro  pasa una sola vez, al principio.
+        // arranca directo  sin pasar por la cola
         current = new DasherIdle(this);
         machine.ChangeState(current);
     }
 
-    // Metodos que usan los states. Estan aca para que los states no toquen rb ni player.
+    // metodos que usan los states Estan aca para que los states no toquen rb ni player.
 
     public float DistanceToPlayer()
     {
@@ -95,16 +90,10 @@ public class DasherEnemy : Enemy
         rb.linearVelocity = Vector2.zero;
     }
 
-    // Si hay Animator, reproduce el state con ese nombre. Si no, pinta el sprite para
-    // poder ver a ojo en que state esta.
-    // MODIFICADO: ya no hay rama de colores, solo reproduce el state del Animator.
     public void ShowState(string stateName)
     {
         animator.Play(stateName);
     }
-
-
-    // Copiado de Zombie: asi el Dasher tambien danea al chocar con el jugador.
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.gameObject.CompareTag("Player"))

@@ -170,4 +170,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
   defaultBulletSpeed: 15
+  knockbackForce: 3
   pool: {fileID: 0}

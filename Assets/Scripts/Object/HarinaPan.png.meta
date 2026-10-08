@@ -1,13 +1,67 @@
 fileFormatVersion: 2
-guid: 3057b1e76dc51cc439e3b116b028ae57
+guid: 084c73a84d16fc642a157bb3dcd76dc4
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4177905600940937531
-    second: Eye_SuicideMinion_0
+      213: -5167190891838802237
+    second: HarinaPan_0
   - first:
-      213: -6803276746438122602
-    second: Eye_SuicideMinion_1
+      213: -7142841930670805824
+    second: HarinaPan_1
+  - first:
+      213: -2422583418642894175
+    second: HarinaPan_2
+  - first:
+      213: -6525325460731860896
+    second: HarinaPan_3
+  - first:
+      213: -4826594674178915909
+    second: HarinaPan_4
+  - first:
+      213: 4387461400776178584
+    second: HarinaPan_5
+  - first:
+      213: 2495497689591304272
+    second: HarinaPan_6
+  - first:
+      213: -4376873169397647658
+    second: HarinaPan_7
+  - first:
+      213: -6088355945678997543
+    second: HarinaPan_8
+  - first:
+      213: 4890958338104359955
+    second: HarinaPan_9
+  - first:
+      213: 2018236905807420280
+    second: HarinaPan_10
+  - first:
+      213: 829906790904848642
+    second: HarinaPan_11
+  - first:
+      213: 8157541753559359301
+    second: HarinaPan_12
+  - first:
+      213: 5747370399678913592
+    second: HarinaPan_13
+  - first:
+      213: -2052618932152970251
+    second: HarinaPan_14
+  - first:
+      213: 6007444112231136398
+    second: HarinaPan_15
+  - first:
+      213: 6763556376866641619
+    second: HarinaPan_16
+  - first:
+      213: 76593492520583731
+    second: HarinaPan_17
+  - first:
+      213: 992371585599667158
+    second: HarinaPan_18
+  - first:
+      213: -4558419317598346685
+    second: HarinaPan_19
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -40,7 +94,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -54,7 +108,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -103,45 +157,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Eye_SuicideMinion_0
+      name: HarinaPan_2
       rect:
         serializedVersion: 2
         x: 0
-        y: 7
-        width: 32
-        height: 18
+        y: 0
+        width: 1254
+        height: 1254
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b3113313207eaf930800000000000000
-      internalID: 4177905600940937531
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Eye_SuicideMinion_1
-      rect:
-        serializedVersion: 2
-        x: 31
-        y: 7
-        width: 33
-        height: 18
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 69361eb28d7e591a0800000000000000
-      internalID: -6803276746438122602
+      spriteID: 1a2f9055731416ed0800000000000000
+      internalID: -2422583418642894175
       vertices: []
       indices: 
       edges: []
@@ -150,7 +182,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 03a136532bd06194a99cc999cc89f193
     internalID: 0
     vertices: []
     indices: 
@@ -160,8 +192,26 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Eye_SuicideMinion_0: 4177905600940937531
-      Eye_SuicideMinion_1: -6803276746438122602
+      HarinaPan_0: -5167190891838802237
+      HarinaPan_1: -7142841930670805824
+      HarinaPan_10: 2018236905807420280
+      HarinaPan_11: 829906790904848642
+      HarinaPan_12: 8157541753559359301
+      HarinaPan_13: 5747370399678913592
+      HarinaPan_14: -2052618932152970251
+      HarinaPan_15: 6007444112231136398
+      HarinaPan_16: 6763556376866641619
+      HarinaPan_17: 76593492520583731
+      HarinaPan_18: 992371585599667158
+      HarinaPan_19: -4558419317598346685
+      HarinaPan_2: -2422583418642894175
+      HarinaPan_3: -6525325460731860896
+      HarinaPan_4: -4826594674178915909
+      HarinaPan_5: 4387461400776178584
+      HarinaPan_6: 2495497689591304272
+      HarinaPan_7: -4376873169397647658
+      HarinaPan_8: -6088355945678997543
+      HarinaPan_9: 4890958338104359955
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

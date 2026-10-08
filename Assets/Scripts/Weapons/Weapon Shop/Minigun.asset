@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponShopData
   id: Minigun
   displayName: Minigun
+  description: MiniMiara
   icon: {fileID: -7672087129735864097, guid: 32bff1cb1917ccc42b20333da8ba2b46, type: 3}
-  price: 0
+  price: 50
   weaponPrefab: {fileID: 6727152193817021128, guid: 65095a5deee44ff4d8365a6c1fbbd1cc, type: 3}

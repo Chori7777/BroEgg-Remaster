@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponShopData
   id: Shotgun
   displayName: Shotgun
+  description: Cadencia lenta pero disparo penetrante
   icon: {fileID: -1068439443906237425, guid: 32bff1cb1917ccc42b20333da8ba2b46, type: 3}
-  price: 0
+  price: 45
   weaponPrefab: {fileID: 6727152193817021128, guid: e36e8a9f1bbc6834581ca32acfcf9fd3, type: 3}

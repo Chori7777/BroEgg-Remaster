@@ -4,6 +4,7 @@ using UnityEngine;
 public class StatsHUD : MonoBehaviour
 {
     [SerializeField] private PlayerStats stats;
+    [SerializeField] private PlayerGold gold;
 
     [SerializeField] private TMP_Text healthText;
     [SerializeField] private TMP_Text armorText;
@@ -12,16 +13,20 @@ public class StatsHUD : MonoBehaviour
     [SerializeField] private TMP_Text speedText;
     [SerializeField] private TMP_Text dodgeText;
     [SerializeField] private TMP_Text harvestText;
-
+    [SerializeField] private TMP_Text playerGold;
     private void OnEnable()
     {
-        stats.OnStatsChanged += Refresh;
-        Refresh(); // Awake de PlayerStats ya disparo el evento antes de suscribirnos
+        if (stats != null) stats.OnStatsChanged += Refresh;
+        if (gold != null) gold.OnGoldChanged += RefreshGold;   
+
+        Refresh(); // lo llamamos para que se refresque al iniciar el juego, y no esperar a que cambien los stats
+        if (gold != null) RefreshGold(gold.CurrentGold);
     }
 
     private void OnDisable()
     {
-        stats.OnStatsChanged -= Refresh;
+        if (stats != null) stats.OnStatsChanged -= Refresh;
+        if (gold != null) gold.OnGoldChanged -= RefreshGold;
     }
 
     private void Refresh()
@@ -33,5 +38,13 @@ public class StatsHUD : MonoBehaviour
         speedText.text = "Velocidad: " + stats.Speed;
         dodgeText.text = "Esquiva: " + stats.DodgeChance;
         harvestText.text = "Recoleccion: " + stats.Harvesting;
+
+       
+    }
+ 
+    private void RefreshGold(int nuevoValorDeOro) 
+    {
+        if (playerGold != null)
+            playerGold.text = "" + nuevoValorDeOro;
     }
 }

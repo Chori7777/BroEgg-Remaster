@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponShopData
   id: SemiAuRifle
   displayName: SemiAuRifle
+  description: Disparo Juniorniano
   icon: {fileID: -5483469642606233201, guid: 32bff1cb1917ccc42b20333da8ba2b46, type: 3}
-  price: 0
+  price: 30
   weaponPrefab: {fileID: 6727152193817021128, guid: 0c3207e530ea9ce448a5239813ee427d, type: 3}

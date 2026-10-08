@@ -82,4 +82,12 @@ public class LevelManager : MonoBehaviour
     {
         Time.timeScale = time;
     }
+
+
+
+    public void NextWave()
+    {
+        shopPanel.gameObject.SetActive(false);
+        levelStateMachine.ChangeState(levelStateMachine.Gameplay);
+    }
 }

@@ -17,6 +17,6 @@ MonoBehaviour:
   idWeapon: AutoRifle
   baseDamage: 9
   magazineSize: 30
-  fireRate: 0.4
+  fireRate: 0.56
   reloadTime: 0.6
   weaponSprite: {fileID: -3391257396490946495, guid: 32bff1cb1917ccc42b20333da8ba2b46, type: 3}

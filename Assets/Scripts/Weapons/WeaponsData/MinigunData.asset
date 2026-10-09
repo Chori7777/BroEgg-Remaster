@@ -17,6 +17,6 @@ MonoBehaviour:
   idWeapon: Minigun
   baseDamage: 3
   magazineSize: 80
-  fireRate: 0.2
+  fireRate: 0.14
   reloadTime: 4
   weaponSprite: {fileID: -7672087129735864097, guid: 32bff1cb1917ccc42b20333da8ba2b46, type: 3}

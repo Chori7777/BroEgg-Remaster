@@ -36,21 +36,26 @@ public class PlayerWeaponManager : MonoBehaviour
 
         if (currentWeapon != null)
         {
-            if (currentWeapon.GetShootingType() == ShootingType.Automatic)
+            switch(currentWeapon.GetShootingType())
             {
-                // Automática
-                isTriggering = Input.GetMouseButton(0);
-            }
-            else if (currentWeapon.GetShootingType() == ShootingType.Single)
-            {
-                // Semiautomática
-                isTriggering = Input.GetMouseButtonDown(0);
-            }
-            if (currentWeapon.GetShootingType() == ShootingType.Shotgun)
-            {
-                // Escopeta
-                isTriggering = Input.GetMouseButtonDown(0);
-                Debug.Log("shotgun mode");
+                case ShootingType.Automatic:
+
+                    // Automática
+                    isTriggering = Input.GetMouseButton(0);
+                    break;
+
+                case ShootingType.Single:
+
+                    // Semiautomática
+                    isTriggering = Input.GetMouseButtonDown(0);
+                    break;
+
+                case ShootingType.Shotgun:
+
+                    // Escopeta
+                    isTriggering = Input.GetMouseButtonDown(0);
+                    Debug.Log("shotgun mode");
+                    break;
             }
         }
             
@@ -58,22 +63,6 @@ public class PlayerWeaponManager : MonoBehaviour
         if (isTriggering)
         {
             currentWeapon.shoot();
-        }
-    }
-
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        IWeapon weaponComponent = other.GetComponent<IWeapon>();
-        if (weaponComponent != null)
-        {
-            Debug.Log("Arma recogida");
-            Transform weaponTransform = weaponComponent.getTransform();
-            weaponTransform.SetParent(hand.transform);
-            weaponTransform.localPosition = Vector3.zero;
-            weaponTransform.localRotation = Quaternion.identity;
-
-            inventoryManager.AddWeapon(weaponComponent);
         }
     }
     // Chequeamos si esta el arma, el inventoryManager se encarga de eso buscando el id q le damos desde el ButtonLogic

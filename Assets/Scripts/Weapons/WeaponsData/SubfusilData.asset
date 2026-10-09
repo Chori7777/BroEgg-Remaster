@@ -17,6 +17,6 @@ MonoBehaviour:
   idWeapon: Subfusil
   baseDamage: 3
   magazineSize: 30
-  fireRate: 0.2
+  fireRate: 0.3
   reloadTime: 0.4
   weaponSprite: {fileID: 1721296169258792906, guid: 32bff1cb1917ccc42b20333da8ba2b46, type: 3}

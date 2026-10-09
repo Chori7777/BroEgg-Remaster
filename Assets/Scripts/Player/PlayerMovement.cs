@@ -43,6 +43,7 @@ public class PlayerMovement : MonoBehaviour
     
     void Update()
     {
+        if (LevelManager.Instance != null && LevelManager.Instance.ControlsBlocked) return;
         DashCooldown += Time.deltaTime; //esto hace que se sume al cooldown asi lo puede usar, la condicion para usarlo esta en la clase walk
 
         x = Input.GetAxisRaw("Horizontal");

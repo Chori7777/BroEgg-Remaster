@@ -49,6 +49,7 @@ public class WeaponController : MonoBehaviour, IWeapon
     }
     public void shoot()
     {
+        if (LevelManager.Instance != null && LevelManager.Instance.ControlsBlocked) return;
         if (isReloading) return;
         if (Time.time < nextFireTime) return;
         TryInitStats();

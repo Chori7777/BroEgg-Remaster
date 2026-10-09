@@ -13,6 +13,7 @@ public class WeaponAim : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (LevelManager.Instance != null && LevelManager.Instance.ControlsBlocked) return;
         Vector3 mouseScreenPos=Input.mousePosition;
         mouseScreenPos.z = Mathf.Abs((cam.transform.position.z));
 

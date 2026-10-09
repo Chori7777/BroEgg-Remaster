@@ -2,7 +2,16 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "ObjectShopData", menuName = "Scriptable Objects/ObjectShopData")]
 public class ObjectShopData : ShopProductData
-{ 
+{
+    public enum ObjectType
+    {
+        Comun,
+        Uncommon,
+        Epic,
+        Legendary,
+    }
+    [SerializeField] private ObjectType objectType;
+    public ObjectType Rarity => objectType;
     [SerializeField] private int baseHealth;
     [SerializeField] private int baseArmor;
     [SerializeField] private int baseHealthRegeneration;

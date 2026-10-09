@@ -17,6 +17,7 @@ MonoBehaviour:
   description: Rico suplemento Venezolano abierto para exportaciones nacionales
   icon: {fileID: -2228281330929224783, guid: f5c3e6da6fb423947a3451955c542dd2, type: 3}
   price: 10
+  objectType: 3
   baseHealth: 20
   baseArmor: 2
   baseHealthRegeneration: 1

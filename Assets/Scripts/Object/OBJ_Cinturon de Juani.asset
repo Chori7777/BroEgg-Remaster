@@ -14,10 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectShopData
   id: Cinturon de Juani
   displayName: Cinturon de Juani
+  description: 
   icon: {fileID: -3092852093837215433, guid: ff101bf996fce2f49adcd4474e85f587, type: 3}
   price: 10
+  objectType: 2
   baseHealth: 20
   baseArmor: 0
+  baseHealthRegeneration: 0
   baseDamage: 0
+  baseCritDamage: 0
+  baseCriticalChance: 0
   baseSpeed: 0
+  baseDodgeChance: 0
+  baseHarvesting: 0
+  baseCurse: 0
   sellPriceRatio: 0.5

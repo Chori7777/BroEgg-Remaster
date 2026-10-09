@@ -32,6 +32,7 @@ public class InventaryWeapons : MonoBehaviour
 
     void Update()
     {
+        if (LevelManager.Instance != null && LevelManager.Instance.ControlsBlocked) return;
         if (invImages.Count == 0) return;
 
         if (Input.GetKeyDown(KeyCode.Backspace)) Debug.Log("soy el slot " + ItemActual);

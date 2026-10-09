@@ -10,6 +10,7 @@ public class MouseAim : MonoBehaviour
     }
     void Update()
     {
+        if (LevelManager.Instance != null && LevelManager.Instance.ControlsBlocked) return;
         Vector3 MouseScreenPos = Input.mousePosition;
 
         MouseScreenPos.z = Mathf.Abs((Camera.main.transform.position.z));

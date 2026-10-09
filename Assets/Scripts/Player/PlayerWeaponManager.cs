@@ -28,6 +28,7 @@ public class PlayerWeaponManager : MonoBehaviour
 
     void Update()
     {
+        if (LevelManager.Instance != null && LevelManager.Instance.ControlsBlocked) return;
         IWeapon currentWeapon = inventoryManager.CurrentWeapon();
         if (currentWeapon == null) Debug.Log("No tengo arma");
 

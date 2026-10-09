@@ -10,14 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c7f0311132eba124c97c28bdbf0a271d, type: 3}
-  m_Name: OBJ_Polla
+  m_Name: OBJ_Vela
   m_EditorClassIdentifier: Assembly-CSharp::ObjectShopData
-  id: Polla
-  displayName: Polla
+  id: Vela
+  displayName: Vela
+  description: 
   icon: {fileID: -4936644330148155580, guid: 7011bd63b30e94342b01bd24f1da1f40, type: 3}
   price: 10
+  objectType: 3
   baseHealth: 20
   baseArmor: 0
+  baseHealthRegeneration: 0
   baseDamage: 0
+  baseCritDamage: 0
+  baseCriticalChance: 0
   baseSpeed: 0
+  baseDodgeChance: 0
+  baseHarvesting: 0
+  baseCurse: 0
   sellPriceRatio: 0.5

@@ -217,10 +217,14 @@ namespace ED262C
         }
         public void Sort(Comparison<T> criterion)
         {
+            if (criterion == null) throw new ArgumentNullException(nameof(criterion));
             QuickSort(criterion, 0, count - 1);
         }
         public void QuickSort(Comparison<T> criterion, int low, int high)
         {
+            // Un tramo vacio o de un elemento ya esta ordenado.
+            if (low >= high) return;
+
             int pivot = Partition(criterion, low, high);
 
             QuickSort(criterion, low, pivot - 1);

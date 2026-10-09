@@ -27,6 +27,7 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
+        if (LevelManager.Instance != null && LevelManager.Instance.IsPaused) return;
         // Pequeño atajo guiño guiño
         if (Input.GetKeyDown(KeyCode.Escape) && historyStack.Count != 0)
         {

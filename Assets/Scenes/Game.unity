@@ -464,6 +464,10 @@ PrefabInstance:
       propertyPath: animator
       value: 
       objectReference: {fileID: 1648962782}
+    - target: {fileID: 902144173724757452, guid: 355c7db4a7aca63459dba81972b9fde0, type: 3}
+      propertyPath: gold
+      value: 100000
+      objectReference: {fileID: 0}
     - target: {fileID: 1373675011906369707, guid: 355c7db4a7aca63459dba81972b9fde0, type: 3}
       propertyPath: m_Name
       value: Player
@@ -15302,6 +15306,34 @@ PrefabInstance:
       value: ButtonLogic, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5708612449081050660, guid: e8acc73cc203c5549bf3bc26f2eaff71, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6041398167118981447, guid: e8acc73cc203c5549bf3bc26f2eaff71, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6041398167118981447, guid: e8acc73cc203c5549bf3bc26f2eaff71, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6041398167118981447, guid: e8acc73cc203c5549bf3bc26f2eaff71, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7862889200735666100}
+    - target: {fileID: 6041398167118981447, guid: e8acc73cc203c5549bf3bc26f2eaff71, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6041398167118981447, guid: e8acc73cc203c5549bf3bc26f2eaff71, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Refund
+      objectReference: {fileID: 0}
+    - target: {fileID: 6041398167118981447, guid: e8acc73cc203c5549bf3bc26f2eaff71, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ShopManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6041398167118981447, guid: e8acc73cc203c5549bf3bc26f2eaff71, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}

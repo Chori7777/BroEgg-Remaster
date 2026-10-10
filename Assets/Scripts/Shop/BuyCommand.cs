@@ -78,13 +78,16 @@ public class BuyCommand : ICommand
     {
         if (product is ObjectShopData item)
         {
+            Debug.Log("objeto añadido al jugador");
             return inventory.TryAdd(item);
+            
         }
 
         if (product is WeaponShopData weapon)
         {
             string weaponId = weapon.weaponPrefab.WeaponData.IdWeapon;
             deliveredWeapon = weaponManager.GiveWeapon(weaponId);
+            Debug.Log("arma añadido al jugador");
             return deliveredWeapon != null;
         }
 

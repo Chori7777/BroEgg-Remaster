@@ -21,6 +21,7 @@ public class ShopManager : MonoBehaviour
     {
         IsOpen = true;
         availableOffers.Clear();
+        refundProducts.Clear();
 
         List<ShopProductData> products = catalog.GenerateOffers(offerButtons.Length, inventory);
 
@@ -41,6 +42,7 @@ public class ShopManager : MonoBehaviour
     public void Close()
     {
         IsOpen = false;
+        refundProducts.Clear();
     }
 
     public bool TryBuy(ShopProductData product)
@@ -51,12 +53,10 @@ public class ShopManager : MonoBehaviour
             return false;
         }
 
-        if (!gold.SpendGold(product.price))
-        {
-            return false;
-        }
-
         ICommand newProduct = new BuyCommand(product, gold, inventory, weaponManager,availableOffers);
+
+        if (!newProduct.Execute()) return false;
+
         refundProducts.Push(newProduct);
         availableOffers.Remove(product);
         return true;
@@ -190,6 +190,12 @@ public class ShopManager : MonoBehaviour
 
     public void Refund()
     {
+        if (!IsOpen) return;
 
+        while (!refundProducts.IsEmpty)
+        {
+            ICommand last = refundProducts.Pop();
+            if (last.Undo()) return;
+        }
     }
 }

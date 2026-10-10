@@ -205,4 +205,9 @@ public class ShopManager : MonoBehaviour
             offerButtons[i].Setup(product, this);
         }
     }
+
+    public void Refund()
+    {
+
+    }
 }

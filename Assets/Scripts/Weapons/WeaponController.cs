@@ -26,11 +26,24 @@ public class WeaponController : MonoBehaviour, IWeapon
 
         return ShootingType.Single; // Valor por defecto en caso de que weaponData sea null papu
     }
+    private IWeaponBehavior CreateBehavior(ShootingType type) //esto soluciona lo de la escopeta, antes estaba seteado por defecto el singleshot, LPM
+    {
+        switch (type) //no hace falta el break por el return
+        {
+            case ShootingType.Shotgun: return new ShotgunBehavior(); 
+            case ShootingType.Automatic: return new AutoShoot();
+            default: return new SingleShootBehavior();
+        }
+    }
+
+    private void Awake()
+    {
+        behavior = CreateBehavior(GetShootingType());
+
+    }
 
     void Start()
     {
-        behavior = new SingleShootBehavior();
-
         stats = GetComponentInParent<PlayerStats>();
         TryInitStats();
 
@@ -51,8 +64,8 @@ public class WeaponController : MonoBehaviour, IWeapon
     {
         if (LevelManager.Instance != null && LevelManager.Instance.ControlsBlocked) return;
         if (isReloading) return;
-        if (Time.time < nextFireTime) return;
-        TryInitStats();
+        if (Time.time < nextFireTime) return; //cadencia de tiro
+        TryInitStats(); //para saber las stats del player
 
         if (currentAmmo <= 0)
         {
@@ -67,7 +80,7 @@ public class WeaponController : MonoBehaviour, IWeapon
         behavior.Shoot(transform, damage, playerCollider, bulletPool);
     }
 
-    private IEnumerator Reload()
+    private IEnumerator Reload() //Funcion para recargar las armas
     {
         isReloading = true;
         yield return new WaitForSeconds(weaponData.ReloadTime);

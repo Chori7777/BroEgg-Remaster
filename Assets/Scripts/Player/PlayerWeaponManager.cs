@@ -11,8 +11,9 @@ public class PlayerWeaponManager : MonoBehaviour
     void Start()
     {
         GiveWeapon("Pistol");
+        GiveWeapon("AutoRifle");
         GiveWeapon("Shotgun");
-    }
+    }   
 
     public void GiveWeapon(string weaponId)
     {

@@ -49,6 +49,7 @@ public class Bullet : MonoBehaviour
             damageable.TakeDamage(damage);
 
             pool.Recycle(this);
+            timer = 0;
         }
     }
 }

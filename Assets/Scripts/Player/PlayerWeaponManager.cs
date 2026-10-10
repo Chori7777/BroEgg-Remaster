@@ -15,7 +15,7 @@ public class PlayerWeaponManager : MonoBehaviour
         GiveWeapon("Shotgun");
     }   
 
-    public void GiveWeapon(string weaponId)
+    public WeaponController GiveWeapon(string weaponId)
     {
         WeaponController newWeapon = factoryWeapon.CreateWeapon(weaponId, hand.transform.position);
 
@@ -25,8 +25,12 @@ public class PlayerWeaponManager : MonoBehaviour
         weaponTransform.localRotation = Quaternion.identity;
 
         inventoryManager.AddWeapon(newWeapon);
+        return newWeapon;
     }
-
+    public bool RemoveWeapon(WeaponController weapon)
+    {
+       return inventoryManager.RemoveWeapon(weapon);
+    }
     void Update()
     {
         if (LevelManager.Instance != null && LevelManager.Instance.ControlsBlocked) return;

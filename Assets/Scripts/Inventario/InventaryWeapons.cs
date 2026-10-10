@@ -7,13 +7,19 @@ public class InventaryWeapons : MonoBehaviour
     [SerializeField] SimpleArrayList<UnityEngine.UI.Image> invImages = new SimpleArrayList<UnityEngine.UI.Image>(); //lista con las imagenes que s erellena con el array
     SimpleArrayList<IWeapon> weapons = new SimpleArrayList<IWeapon>(); //lista de armas
     int ItemActual = 0;
+    private Sprite[] emptySlotSprites;
 
-    
     void Start()
     {
         for (int i = 0; i < toTheList.Length; i++)
         {
             invImages.Add(toTheList[i]);
+        }
+
+        emptySlotSprites = new Sprite[toTheList.Length];
+        for (int i = 0; i < toTheList.Length; i++)
+        {
+            if (toTheList[i] != null) emptySlotSprites[i] = toTheList[i].sprite;
         }
         UpdateSelection();
     }
@@ -85,7 +91,39 @@ public class InventaryWeapons : MonoBehaviour
 
         UpdateSelection();
     }
+    public bool RemoveWeapon(IWeapon weaponToRemove)
+    {
+        if (weaponToRemove == null) return false;
 
+        int index = -1;
+        for (int i = 0; i < weapons.Count; i++)
+        {
+            if (weapons[i] == weaponToRemove) { index = i; break; }
+        }
+        if (index < 0) return false;
+
+        Transform weaponTransform = weaponToRemove.getTransform();
+        weapons.RemoveAt(index);
+
+        // Reacomodamos el slot seleccionado
+        if (weapons.Count == 0) ItemActual = 0;
+        else if (index < ItemActual) ItemActual--;
+        else if (ItemActual >= weapons.Count) ItemActual = weapons.Count - 1;
+
+        if (weaponTransform != null) Destroy(weaponTransform.gameObject);
+
+        RefreshSlotSprites();
+        UpdateSelection();
+        return true;
+    }
+    private void RefreshSlotSprites()
+    {
+        for (int i = 0; i < invImages.Count; i++)
+        {
+            WeaponController wc = i < weapons.Count ? weapons[i] as WeaponController : null;
+            invImages[i].sprite = wc != null ? wc.WeaponData.WeaponSprite : emptySlotSprites[i];
+        }
+    }
     void UpdateSelection()
     {
         for (int i = 0; i < invImages.Count; i++)

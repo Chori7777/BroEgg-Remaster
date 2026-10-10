@@ -29,6 +29,11 @@ public class PlayerGold : MonoBehaviour
         OnGoldChanged?.Invoke(gold);
     }
     // Futura variable para comprar objetos, si el jugador tiene suficiente oro, se gasta y devuelve true, sino devuelve false
+    public void SetGold(int amount)
+    {
+        gold = Mathf.Max(0, amount);
+        OnGoldChanged?.Invoke(gold);
+    }
     public bool SpendGold(int amount)
     {
         if (amount < 0)

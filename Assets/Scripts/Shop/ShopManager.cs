@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using ED262C;
 using UnityEngine;
 
 public class ShopManager : MonoBehaviour
@@ -13,6 +14,8 @@ public class ShopManager : MonoBehaviour
 
     public InventaryManager Inventory => inventory;
     public bool IsOpen { get; private set; }
+
+    private SimpleArrayStack<ICommand> refundProducts = new SimpleArrayStack<ICommand>();
 
     public void Open()
     {
@@ -53,12 +56,8 @@ public class ShopManager : MonoBehaviour
             return false;
         }
 
-        if (!DeliverProduct(product))
-        {
-            gold.AddGold(product.price);
-            return false;
-        }
-
+        ICommand newProduct = new BuyCommand(product, gold, inventory, weaponManager,availableOffers);
+        refundProducts.Push(newProduct);
         availableOffers.Remove(product);
         return true;
     }
@@ -117,23 +116,6 @@ public class ShopManager : MonoBehaviour
         if (product is WeaponShopData weapon)
         {
             return CanBuyWeapon(weapon);
-        }
-
-        return false;
-    }
-
-    private bool DeliverProduct(ShopProductData product)
-    {
-        if (product is ObjectShopData item)
-        {
-            return inventory.TryAdd(item);
-        }
-
-        if (product is WeaponShopData weapon)
-        {
-            string weaponId = weapon.weaponPrefab.WeaponData.IdWeapon;
-            weaponManager.GiveWeapon(weaponId);
-            return true;
         }
 
         return false;

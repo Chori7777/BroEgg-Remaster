@@ -168,6 +168,19 @@ public class PlayerStats : MonoBehaviour
         OnStatsChanged?.Invoke();
     }
 
+    //public PlayerStatsSnapshot CreateSnapshot()
+    //{
+    //    return new PlayerStatsSnapshot(maxHealth, health, armor, healthRegeneration,
+    //                                   damage, critDamage, criticalChance,
+    //                                   speed, dodgeChance, harvesting, curse);
+    //}
+
+    public void RestoreSnapshot(PlayerStatsSnapshot s)
+    {
+        maxHealth = s.MaxHealth; health = s.Health; armor = s.Armor; healthRegeneration = s.HealthRegeneration;
+        damage = s.Damage; critDamage = s.CritDamage;  criticalChance = s.CriticalChance;
+        speed = s.Speed; dodgeChance = s.DodgeChance; harvesting = s.Harvesting; curse = s.Curse;
+    }
 
     public void SetHealth(int value)
     {

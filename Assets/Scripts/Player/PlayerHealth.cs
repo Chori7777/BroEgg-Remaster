@@ -11,6 +11,8 @@ public class PlayerHealth : MonoBehaviour, IDamageable
    [SerializeField] private float regenTimer;
     // Evento para notificar cambios en la salud del jugador
     public event Action<int, int> OnHealthChanged;
+    public event Action OnPlayerDied;
+    private bool isDead;
     // Evento para notificar cuando el jugador recibe daño
     public event Action OnDamaged;
 
@@ -36,6 +38,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     }
     public void TakeDamage(int damage)
     {
+        if (isDead) return;
         bool dodged= UnityEngine.Random.Range(0,100)<playerStats.DodgeChance;
         if(dodged)
         {
@@ -59,13 +62,30 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
     private void Die()
     {
+        if (isDead) return;
+        isDead = true;
         Debug.Log("Murio el jugador");
-        SceneManager.LoadScene("LoseScreen");
+        OnPlayerDied?.Invoke();
+    }
 
+    public void Revive()
+    {
+        isDead = false;
+        regenTimer = 0f;
+        OnHealthChanged?.Invoke(playerStats.Health, playerStats.MaxHealth);
+    }
+
+    [ContextMenu("DEBUG: Matar jugador")]
+    private void DebugKill()
+    {
+        playerStats.SetHealth(0);
+        OnHealthChanged?.Invoke(playerStats.Health, playerStats.MaxHealth);
+        Die();
     }
 
     void Update()
     {
+        if (isDead) return;
         regenTimer += Time.deltaTime;
         if (regenTimer >= 5f)
         {

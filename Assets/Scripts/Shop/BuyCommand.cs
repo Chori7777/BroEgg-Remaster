@@ -9,13 +9,13 @@ public interface ICommand
 
 public class BuyCommand : ICommand
 {
-    private readonly ShopProductData product;
+    private readonly ShopProductData product; //readonly para que solo lo leas, dahhh
     private readonly PlayerGold gold;
     private readonly InventaryManager inventory;
     private readonly PlayerWeaponManager weaponManager;
     private readonly HashSet<ShopProductData> availableOffers;
 
-    // Estado que se guarda al ejecutar para poder deshacer
+    //estado que se guarda al ejecutar para poder deshacer
     private int paidPrice;
     private WeaponController deliveredWeapon;
     private bool executed;
@@ -53,7 +53,7 @@ public class BuyCommand : ICommand
         return true;
     }
 
-    public bool Undo() //paso inverso al Execute(), en vez de Remove() de offers, hace Add(), y en vez de SpendGold(), hace AddGold()
+    public bool Undo() //hace lo inverso al Execute(), en vez de Remove() de offers, hace Add(), y en vez de SpendGold(), hace AddGold()
     {
         if (!executed) return false;
 
@@ -74,7 +74,7 @@ public class BuyCommand : ICommand
         return true;
     }
 
-    private bool Deliver()
+    private bool Deliver() //esta funcion antes esataba en el Shop manager
     {
         if (product is ObjectShopData item)
         {

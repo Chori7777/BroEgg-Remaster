@@ -16,13 +16,15 @@ public class ShopManager : MonoBehaviour
     public bool IsOpen { get; private set; }
 
     private SimpleArrayStack<ICommand> refundProducts = new SimpleArrayStack<ICommand>();
+    const int rerollLimit = 3;
+    int rerollCount = 0;
 
     public void Open()
     {
         IsOpen = true;
         availableOffers.Clear();
         refundProducts.Clear();
-
+        rerollCount = 0;
         List<ShopProductData> products = catalog.GenerateOffers(offerButtons.Length, inventory);
 
         for (int i = 0; i < offerButtons.Length; i++)
@@ -174,18 +176,23 @@ public class ShopManager : MonoBehaviour
 
         availableOffers.Clear();
 
-        List<ShopProductData> products = catalog.GenerateOffers(offerButtons.Length, inventory);
-
-        for (int i = 0; i < offerButtons.Length; i++)
+        if(rerollCount < rerollLimit)
         {
-            ShopProductData product = null;
-            if (i < products.Count)
+            List<ShopProductData> products = catalog.GenerateOffers(offerButtons.Length, inventory);
+
+            for (int i = 0; i < offerButtons.Length; i++)
             {
-                product = products[i];
-                availableOffers.Add(product);
+                ShopProductData product = null;
+                if (i < products.Count)
+                {
+                    product = products[i];
+                    availableOffers.Add(product);
+                }
+                offerButtons[i].Setup(product, this);
             }
-            offerButtons[i].Setup(product, this);
+            rerollCount++;
         }
+       
     }
 
     public void Refund()
@@ -194,8 +201,8 @@ public class ShopManager : MonoBehaviour
 
         while (!refundProducts.IsEmpty)
         {
-            ICommand last = refundProducts.Pop();
-            if (last.Undo()) return;
+            ICommand last = refundProducts.Pop();//sacamos de la pila el ultimo ICommand
+            if (last.Undo()) return; //como Undo es un metodo de tipo bool, da true y se detiene el bucle (locura esto)-(recordar que el undo devuelve la plata y devuelte el objeto a las posiblres ofertas de la tienda)
         }
     }
 }

@@ -1,13 +1,14 @@
 using ED262C;
+using Unity.VisualScripting;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class InventaryWeapons : MonoBehaviour
 {
-    [SerializeField] UnityEngine.UI.Image[] toTheList; //array de imagenes
-    [SerializeField] SimpleArrayList<UnityEngine.UI.Image> invImages = new SimpleArrayList<UnityEngine.UI.Image>(); //lista con las imagenes que s erellena con el array
+    [SerializeField] Image[] toTheList; //array de imagenes
+    [SerializeField] SimpleArrayList<UnityEngine.UI.Image> invImages = new SimpleArrayList<Image>(); //lista con las imagenes que s erellena con el array
     SimpleArrayList<IWeapon> weapons = new SimpleArrayList<IWeapon>(); //lista de armas
     int ItemActual = 0;
-    private Sprite[] emptySlotSprites;
+    private Image[] emptySlotSprites;
 
     void Start()
     {
@@ -16,10 +17,11 @@ public class InventaryWeapons : MonoBehaviour
             invImages.Add(toTheList[i]);
         }
 
-        emptySlotSprites = new Sprite[toTheList.Length];
+        emptySlotSprites = new Image[toTheList.Length];
         for (int i = 0; i < toTheList.Length; i++)
         {
-            if (toTheList[i] != null) emptySlotSprites[i] = toTheList[i].sprite;
+            if (toTheList[i] != null) emptySlotSprites[i] = toTheList[i];
+            emptySlotSprites[i].gameObject.SetActive(false);
         }
         UpdateSelection();
     }
@@ -50,15 +52,14 @@ public class InventaryWeapons : MonoBehaviour
             {
                 ItemActual = invImages.Count - 1;
                 ItemActual = weapons.Count - 1;
-            }
-
-           
+            }   
             UpdateSelection();
         }
+
         if (Input.GetKeyDown(KeyCode.E))
         {
             ItemActual++;
-            if (ItemActual > invImages.Count - 1)
+            if (ItemActual > weapons.Count - 1)
             {
                 ItemActual = invImages.Count - 1;
                 ItemActual = 0;
@@ -78,6 +79,7 @@ public class InventaryWeapons : MonoBehaviour
 
         weapons.Add(newWeapon);
         ItemActual = weapons.Count - 1;
+        invImages[ItemActual].gameObject.SetActive(true); //esto es para que se active SOLO las imagenes de las armas
 
         Debug.Log("Cantidad armas: " + weapons.Count);
         Debug.Log("ItemActual: " + ItemActual);
@@ -98,7 +100,11 @@ public class InventaryWeapons : MonoBehaviour
         int index = -1;
         for (int i = 0; i < weapons.Count; i++)
         {
-            if (weapons[i] == weaponToRemove) { index = i; break; }
+            if (weapons[i] == weaponToRemove) 
+            { 
+                index = i; 
+                break; 
+            }
         }
         if (index < 0) return false;
 
@@ -118,10 +124,26 @@ public class InventaryWeapons : MonoBehaviour
     }
     private void RefreshSlotSprites()
     {
+        WeaponController wc;
         for (int i = 0; i < invImages.Count; i++)
         {
-            WeaponController wc = i < weapons.Count ? weapons[i] as WeaponController : null;
-            invImages[i].sprite = wc != null ? wc.WeaponData.WeaponSprite : emptySlotSprites[i];
+            if (i < weapons.Count && i > 0) //para que no tire null
+            {
+                wc = weapons[i] as WeaponController; //el AS es necesario porque el wachin dice que no se puede expresar porque weapons[i] es IWeapon no WeaponController
+            }
+            else
+            {
+                wc = null; //esto me lo dijo claude y no se por que, pero dejenlo ahi, aura
+            }
+
+            if(wc != null)
+            {
+                invImages[i].sprite = wc.WeaponData.WeaponSprite; //al sprite en el que estamos le asignamos el sprite del arma
+            }
+            else
+            {
+                invImages[i] = emptySlotSprites[i];//sino, ese sprite tiene que ser una imagen blanca
+            }
         }
     }
     void UpdateSelection()
@@ -130,7 +152,7 @@ public class InventaryWeapons : MonoBehaviour
         {
             if (i == ItemActual)
             {
-                invImages[i].color = Color.blue;
+                invImages[i].color = Color.red;
             }
             else
             {
@@ -155,8 +177,6 @@ public class InventaryWeapons : MonoBehaviour
             }
 
             weaponTransform.gameObject.SetActive(i == ItemActual);
-
-            
         }
     }
     public bool HasWeapon(string weaponId)

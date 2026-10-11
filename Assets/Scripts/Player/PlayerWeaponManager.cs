@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using static WeaponData;
 
@@ -15,7 +16,7 @@ public class PlayerWeaponManager : MonoBehaviour
         GiveWeapon("Shotgun");
     }   
 
-    public WeaponController GiveWeapon(string weaponId)
+    public WeaponController GiveWeapon(string weaponId) //ehora este metodo devuelve un arma, cosa que siempre tuvo que haber sido asi
     {
         WeaponController newWeapon = factoryWeapon.CreateWeapon(weaponId, hand.transform.position);
 
@@ -61,6 +62,10 @@ public class PlayerWeaponManager : MonoBehaviour
                     // Escopeta
                     isTriggering = Input.GetMouseButtonDown(0);
                     Debug.Log("shotgun mode");
+                    break;
+
+                default:
+                    isTriggering = false;
                     break;
             }
         }

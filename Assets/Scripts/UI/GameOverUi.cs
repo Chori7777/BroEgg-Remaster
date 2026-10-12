@@ -37,6 +37,7 @@ public class GameOverUI : MonoBehaviour
         {
             panel.SetActive(false);
             Time.timeScale = 1f;
+            Cursor.visible = false;
         }
     }
 }

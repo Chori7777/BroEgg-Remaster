@@ -28,7 +28,7 @@ public class CheckpointManager : MonoBehaviour // Guarda una variable last que s
     private IEnumerator SaveNextFrame()
     {
         yield return null; // espera 1 frame para que ya existan las armas iniciales, esto es solo porque el start de cuando inicia la ronda entra antes de que se creen las armas por eso espero un 1 segundos antes de guardar
-        //lastCheckpoint = session.CreateMemento();
+        lastCheckpoint = session.CreateMemento();
         Debug.Log("[Checkpoint] Guardado: ronda " + lastCheckpoint.Round + " | oro " + lastCheckpoint.Gold);
     }
 

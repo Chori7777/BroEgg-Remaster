@@ -13,6 +13,10 @@ public class GameplayState : IState
         levelManager.TimeRemaining = levelManager.CurrentWave.Time;
         spawnTimer = levelManager.CurrentWave.WaveRate;
 
+        if (CheckpointManager.Instance != null) // Sin esto nunca se guarda un checkpoint
+        {
+            CheckpointManager.Instance.SaveCheckpoint();
+        }
     }
 
     public void UpdateState()

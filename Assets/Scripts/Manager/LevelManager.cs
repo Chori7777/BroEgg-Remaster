@@ -112,6 +112,18 @@ public class LevelManager : MonoBehaviour
         AchievementsManager.Instance.waveCount++;
         Debug.Log("Ronda Actual" + currentRound);
     }
+
+    public void RestoreToRound(int round) //Reiniciar esa ronda (Memento)
+    {
+        waveQueue.Clear();
+        for (int i = round - 1; i < waveList.Count; i++)
+        {
+            waveQueue.Enqueue(waveList[i]);
+        }
+        currentRound = round - 1;
+        levelStateMachine.ChangeState(levelStateMachine.Gameplay);
+    }
+
     public void ChangeTime(float time)
     {
         Time.timeScale = time;

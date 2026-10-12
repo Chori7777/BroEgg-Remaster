@@ -8,13 +8,16 @@ public class InventaryWeapons : MonoBehaviour
     [SerializeField] SimpleArrayList<UnityEngine.UI.Image> invImages = new SimpleArrayList<Image>(); //lista con las imagenes que s erellena con el array
     SimpleArrayList<IWeapon> weapons = new SimpleArrayList<IWeapon>(); //lista de armas
     int ItemActual = 0;
+    Sprite[] defaultSprites; // Memento
     private Image[] emptySlotSprites;
 
     void Start()
     {
+        defaultSprites = new Sprite[toTheList.Length]; //Esto para resetear los sprites del memento
         for (int i = 0; i < toTheList.Length; i++)
         {
             invImages.Add(toTheList[i]);
+            defaultSprites[i] = toTheList[i].sprite;
         }
 
         emptySlotSprites = new Image[toTheList.Length];
@@ -146,6 +149,34 @@ public class InventaryWeapons : MonoBehaviour
             }
         }
     }
+
+    public string[] GetWeaponIds()
+    {
+        string[] ids = new string[weapons.Count];
+        for (int i = 0; i < weapons.Count; i++)
+        {
+            WeaponController wc = weapons[i] as WeaponController;
+            ids[i] = wc != null ? wc.WeaponData.IdWeapon : null;
+        }
+        return ids;
+    }
+
+    public void ClearWeapons()
+    {
+        for (int i = 0; i < weapons.Count; i++)
+        {
+            Transform wt = weapons[i] != null ? weapons[i].getTransform() : null;
+            if (wt != null) Destroy(wt.gameObject);
+        }
+        weapons.Clear();
+        ItemActual = 0;
+
+        for (int i = 0; i < invImages.Count && i < defaultSprites.Length; i++)
+            invImages[i].sprite = defaultSprites[i];
+
+        UpdateSelection();
+    }
+
     void UpdateSelection()
     {
         for (int i = 0; i < invImages.Count; i++)

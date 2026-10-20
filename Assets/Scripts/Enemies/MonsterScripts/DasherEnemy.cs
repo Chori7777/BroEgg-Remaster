@@ -20,7 +20,7 @@ public class DasherEnemy : Enemy
     public float chaseTimeout = 4f;       // limite por si queda trabado y nunca llega
 
     [Header("Visual")]
-    public Animator animator;
+    //public Animator animator;
   
 
     StateMachine machine;
@@ -51,7 +51,7 @@ public class DasherEnemy : Enemy
     void CreateBrain()
     {
 
-        if (animator == null) animator = GetComponentInChildren<Animator>();
+        //if (animator == null) animator = GetComponentInChildren<Animator>();
 
 
         machine = new StateMachine();
@@ -92,7 +92,7 @@ public class DasherEnemy : Enemy
 
     public void ShowState(string stateName)
     {
-        animator.Play(stateName);
+        //animator.Play(stateName);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

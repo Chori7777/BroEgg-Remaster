@@ -5,8 +5,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private PlayerStats playerStats;
     [SerializeField] private Rigidbody2D rb;
 
-    [SerializeField] private Animator animator;
-    public Animator Animator => animator;
+    //[SerializeField] private Animator animator;
+    //public Animator Animator => animator;
 
 
     public IState IdleState { get; private set; }

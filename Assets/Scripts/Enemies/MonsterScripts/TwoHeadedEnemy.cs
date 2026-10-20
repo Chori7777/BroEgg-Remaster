@@ -20,7 +20,7 @@ public class TwoHeadedEnemy : Enemy
     public GameObject projectilePrefabRight;
 
     [Header("Visual")]
-    public Animator animator;
+    //public Animator animator;
 
     StateMachine machine;
     EnemyBrain brain;
@@ -57,7 +57,7 @@ public class TwoHeadedEnemy : Enemy
 
     void CreateBrain()
     {
-        if (animator == null) animator = GetComponentInChildren<Animator>();
+        //if (animator == null) animator = GetComponentInChildren<Animator>();
 
         machine = new StateMachine();
         brain = new EnemyBrain(true);     // true: recalcula la prioridad en cada decision
@@ -95,7 +95,7 @@ public class TwoHeadedEnemy : Enemy
 
     public void ShowState(string stateName)
     {
-        if (animator != null) animator.Play(stateName);
+        //if (animator != null) animator.Play(stateName);
     }
 
     public void Shoot(bool isLeft)

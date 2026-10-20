@@ -15,7 +15,7 @@ public class Walk : IState
     }
     public void Enter()
     {
-        player.Animator.CrossFade("Walk", 0.05f);
+        //player.Animator.CrossFade("Walk", 0.05f);
     }
 
     public void Exit()

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using ED262C;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -5,8 +6,8 @@ using UnityEngine.UI;
 public class InventaryWeapons : MonoBehaviour
 {
     [SerializeField] Image[] toTheList; //array de imagenes
-    [SerializeField] SimpleArrayList<UnityEngine.UI.Image> invImages = new SimpleArrayList<Image>(); //lista con las imagenes que s erellena con el array
-    SimpleArrayList<IWeapon> weapons = new SimpleArrayList<IWeapon>(); //lista de armas
+    [SerializeField] List<UnityEngine.UI.Image> invImages = new List<Image>(); //lista con las imagenes que s erellena con el array
+    List<IWeapon> weapons = new List<IWeapon>(); //lista de armas
     int ItemActual = 0;
     Sprite[] defaultSprites; // Memento
     private Image[] emptySlotSprites;

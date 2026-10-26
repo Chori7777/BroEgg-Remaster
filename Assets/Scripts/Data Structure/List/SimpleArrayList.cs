@@ -39,6 +39,11 @@ namespace ED262C
             internalArray = new T[defaultCapacity];
         }
 
+        public SimpleArrayList(int count)
+        {
+            internalArray = new T[count];
+        }
+
         // Add agrega el elemento item al final
         public void Add(T item)
         {

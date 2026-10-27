@@ -1,10 +1,7 @@
 using System;
-using System.Runtime.InteropServices.WindowsRuntime;
 using ED262C;
-using TreeEditor;
 using UnityEngine;
-using UnityEngine.Rendering;
-using static UnityEngine.Rendering.DebugUI;
+
 
 public class BST<T> where T : IComparable //hace que los genericos implementen la interfaz
 {

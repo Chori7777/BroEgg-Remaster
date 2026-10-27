@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5217208740290164964}
   - component: {fileID: 7053605173848810060}
   - component: {fileID: 4969363531777224815}
+  - component: {fileID: -3897543040375515315}
   m_Layer: 0
   m_Name: SuicideEnemy
   m_TagString: Untagged
@@ -228,6 +229,32 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-3897543040375515315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1459994291635418208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53ccac84e7c822f4ca3f1b427263bb1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KamikazeExplosion
+  layers:
+  - maxDistance: 1.5
+    damageMultiplier: 1
+    knockbackSpeed: 18
+  - maxDistance: 3
+    damageMultiplier: 0.5
+    knockbackSpeed: 0
+  - maxDistance: 4.5
+    damageMultiplier: 0.25
+    knockbackSpeed: 0
+  targetLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  knockbackDuration: 0.25
 --- !u!1 &6727454709628157274
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using ED262C;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -12,6 +13,22 @@ public class ObjectsInventory : MonoBehaviour
     {
         List<ShopProductData> candidates = GetAvailableProducts(inventory);
         List<ShopProductData> offers = new List<ShopProductData>();
+
+        /*// Se arma el arbol con los candidatos de esta tienda
+        BST<ShopProductData> byPrice = new BST<ShopProductData>(ComparePrice);
+        for (int i = 0; i < candidates.Count; i++) byPrice.Insert(candidates[i]);
+
+        // DFS in-order: lo que el jugador puede pagar, del mas barato al mas caro
+        SimpleArrayList<ShopProductData> affordable = byPrice.InOrder(p => p.price <= playerGold);
+
+        // Primera oferta garantizada: algo que pueda pagar
+        if (count > 0 && affordable.Count > 0)
+        {
+            ShopProductData guaranteed = affordable[Random.Range(0, affordable.Count)];
+            offers.Add(guaranteed);
+            candidates.Remove(guaranteed);
+        }*/
+
 
         while (offers.Count < count && candidates.Count > 0)
         {

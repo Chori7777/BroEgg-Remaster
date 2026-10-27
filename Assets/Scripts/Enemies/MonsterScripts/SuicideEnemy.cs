@@ -5,7 +5,13 @@ public class SuicideEnemy : Enemy
     [SerializeField] private GameObject eyePrefab;
     [SerializeField] private int eyeCount = 3;
     [SerializeField] private float spawnRadius = 0.5f;
+    private KamikazeExplosion explosion;
 
+    protected override void Start()
+    {
+        base.Start();
+        explosion = GetComponent<KamikazeExplosion>(); //obtengo el script de la explosion
+    }
 
     protected override void Update()
     {
@@ -23,7 +29,7 @@ public class SuicideEnemy : Enemy
         {
             damageable.TakeDamage(stats.Damage);
         }
-
+        explosion.Explode();
         SpawnEyes();
         Destroy(gameObject);
     }

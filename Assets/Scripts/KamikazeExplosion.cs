@@ -22,7 +22,7 @@ public class ExplosionTarget : IComparable
         if (other == null) return 1;
 
         int byDistance = distance.CompareTo(other.distance);
-        if (byDistance != 0) return byDistance;
+        if (byDistance != 0) return byDistance; //aca puede dar 1 o -1 
 
         // El BST descarta los valores que dan CompareTo == 0. Si dos objetivos estan exactamente
         // a la misma distancia, desempatamos por id para no perder a ninguno.
@@ -34,16 +34,9 @@ public class ExplosionTarget : IComparable
 [Serializable]
 public class ExplosionLayer //Una clase de una capa invisible de explosion que tiene una distacia max, un multiplicador daño, y una fureza de empuje
 {
-    [Tooltip("Distancia maxima al epicentro que cubre esta capa")]
     public float maxDistance;
-
-    [Tooltip("Multiplicador sobre el danio del enemigo (1 = danio completo)")]
     [Range(0f, 1f)] public float damageMultiplier;
-
-    [Tooltip("Velocidad del empuje en unidades por segundo (0 = sin knockback)")]
     public float knockbackSpeed;
-
-    public ExplosionLayer() { }
 
     public ExplosionLayer(float maxDistance, float damageMultiplier, float knockbackSpeed)
     {
@@ -53,7 +46,7 @@ public class ExplosionLayer //Una clase de una capa invisible de explosion que t
     }
 }
 
-[RequireComponent(typeof(EnemyStats))]
+
 public class KamikazeExplosion : MonoBehaviour
 {
     [Header("Capas (de adentro hacia afuera)")] //un array de 3 capas
@@ -64,9 +57,11 @@ public class KamikazeExplosion : MonoBehaviour
         new ExplosionLayer(4.5f, 0.25f, 0f)   // Capa 3: borde, daño bajo
     };
 
-    [Header("Deteccion y knockback")]
-    [SerializeField] private LayerMask targetLayers = ~0;
+    [SerializeField] private LayerMask targetLayers;
     [SerializeField] private float knockbackDuration = 0.25f;
+
+    [Tooltip("Muestra en consola cuantos objetivos hubo y la altura del arbol")]
+    [SerializeField] private bool logTreeInfo = false;
 
     private EnemyStats stats;
     private bool exploded;
@@ -74,9 +69,6 @@ public class KamikazeExplosion : MonoBehaviour
     private void Awake()
     {
         stats = GetComponent<EnemyStats>(); //obtiene las stats
-
-        // Las capas tienen que estar ordenadas de menor a mayor distancia
-        Array.Sort(layers, (a, b) => a.maxDistance.CompareTo(b.maxDistance));
     }
 
     public void Explode()
@@ -88,29 +80,26 @@ public class KamikazeExplosion : MonoBehaviour
         Vector2 epicenter = transform.position; //el OverlapCircle arranca en el centro del enemigo
 
         // 1) Radio fisico: el borde de la ultima capa
-        float radius = layers[layers.Length - 1].maxDistance; //la longitud del centro del circulo hasta el borde de la 3ra capa => 4.5f
+        float radius = layers[layers.Length - 1].maxDistance; //la longitud del centro del circulo hasta el borde de la 3ra capa -> radio = 4.5f
         Collider2D[] hits = Physics2D.OverlapCircleAll(epicenter, radius, targetLayers); //Guardo todas las colisiones que esten en el capa deseada
 
         // 2) Un objeto puede tener varios colliders: nos quedamos con el mas cercano de cada uno
-        Dictionary<IDamageable, ExplosionTarget> closestByTarget = new Dictionary<IDamageable, ExplosionTarget>();
+        Dictionary<IDamageable, ExplosionTarget> closestByTarget = new Dictionary<IDamageable, ExplosionTarget>(); //el diccionario evita que los colliders se dupliquen
 
         for (int i = 0; i < hits.Length; i++) //recorro todos los hits detectados, y por cada uno de ellos...
         {
             Collider2D hit = hits[i]; //lo guardo de una variable (más comodidad)
-
-            if (hit.transform.IsChildOf(transform)) continue; //esto es para no dañar al enemigo, pero dsp se termina destruyendo, asi que no se, por las dudas no toco nada
-
             IDamageable damageable = hit.GetComponent<IDamageable>(); //guardo en una variable el componente adquirido de las colision
-            if (damageable == null) continue; //IMPORTANTE: si algo dentro de los circulos no implementa la interfaz IDamageable, no lo daña
+            if (damageable == null) continue; //IMPORTANTE: si damageable es null, salta al proximo bucle del for y se ahorra todo
 
             float distance = Vector2.Distance(epicenter, hit.ClosestPoint(epicenter)); //calcula la distancia densde el centro hasta el objetivo hiteado
 
-            if (closestByTarget.TryGetValue(damageable, out ExplosionTarget existing) && existing.distance <= distance) continue;
-            closestByTarget[damageable] = new ExplosionTarget(damageable, hit, distance);
+            if (closestByTarget.TryGetValue(damageable, out ExplosionTarget existing) && existing.distance <= distance) continue; //si ya existia la clave Y la distancia existente <= a la nueva, quedate con lo viejo y no agregues nada
+            closestByTarget[damageable] = new ExplosionTarget(damageable, hit, distance); //si no, agregamos este nuevo ExplosionTarget
         }
 
         // Cada objetivo se inserta en el BST usando su distancia como criterio de orden
-        BST<ExplosionTarget> targets = new BST<ExplosionTarget>();
+        AVL<ExplosionTarget> targets = new AVL<ExplosionTarget>();
         foreach (KeyValuePair<IDamageable, ExplosionTarget> pair in closestByTarget) //recorre el diccionario y guarda cada ExplosionTarget en el arbol
         {
             targets.Insert(pair.Value);
@@ -118,6 +107,12 @@ public class KamikazeExplosion : MonoBehaviour
 
         // LevelOrder() lanza NullReferenceException con el arbol vacio
         if (targets.IsEmpty) return;
+
+        if (logTreeInfo)
+        {
+            string treeName = "AVL";
+            Debug.Log("Explosion: " + targets.Count + " objetivos, arbol " + treeName + " de altura " + targets.height);
+        }
 
         // 3) BFS: se visita cada objetivo una vez. La capa sale de su distancia, no de su posicion en el recorrido.
         ISimpleList<ExplosionTarget> byLevels = targets.LevelOrder(); //se guarda en una variable de tipo lista lo que devuelve la funcion de LevelOrder()
@@ -141,13 +136,17 @@ public class KamikazeExplosion : MonoBehaviour
             target.damageable.TakeDamage(damage); //si hay daño, llamamos a las matematicas para que hagan el laburo por nosotros
         }
 
-        if (layer.knockbackSpeed > 0f) //aplicamos un empuje, no me pregunten porque las fisicas me enferman
+        if (layer.knockbackSpeed > 0f) //aplicamos un empuje
         {
             Vector2 direction = (Vector2)target.collider.bounds.center - epicenter;
-            direction = direction.sqrMagnitude > 0.0001f //si existe una magnitud, o sea, una direccion...
-                ? direction.normalized                   //-> se normaliza
-                : UnityEngine.Random.insideUnitCircle.normalized; //si no, se devuelve un numero reandom de un circulo de radio 1 [1f - 0f]
-
+            if(direction.sqrMagnitude > 0.0001f)//si existe una magnitud, o sea, una direccion...
+            {
+                direction = direction.normalized; //-> se normaliza
+            }
+            else
+            {
+                direction = UnityEngine.Random.insideUnitCircle.normalized; //si no, se devuelve un numero reandom de un circulo de radio 1 [1f - 0f]
+            }
             KnockbackReceiver.Apply(target.collider.attachedRigidbody, direction * layer.knockbackSpeed, knockbackDuration); //FINALMENTE -> se llama a la funcion static y se aplica el empujon
         }
     }
@@ -163,7 +162,7 @@ public class KamikazeExplosion : MonoBehaviour
         return layers[layers.Length - 1]; //y en caso que termine el bucle y no se devuelve nada, significa que se tiene que devolver la ultima capa
     }
 
-    // Dibuja las capas en el editor para poder ajustarlas viendolas
+    // Dibujo para que junior vea
     private void OnDrawGizmosSelected()
     {
         if (layers == null) return;

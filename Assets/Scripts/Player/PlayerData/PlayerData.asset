@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbbf12d7d1765eb4089e1c316cffba5d, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: Assembly-CSharp::PlayerData
-  baseHealth: 100
+  baseHealth: 250
   baseArmor: 1
   baseHealthRegeneration: 1
   baseDamage: 5

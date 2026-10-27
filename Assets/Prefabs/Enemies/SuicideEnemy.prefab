@@ -255,6 +255,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   knockbackDuration: 0.25
+  logTreeInfo: 0
 --- !u!1 &6727454709628157274
 GameObject:
   m_ObjectHideFlags: 0

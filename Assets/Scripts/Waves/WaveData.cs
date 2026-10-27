@@ -13,5 +13,6 @@ public class WaveData
     public int EnemiesPerWave;
     public float Time;
     public float WaveRate;
+    public SoundID music;
     public List<EnemyProbability> enemyProbabilities; // Aca junto esos dos datos para guardarlos en una lista asi no creo un string y float 
 }

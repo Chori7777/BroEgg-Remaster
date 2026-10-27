@@ -13,6 +13,10 @@ public class LevelManager : MonoBehaviour
     // DATOS EDITABLES EN EL INSPECTOR 
     public List<WaveData> waveList = new List<WaveData>();
 
+    [Header("Música")]
+    public bool changeMusic;   // ¿esta wave cambia la música?
+    public SoundID music;      // cuál suena
+
     //  COLA
     private ISimpleQueue<WaveData> waveQueue = new SimpleArrayQueue<WaveData>();
 
@@ -111,16 +115,33 @@ public class LevelManager : MonoBehaviour
         currentRound++;
         AchievementsManager.Instance.waveCount++;
         Debug.Log("Ronda Actual" + currentRound);
+
+        if (currentWave.music != SoundID.None && AudioManager.Instance != null)
+            AudioManager.Instance.PlayMusic(currentWave.music);
+    }
+    private void PlayLastMusicUpTo(int waveIndex)
+    {
+        if (AudioManager.Instance == null) return;
+
+        // Busca hacia atrás la última wave que tenga música definida
+        for (int i = Mathf.Min(waveIndex, waveList.Count - 1); i >= 0; i--)
+        {
+            if (waveList[i].music != SoundID.None)
+            {
+                AudioManager.Instance.PlayMusic(waveList[i].music);
+                return;
+            }
+        }
     }
 
-    public void RestoreToRound(int round) //Reiniciar esa ronda (Memento)
+    public void RestoreToRound(int round)
     {
         waveQueue.Clear();
         for (int i = round - 1; i < waveList.Count; i++)
-        {
             waveQueue.Enqueue(waveList[i]);
-        }
         currentRound = round - 1;
+
+        PlayLastMusicUpTo(round - 1); // música correcta al reintentar
         levelStateMachine.ChangeState(levelStateMachine.Gameplay);
     }
 

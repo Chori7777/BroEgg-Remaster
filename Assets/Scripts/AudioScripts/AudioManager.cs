@@ -20,8 +20,9 @@ public class AudioManager : MonoBehaviour
     private Coroutine crossfadeCoroutine;
 
 
-    private float musicVolumeMaster = 1f;
-    private float sfxVolumeMaster = 1f;
+    [Header("Volumen general")]
+    [Range(0f, 1f)][SerializeField] private float musicVolumeMaster = 1f;
+    [Range(0f, 1f)][SerializeField] private float sfxVolumeMaster = 1f;
 
 
     private float activeMusicEntryVolume = 1f;
@@ -39,11 +40,6 @@ public class AudioManager : MonoBehaviour
 
         BuildSFXPool();
         activeMusicSource = musicSourceA;
-
-        // Carga los valores guardados sin llamar ApplyAllSettings todavía
-        // (el AudioManager puede no estar listo cuando se llama)
-        musicVolumeMaster = SettingsManager.MusicVolume;
-        sfxVolumeMaster = SettingsManager.SFXVolume;
     }
 
     // Volumen maestro 

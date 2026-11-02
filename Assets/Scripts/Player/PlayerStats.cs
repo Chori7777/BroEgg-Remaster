@@ -53,6 +53,7 @@ public class PlayerStats : MonoBehaviour
 
     private void Awake()
     {
+        speed = 0;
         Initialize();
     }
 

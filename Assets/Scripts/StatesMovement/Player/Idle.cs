@@ -4,13 +4,15 @@ public class Idle : IState
 {
     PlayerMovement player;
 
+
     public Idle(PlayerMovement player)
     { 
-        this.player = player; 
+        this.player = player;
     }
     public void Enter()
     {
         player.Animator.CrossFade("PlayerIdle", 0.05f);
+        player.Rb.linearVelocity = Vector2.zero;
     }
 
     public void Exit()

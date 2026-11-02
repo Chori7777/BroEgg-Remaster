@@ -517,6 +517,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1685697761284713961, guid: 355c7db4a7aca63459dba81972b9fde0, type: 3}
+      propertyPath: flash
+      value: 
+      objectReference: {fileID: 1648962790}
+    - target: {fileID: 1685697761284713961, guid: 355c7db4a7aca63459dba81972b9fde0, type: 3}
       propertyPath: playerStats
       value: 
       objectReference: {fileID: 50457971}
@@ -568,6 +572,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1373675011906369707, guid: 355c7db4a7aca63459dba81972b9fde0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1648962784}
+    - targetCorrespondingSourceObject: {fileID: 1373675011906369707, guid: 355c7db4a7aca63459dba81972b9fde0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1648962790}
     - targetCorrespondingSourceObject: {fileID: 8184441621031679581, guid: 355c7db4a7aca63459dba81972b9fde0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 941037078}
@@ -71305,6 +71312,26 @@ MonoBehaviour:
   visual: {fileID: 2050471493}
   recoilDistance: 0.15
   returnSpeed: 15
+--- !u!212 &1648962789 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 1715356848832073349, guid: 355c7db4a7aca63459dba81972b9fde0, type: 3}
+  m_PrefabInstance: {fileID: 50457970}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1648962790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 50457972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92b8085476aa0204d875feaaeef56dd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HitFlash
+  sprite: {fileID: 1648962789}
+  flashColor: {r: 0, g: 0.30447245, b: 1, a: 1}
+  duration: 0.12
 --- !u!1 &1651263867
 GameObject:
   m_ObjectHideFlags: 0

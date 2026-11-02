@@ -7,6 +7,8 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 {
     [SerializeField] private PlayerStats playerStats;
 
+    [SerializeField] private HitFlash flash;
+
    
    [SerializeField] private float regenTimer;
     // Evento para notificar cambios en la salud del jugador
@@ -51,6 +53,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         int finalDamage = damage;
         finalDamage -= Mathf.RoundToInt(damage * (armorReduction / 100f));
       playerStats.SetHealth(playerStats.Health - finalDamage);
+        flash.Flash();
 
         OnHealthChanged?.Invoke(playerStats.Health, playerStats.MaxHealth);
         OnDamaged?.Invoke();

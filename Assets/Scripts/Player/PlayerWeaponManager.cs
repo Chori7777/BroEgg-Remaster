@@ -61,7 +61,7 @@ public class PlayerWeaponManager : MonoBehaviour
 
                     // Escopeta
                     isTriggering = Input.GetMouseButtonDown(0);
-                    Debug.Log("shotgun mode");
+
                     break;
 
                 default:

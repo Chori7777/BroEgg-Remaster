@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 
 [RequireComponent(typeof(EnemyStats))]
+[RequireComponent(typeof(EnemyFacade))]
 public class Enemy : MonoBehaviour, IDamageable
 {
     public static event Action<int> OnEnemyGoldDrop; // evento que avisa a la UI que el enemigo ha muerto y que debe actualizarse el oro del jugador
@@ -17,7 +18,7 @@ public class Enemy : MonoBehaviour, IDamageable
     //Referencias
     protected GameObject player;
     protected Rigidbody2D rb;
-
+    private EnemyFacade facade;
 
     //Encontrar Referencias
 
@@ -46,9 +47,13 @@ public class Enemy : MonoBehaviour, IDamageable
         {
             Debug.LogError("No se encontro el EnemyStats en el enemigo.");
         }
-     
 
+        facade = GetComponent<EnemyFacade>();
 
+        if(facade==null)
+        {
+            Debug.LogError("No se encontro el EnemyFacade en el enemigo.");
+        }
     }
     //Voids 
 
@@ -72,20 +77,25 @@ public class Enemy : MonoBehaviour, IDamageable
     }
 
 
+
+
     public void TakeDamage(int damage)
     {
         stats.TakeDamage(damage);
-
 
         if (stats.Health <= 0)
         {
             Die();
         }
+        else         
+        {
+            facade.OnHit();
+        }
     }
     // Esto es virtual por q la muerte puede variar segun el enemigo!
     protected virtual void Die()
     {
-        AchievementsManager.Instance.killCount++;
+        facade.OnDeath();
         OnEnemyGoldDrop?.Invoke(stats.EnemyGoldDrop);
         Destroy(gameObject);
     }

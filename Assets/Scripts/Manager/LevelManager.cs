@@ -113,11 +113,6 @@ public class LevelManager : MonoBehaviour
     {
         currentWave = waveQueue.Dequeue();
         currentRound++;
-        AchievementsManager.Instance.waveCount++;
-        Debug.Log("Ronda Actual" + currentRound);
-
-        if (currentWave.music != SoundID.None && AudioManager.Instance != null)
-            AudioManager.Instance.PlayMusic(currentWave.music);
     }
     private void PlayLastMusicUpTo(int waveIndex)
     {

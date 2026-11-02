@@ -9,8 +9,8 @@ public class GameplayState : IState
 
     public void Enter()
     {
-        levelManager.AdvanceToNextWave();
-        levelManager.TimeRemaining = levelManager.CurrentWave.Time;
+            GameFacade.AdvanceWave();
+            levelManager.TimeRemaining = levelManager.CurrentWave.Time;
         spawnTimer = levelManager.CurrentWave.WaveRate;
 
         if (CheckpointManager.Instance != null) // Sin esto nunca se guarda un checkpoint

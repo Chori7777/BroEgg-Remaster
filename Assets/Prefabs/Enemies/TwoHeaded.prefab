@@ -183,6 +183,7 @@ GameObject:
   - component: {fileID: 5763469596037733855}
   - component: {fileID: 2084273607909480935}
   - component: {fileID: 4497216553159694743}
+  - component: {fileID: 4995110320169485163}
   m_Layer: 0
   m_Name: TwoHeaded
   m_TagString: Untagged
@@ -323,6 +324,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TwoHeadedEnemy
   id: TwoHeaded
   stats: {fileID: 3035988993324379530}
+  hitFlash: {fileID: 4995110320169485163}
   cutDistance: 3
   chaseDuration: 2
   minChaseDistance: 2
@@ -406,6 +408,21 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.2853432, y: 1.364007}
   m_EdgeRadius: 0
+--- !u!114 &4995110320169485163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4828770110567254403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92b8085476aa0204d875feaaeef56dd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HitFlash
+  sprite: {fileID: 7571878619334051148}
+  flashColor: {r: 1, g: 0, b: 0, a: 1}
+  duration: 0.12
 --- !u!1 &4836804166108093414
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,12 +1,16 @@
 using System.Collections;
 using UnityEngine;
-using static WeaponData;
+using Unity.Cinemachine;
 
+
+using static WeaponData;
+[RequireComponent(typeof(WeaponFeedbackFacade))]
 public class WeaponController : MonoBehaviour, IWeapon
 {
     [SerializeField] private WeaponData weaponData;
     private BulletPool bulletPool;
 
+    private WeaponFeedbackFacade feedback;
     public WeaponData WeaponData => weaponData;
 
     private IWeaponBehavior behavior;
@@ -39,6 +43,7 @@ public class WeaponController : MonoBehaviour, IWeapon
     private void Awake()
     {
         behavior = CreateBehavior(GetShootingType());
+        feedback = GetComponent<WeaponFeedbackFacade>();
 
     }
 
@@ -78,6 +83,7 @@ public class WeaponController : MonoBehaviour, IWeapon
 
         int damage = DamageCalculator.CalculateDamage(stats, weaponData.BaseDamage);
         behavior.Shoot(transform, damage, playerCollider, bulletPool);
+        if (feedback != null) feedback.OnShoot();
     }
 
     private IEnumerator Reload() //Funcion para recargar las armas

@@ -506,7 +506,7 @@ PrefabInstance:
       objectReference: {fileID: 1648962782}
     - target: {fileID: 902144173724757452, guid: 355c7db4a7aca63459dba81972b9fde0, type: 3}
       propertyPath: gold
-      value: 100000
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1373675011906369707, guid: 355c7db4a7aca63459dba81972b9fde0, type: 3}
       propertyPath: m_Name
@@ -952,7 +952,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LevelManager
   waveList:
   - EnemiesPerWave: 10
-    Time: 30
+    Time: 45
     WaveRate: 3
     music: 3
     enemyProbabilities:
@@ -965,7 +965,7 @@ MonoBehaviour:
     - EnemyId: SuicideEnemy
       Probability: 60
   - EnemiesPerWave: 15
-    Time: 30
+    Time: 45
     WaveRate: 8
     music: 2
     enemyProbabilities:
@@ -976,30 +976,38 @@ MonoBehaviour:
     - EnemyId: TwoHeaded
       Probability: 60
   - EnemiesPerWave: 15
-    Time: 30
-    WaveRate: 4
-    music: 4
-    enemyProbabilities:
-    - EnemyId: Ghost
-      Probability: 100
-  - EnemiesPerWave: 15
-    Time: 30
-    WaveRate: 4
+    Time: 45
+    WaveRate: 8
     music: 2
     enemyProbabilities:
     - EnemyId: Ghost
-      Probability: 100
+      Probability: 50
     - EnemyId: Chaser
-      Probability: 100
+      Probability: 50
+    - EnemyId: TwoHeaded
+      Probability: 60
   - EnemiesPerWave: 15
-    Time: 10
-    WaveRate: 4
-    music: 5
+    Time: 45
+    WaveRate: 8
+    music: 2
     enemyProbabilities:
     - EnemyId: Ghost
-      Probability: 100
+      Probability: 50
     - EnemyId: Chaser
-      Probability: 100
+      Probability: 50
+    - EnemyId: TwoHeaded
+      Probability: 60
+  - EnemiesPerWave: 15
+    Time: 45
+    WaveRate: 8
+    music: 2
+    enemyProbabilities:
+    - EnemyId: Ghost
+      Probability: 50
+    - EnemyId: Chaser
+      Probability: 50
+    - EnemyId: TwoHeaded
+      Probability: 60
   changeMusic: 0
   music: 0
   shopPanel: {fileID: 308553226}
@@ -3385,10 +3393,10 @@ SpriteRenderer:
   m_SmallMeshCulling: 1
   m_ForceMeshLod: -1
   m_MeshLodSelectionBias: 0
-  m_RenderingLayerMask: 1
+  m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3407,9 +3415,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 28
+  m_SortingLayerID: 654426969
+  m_SortingLayer: 1
+  m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7425490484782313185, guid: eb962bc2d7a52394cbd0571cf020d062, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -3430,7 +3438,7 @@ Transform:
   m_GameObject: {fileID: 525238507}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.82, y: 7.15, z: 0}
+  m_LocalPosition: {x: -6, y: 3.16, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4712,7 +4720,7 @@ MonoBehaviour:
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
-  m_PointLightOuterRadius: 10
+  m_PointLightOuterRadius: 14
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
@@ -4731,7 +4739,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 818346124}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.0057494394, w: 0.9999835}
   m_LocalPosition: {x: -5.88, y: 1.89, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -14157,7 +14165,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ED262C.EnemySpawnerManager
   groupMinRadius: 6
   groupMaxRadius: 10
-  groupSpread: 1.5
+  groupSpread: 5
   spawnWarningPrefab: {fileID: 4267998973618002871, guid: 9eadc686302055b40b24f17240e28af9, type: 3}
   WarningTime: 1
   MinSpawnDistance: 3

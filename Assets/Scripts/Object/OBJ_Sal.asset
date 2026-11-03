@@ -14,10 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectShopData
   id: Sal
   displayName: Sal
+  description: 
   icon: {fileID: -722884648397021377, guid: 47d15ca978955274b99db90139c371a6, type: 3}
   price: 10
+  objectType: 0
   baseHealth: 20
-  baseArmor: 0
+  baseArmor: 20
+  baseHealthRegeneration: 0
   baseDamage: 0
+  baseCritDamage: 0
+  baseCriticalChance: 0
   baseSpeed: 0
+  baseDodgeChance: 0
+  baseHarvesting: 0
+  baseCurse: 0
   sellPriceRatio: 0.5

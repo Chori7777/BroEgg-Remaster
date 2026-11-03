@@ -18,11 +18,11 @@ MonoBehaviour:
   icon: {fileID: -4936644330148155580, guid: 7011bd63b30e94342b01bd24f1da1f40, type: 3}
   price: 10
   objectType: 3
-  baseHealth: 20
+  baseHealth: 0
   baseArmor: 0
-  baseHealthRegeneration: 0
+  baseHealthRegeneration: 15
   baseDamage: 0
-  baseCritDamage: 0
+  baseCritDamage: 20
   baseCriticalChance: 0
   baseSpeed: 0
   baseDodgeChance: 0

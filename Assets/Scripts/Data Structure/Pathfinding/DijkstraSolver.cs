@@ -1,0 +1,147 @@
+using ED262C;
+using UnityEngine;
+
+public class DijkstraSolver<T> : IPathFindingSolver<T>
+{
+    public ISimpleDictionary<GraphNode<T>, Edge<GraphNode<T>>> GetAllShortestPath(GraphNode<T> origin, IGraph<GraphNode<T>> graph)
+    {
+        //tabla con toda la info
+        ISimpleDictionary<GraphNode<T>, Edge<GraphNode<T>>> result = new SimpleArrayDictionary<GraphNode<T>, Edge<GraphNode<T>>>();
+        SimpleArrayPriorityQueue<GraphNode<T>> unvisited = new SimpleArrayPriorityQueue<GraphNode<T>>();
+        SimpleArraySet<GraphNode<T>> visited = new SimpleArraySet<GraphNode<T>>();
+
+        //inicializar valores principales
+        GraphNode<T>[] vertices = graph.vertices;
+
+        //inicializamos la tabla con el primero teniendo prev = null y su peso es infinito
+        for (int i = 0; i < vertices.Length;)
+        {
+            result.Add(vertices[i], new Edge<GraphNode<T>>(null, int.MaxValue));
+        }
+
+        //el primer nodo no tiene costo
+        result[origin].weight = 0;
+
+        //encolamos al primero con su peso 0
+        unvisited.Enqueue(origin, result[origin].weight);
+
+        while (!unvisited.IsEmpty)
+        {
+            //sacamos el primero de la queue
+            GraphNode<T> current = unvisited.Dequeue();
+
+            //si ya lo visitamos, lo saltemaos
+            if (visited.Contains(current)) continue;
+
+            //guardamos los vecinos en una lista para evaluar
+            ISimpleList<Edge<GraphNode<T>>> neighbours = graph.GetNeighbours(current);
+
+            for (int i = 0; i < neighbours.Count; i++)
+            {
+                //suamamos el costo total hasta el nodo actual
+                int totalWeight = neighbours[i].weight + result[current].weight;
+
+                //Si el costo total es menor al que esta en la tabla para...
+                //actualizamos ese costo con el que calculamos (buscamos siempre el menor costo)
+                if (totalWeight < result[neighbours[i].to].weight)
+                    result[neighbours[i].to].weight = totalWeight;
+            }
+
+            //marcamos el nodo como visitado
+            visited.Add(current);
+        }
+
+        return result;
+    }
+
+    //igual a la de arriba, pero devuelve una lista y corta si encuentra destination
+    public ISimpleList<GraphNode<T>> GetShortestPath(GraphNode<T> origin, GraphNode<T> destination, IGraph<GraphNode<T>> graph)
+    {
+        //tabla con toda la info
+        ISimpleDictionary<GraphNode<T>, Edge<GraphNode<T>>> table = new SimpleArrayDictionary<GraphNode<T>, Edge<GraphNode<T>>>();
+
+        SimpleArrayPriorityQueue<GraphNode<T>> unvisited = new SimpleArrayPriorityQueue<GraphNode<T>>();
+        SimpleArraySet<GraphNode<T>> visited = new SimpleArraySet<GraphNode<T>>();
+
+        //inicializar valores principales
+        GraphNode<T>[] vertices = graph.vertices;
+
+        //inicializamos la tabla con el primero teniendo prev = null y su peso es infinito
+        for (int i = 0; i < vertices.Length;)
+        {
+            table.Add(vertices[i], new Edge<GraphNode<T>>(null, int.MaxValue));
+        }
+
+        //el primer nodo no tiene costo
+        table[origin].weight = 0;
+
+        //encolamos al primero con su peso 0
+        unvisited.Enqueue(origin, table[origin].weight);
+
+        while (!unvisited.IsEmpty)
+        {
+            //sacamos el primero de la queue
+            GraphNode<T> current = unvisited.Dequeue();
+
+            //si justo es el que buscamos, terminamos el bucle
+            if (current == destination)
+            {
+                break;
+            }
+
+            //si ya lo visitamos, lo saltemaos
+            if (visited.Contains(current)) continue;
+
+            //guardamos los vecinos en una lista para evaluar
+            ISimpleList<Edge<GraphNode<T>>> neighbours = graph.GetNeighbours(current);
+
+            for (int i = 0; i < neighbours.Count; i++)
+            {
+                //suamamos el costo total hasta el nodo actual
+                int totalWeight = neighbours[i].weight + table[current].weight;
+
+                //Si el costo total es menor al que esta en la tabla para...
+                //actualizamos ese costo con el que calculamos (buscamos siempre el menor costo)
+                if (totalWeight < table[neighbours[i].to].weight)
+                    table[neighbours[i].to].weight = totalWeight;
+            }
+
+            //marcamos el nodo como visitado
+            visited.Add(current);
+        }
+
+        //generamos un unico path a partir de la tabla
+        return GeneratePath(destination, table);
+    }
+
+    ISimpleList<GraphNode<T>> GeneratePath(GraphNode<T> destination, ISimpleDictionary<GraphNode<T>, Edge<GraphNode<T>>> table)
+    {
+        ISimpleStack<GraphNode<T>> reversePath = new SimpleLinkedStack<GraphNode<T>>();
+        reversePath.Push(destination);
+        GraphNode<T> current = destination;
+
+        //mientras haya un nodo para evaluar...
+        while (current != null)
+        {
+            //lo agregamos al camino
+            reversePath.Push(current);
+
+            //pasamos al nodo anterior
+            current = table[current].to;
+        }
+
+        //si el ultimo elemento no es alcanzable, no hay camino posible y devolvemos null
+        if (table[destination].to == null) return null;
+
+        //creamos el path definitivo
+        ISimpleList<GraphNode<T>> path = new SimpleArrayList<GraphNode<T>>(reversePath.Count);
+
+        //Invertimos la lista
+        while (!reversePath.IsEmpty)
+        {
+            //el primer indice del path es el ultimo 
+            path.Add(reversePath.Pop());
+        }
+        return path;
+    }
+}

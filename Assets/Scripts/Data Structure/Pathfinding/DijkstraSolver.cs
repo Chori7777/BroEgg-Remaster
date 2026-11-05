@@ -11,7 +11,7 @@ public class DijkstraSolver<T> : IPathFindingSolver<T>
         //tabla con todos los nodos del grafo
         ISimpleDictionary<GraphNode<T>, Edge<GraphNode<T>>> result = new SimpleArrayDictionary<GraphNode<T>, Edge<GraphNode<T>>>();
 
-        //PriorityQueue que guarda los nodos no seleccionados
+        //PriorityQueue que guarda los nodos no seleccionados   
         SimpleArrayPriorityQueue<GraphNode<T>> unvisited = new SimpleArrayPriorityQueue<GraphNode<T>>();
 
         //Set que guarda todos los nodos ya visitados

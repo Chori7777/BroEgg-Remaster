@@ -110,7 +110,7 @@ public class ListGraph<T> : IGraph<T>
         if (!adjacencyList.ContainsKey(from)) return null;
 
         //si llegamos hasta aca, estaba en el nodo inicial
-        SimpleArrayList<Edge<T>> neighbourEdges = adjacencyList[from];
+        SimpleArrayList<Edge<T>> neighbourEdges = adjacencyList[from]; //el diccionario posee la lista de vecinos de una Key (un nodo especifico)
 
         //Recorremos la lista de Edges
         for(int i = 0; i < neighbourEdges.Count; i++)
@@ -120,10 +120,5 @@ public class ListGraph<T> : IGraph<T>
         }
 
         return null;
-    }
-
-    ISimpleList<Edge<T>> IGraph<T>.GetNeighbours(T vertex)
-    {
-        throw new System.NotImplementedException();
     }
 }

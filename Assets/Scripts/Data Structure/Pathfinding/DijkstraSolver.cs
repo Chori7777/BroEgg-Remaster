@@ -3,27 +3,34 @@ using UnityEngine;
 
 public class DijkstraSolver<T> : IPathFindingSolver<T>
 {
+    //funcion de Dijkstra que devuelve los caminos mas cercanos
     public ISimpleDictionary<GraphNode<T>, Edge<GraphNode<T>>> GetAllShortestPath(GraphNode<T> origin, IGraph<GraphNode<T>> graph)
     {
-        //tabla con toda la info
+
+
+        //tabla con todos los nodos del grafo
         ISimpleDictionary<GraphNode<T>, Edge<GraphNode<T>>> result = new SimpleArrayDictionary<GraphNode<T>, Edge<GraphNode<T>>>();
+
+        //PriorityQueue que guarda los nodos no seleccionados
         SimpleArrayPriorityQueue<GraphNode<T>> unvisited = new SimpleArrayPriorityQueue<GraphNode<T>>();
+
+        //Set que guarda todos los nodos ya visitados
         SimpleArraySet<GraphNode<T>> visited = new SimpleArraySet<GraphNode<T>>();
 
-        //inicializar valores principales
+        //Array de vertices/nodos
         GraphNode<T>[] vertices = graph.vertices;
 
         //inicializamos la tabla con el primero teniendo prev = null y su peso es infinito
-        for (int i = 0; i < vertices.Length;)
+        for (int i = 0; i < vertices.Length; i++)
         {
-            result.Add(vertices[i], new Edge<GraphNode<T>>(null, int.MaxValue));
+            result.Add(vertices[i], new Edge<GraphNode<T>>(null, int.MaxValue)); //se le agrega al diccionario todos los vertices y una arista con(to == null y un peso maximo) 
         }
 
         //el primer nodo no tiene costo
         result[origin].weight = 0;
 
         //encolamos al primero con su peso 0
-        unvisited.Enqueue(origin, result[origin].weight);
+        unvisited.Enqueue(origin, result[origin].weight); //cuanto menos sea el peso, antes va a salir en Dequeue
 
         while (!unvisited.IsEmpty)
         {
@@ -31,7 +38,7 @@ public class DijkstraSolver<T> : IPathFindingSolver<T>
             GraphNode<T> current = unvisited.Dequeue();
 
             //si ya lo visitamos, lo saltemaos
-            if (visited.Contains(current)) continue;
+            if (visited.Contains(current)) continue; //si fuera hash seria O(1)
 
             //guardamos los vecinos en una lista para evaluar
             ISimpleList<Edge<GraphNode<T>>> neighbours = graph.GetNeighbours(current);
@@ -41,10 +48,14 @@ public class DijkstraSolver<T> : IPathFindingSolver<T>
                 //suamamos el costo total hasta el nodo actual
                 int totalWeight = neighbours[i].weight + result[current].weight;
 
-                //Si el costo total es menor al que esta en la tabla para...
+                //Si el costo total es menor al que esta en la tabla para llegar al vecino
                 //actualizamos ese costo con el que calculamos (buscamos siempre el menor costo)
                 if (totalWeight < result[neighbours[i].to].weight)
                     result[neighbours[i].to].weight = totalWeight;
+
+                //Agregamos a la Queue el vecino si es que no fue visitado antes con el peso
+                if (!visited.Contains(neighbours[i].to))
+                    unvisited.Enqueue(neighbours[i].to, totalWeight);
             }
 
             //marcamos el nodo como visitado

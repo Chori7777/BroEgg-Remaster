@@ -5,7 +5,7 @@ public class Edge<T>
     public T to;
     public int weight;
 
-    public Edge(T destination, int weight)
+    public Edge(T destination, int weight) // to es para donde va y weight el peso que tiene esa arista
     {
         this.to = destination;
         this.weight = weight;

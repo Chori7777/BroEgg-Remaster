@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 4969363531777224815}
   - component: {fileID: -3897543040375515315}
   - component: {fileID: 7592887024213213813}
+  - component: {fileID: 1112460552934594893}
   m_Layer: 0
   m_Name: SuicideEnemy
   m_TagString: Untagged
@@ -132,7 +133,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SuicideEnemy
   id: SuicideEnemy
   stats: {fileID: 6985379916404018086}
-  hitFlash: {fileID: 7592887024213213813}
   eyePrefab: {fileID: 1272270320147426439, guid: 2bea55a5d39fb0845925472ecbc26dc4, type: 3}
   eyeCount: 3
   spawnRadius: 30
@@ -273,6 +273,18 @@ MonoBehaviour:
   sprite: {fileID: 7312224710804070554}
   flashColor: {r: 1, g: 0, b: 0, a: 1}
   duration: 0.12
+--- !u!114 &1112460552934594893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1459994291635418208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0b6a26b98ddf084792879b0028099c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyFacade
 --- !u!1 &6727454709628157274
 GameObject:
   m_ObjectHideFlags: 0

@@ -138,32 +138,4 @@ public class PathfindingManager : MonoBehaviour
         Vector3Int cell = floorTilemap.WorldToCell(worldPosition);
         return grid.IsWalkable(grid.ToGridX(cell.x), grid.ToGridY(cell.y));
     }
-
-    // Seleccionando este objeto en Play: rojo = pared, verde = hacia donde apunta el campo
-    private void OnDrawGizmosSelected()
-    {
-        if (!drawGizmos || grid == null) return;
-
-        for (int y = 0; y < grid.height; y++)
-        {
-            for (int x = 0; x < grid.width; x++)
-            {
-                Vector3 center = floorTilemap.GetCellCenterWorld(new Vector3Int(grid.originX + x, grid.originY + y, 0));
-
-                if (!grid.IsWalkable(x, y))
-                {
-                    Gizmos.color = new Color(1f, 0f, 0f, 0.35f);
-                    Gizmos.DrawCube(center, Vector3.one * 0.9f);
-                    continue;
-                }
-
-                if (ready && field.TryGetNextStep(x, y, out int nextX, out int nextY))
-                {
-                    Vector3 nextCenter = floorTilemap.GetCellCenterWorld(new Vector3Int(grid.originX + nextX, grid.originY + nextY, 0));
-                    Gizmos.color = Color.green;
-                    Gizmos.DrawLine(center, Vector3.Lerp(center, nextCenter, 0.45f));
-                }
-            }
-        }
-    }
 }

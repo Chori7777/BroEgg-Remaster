@@ -7,7 +7,6 @@ public class DijkstraSolver<T> : IPathFindingSolver<T>
     public ISimpleDictionary<GraphNode<T>, Edge<GraphNode<T>>> GetAllShortestPath(GraphNode<T> origin, IGraph<GraphNode<T>> graph)
     {
 
-
         //tabla con todos los nodos del grafo
         ISimpleDictionary<GraphNode<T>, Edge<GraphNode<T>>> result = new SimpleArrayDictionary<GraphNode<T>, Edge<GraphNode<T>>>();
 

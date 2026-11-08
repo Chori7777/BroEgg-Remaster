@@ -19,7 +19,7 @@ public class DasherIdle : IEnemyBehavior
     }
 
     // Obligatorio por la interfaz, pero Idle no pasa por el cerebro.
-    public int GetPriority()
+    public int GetPriority() //cada estado tiene su prioridad para que se ordene en la PriorityQueue del EnemyBrain
     {
         return 0;
     }

@@ -76,7 +76,7 @@ public class DasherEnemy : Enemy
 
     public Vector2 DirToPlayer()
     {
-        Vector2 direction = player.transform.position - transform.position;
+        Vector2 direction = base.GetChaseDirection();
         return direction.normalized;
     }
 

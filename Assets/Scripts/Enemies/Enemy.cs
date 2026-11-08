@@ -107,6 +107,11 @@ public class Enemy : MonoBehaviour, IDamageable
             transform.localScale = new Vector3(-1, 1, 1);
     }
 
+    protected Vector2 GetChaseDirection()
+    {
+        return PathfindingManager.Instance.GetDirection(transform.position, player.transform.position);
+    }
+
     protected virtual void Update()
     {
         FlipTowardsPlayer();

@@ -4,7 +4,7 @@ public class Ghost : Enemy
 {
     protected override void Update()
     {
-        Vector2 direction = (player.transform.position - transform.position).normalized;
+        Vector2 direction = base.GetChaseDirection().normalized;
         rb.linearVelocity = direction * stats.Speed;
         base.Update();
     }

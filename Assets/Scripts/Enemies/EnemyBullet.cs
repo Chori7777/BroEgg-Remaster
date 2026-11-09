@@ -4,7 +4,7 @@ public class EnemyBullet : MonoBehaviour
 {
     [SerializeField] private float speed = 6f;      // cada prefab tiene su propia velocidad
     [SerializeField] private float lifeTime = 3f;
-
+    EnemyBulletPool pool;
     private Rigidbody2D rb;
     private int damage;
 
@@ -13,11 +13,12 @@ public class EnemyBullet : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    public void Setup(Vector2 direction, int damage)
+    public void Setup(Vector2 direction, int damage, EnemyBulletPool pool)
     {
         this.damage = damage;
         rb.linearVelocity = direction * speed;
-        Destroy(gameObject, lifeTime);              // si no pega, se destruye solo
+        this.pool = pool;
+        //Destroy(gameObject, lifeTime);              // si no pega, se destruye solo
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -28,7 +29,7 @@ public class EnemyBullet : MonoBehaviour
         if (damageable != null)
         {
             damageable.TakeDamage(damage);
-            Destroy(gameObject);
+            pool.Recycle(this);
         }
     }
 }

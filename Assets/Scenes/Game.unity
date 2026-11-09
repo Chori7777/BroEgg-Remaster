@@ -14605,7 +14605,7 @@ GameObject:
   - component: {fileID: 1296118798}
   - component: {fileID: 1296118799}
   m_Layer: 0
-  m_Name: Spawner
+  m_Name: Spawner/EFactory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14646,6 +14646,7 @@ MonoBehaviour:
   - {fileID: 9120076383525775376, guid: 5490c36444a1b9244befc170c82d14ab, type: 3}
   - {fileID: 5763469596037733855, guid: 63eea95c265f4a546b0d553622e2dee3, type: 3}
   - {fileID: 3335877043237586076, guid: ea40a3c6bd4917f45b363c1c1a9b7e0f, type: 3}
+  pool: {fileID: 1506191177}
 --- !u!4 &1296118800
 Transform:
   m_ObjectHideFlags: 0
@@ -15176,6 +15177,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1506191176}
   - component: {fileID: 1506191175}
+  - component: {fileID: 1506191177}
   m_Layer: 0
   m_Name: BulletPool
   m_TagString: Untagged
@@ -15212,6 +15214,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1506191177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1506191174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24d52aecbd7a288409552899df0f2765, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyBulletPool
+  prefab: {fileID: 8746834659419627426, guid: 00a59ef1f3edcfa49bb06d2acdf2e76e, type: 3}
+  initialSize: 20
 --- !u!1 &1517450514
 GameObject:
   m_ObjectHideFlags: 0

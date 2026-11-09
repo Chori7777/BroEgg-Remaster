@@ -24,8 +24,14 @@ public class TwoHeadedEnemy : Enemy
 
     StateMachine machine;
     EnemyBrain brain;
+    EnemyBulletPool pool;
     IEnemyBehavior chase;
     IEnemyBehavior current;
+
+    public void SetPool(EnemyBulletPool pool)
+    {
+        this.pool = pool;
+    }
 
     protected override void Update()
     {
@@ -110,8 +116,10 @@ public class TwoHeadedEnemy : Enemy
         }
 
         Vector2 direction = (player.transform.position - firePoint.position).normalized;
-        GameObject projectile = Instantiate(prefab, firePoint.position, Quaternion.identity);
-        projectile.GetComponent<EnemyBullet>().Setup(direction, stats.Damage);
+        GameObject projectile = pool.Get().gameObject;
+        projectile.transform.position = firePoint.position;
+        projectile.transform.rotation = Quaternion.identity;
+        projectile.GetComponent<EnemyBullet>().Setup(direction, stats.Damage, pool);
        
     }
 

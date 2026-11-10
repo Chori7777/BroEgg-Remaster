@@ -198,8 +198,9 @@ public class PathfindingManager : MonoBehaviour
         // Dijkstra solo se ejecuta cuando cambia el nodo origen.
         timer = Mathf.Max(0f, recalculateInterval);
 
-        //el nodo del jugador (si esta pisando un bloque bloqueado, usamos el nodo libre mas cercano)
-        GraphNode<Vector2Int> origin = FindNodeNear(WorldToBlock(playerTransform.position), false);
+        
+        Vector2Int playerBlock = WorldToBlock(playerTransform.position);
+        GraphNode<Vector2Int> origin = GetNode(playerBlock.x, playerBlock.y);
 
         //si no hay nodo, o el jugador sigue en el mismo bloque, la tabla que ya tenemos sigue sirviendo
         if (origin == null || origin == playerNode) return;
@@ -211,34 +212,25 @@ public class PathfindingManager : MonoBehaviour
     }
 
     //PASO 4: direccion (ya normalizada) para ir de "from" hasta "to" esquivando obstaculos
-    public Vector2 GetDirection(Vector3 from, Vector3 to) //Esto se llama en Enemy, from = player.transform.position y to = player.transform.position
+    public Vector2 GetDirection(Vector3 from, Vector3 to)
     {
-        Vector2 straight = ((Vector2)(to - from)).normalized; //direccion de ir para adelante
+        Vector2 straight = ((Vector2)(to - from)).normalized;
 
-        //todavia no hay tabla: vamos en linea recta
         if (table == null) return straight;
 
-        //si no hay nada en el medio, vamos en linea recta (se ve mas natural)
-        if (HasClearPath(from, to)) return straight;
-
         Vector2Int block = WorldToBlock(from);
-        GraphNode<Vector2Int> current = GetNode(block.x, block.y); //nodo actual que esta pisando el wachin del enemigo
+        GraphNode<Vector2Int> current = GetNode(block.x, block.y);
 
-        //el enemigo esta en un bloque sin nodo (pegado a un obstaculo): va al nodo vecino mas barato
-        if (current == null)
-        {
-            GraphNode<Vector2Int> near = FindNodeNear(block, true);
-            if (near == null) return straight;
-            return DirectionTo(from, BlockToWorld(near.value));
-        }
+        // Si el enemigo esta en un bloque nulo (pared), va directo al jugador a lo bruto
+        if (current == null) return straight;
 
-        //buscamos la entrada del nodo en la tabla de Dijkstra
+        // Buscamos el siguiente nodo en la tabla de Dijkstra
         if (!table.TryGetValue(current, out Edge<GraphNode<Vector2Int>> data)) return straight;
 
-        //data.to es el nodo anterior del camino jugador -> enemigo, o sea el siguiente paso hacia el jugador.
-        //Si es null, este es el nodo del jugador o no hay camino hasta el.
+        // Si no hay nodo siguiente, vamos en linea recta
         if (data.to == null) return straight;
 
+        // Retorna la direccion hacia el centro del siguiente nodo del grafo
         return DirectionTo(from, BlockToWorld(data.to.value));
     }
 
@@ -274,81 +266,6 @@ public class PathfindingManager : MonoBehaviour
         return firstCell + new Vector3(shift * floorTilemap.cellSize.x, shift * floorTilemap.cellSize.y, 0f);
     }
 
-    //busca el nodo mas cercano a un bloque, mirando en anillos cada vez mas grandes (radio 0, 1, 2).
-    //pickCheapest = true: entre los nodos del anillo elige el de menor costo hacia el jugador.
-    private GraphNode<Vector2Int> FindNodeNear(Vector2Int block, bool pickCheapest)
-    {
-        for (int radius = 0; radius <= 2; radius++)
-        {
-            GraphNode<Vector2Int> best = null;
-            int bestCost = int.MaxValue;
-
-            for (int dy = -radius; dy <= radius; dy++)
-            {
-                for (int dx = -radius; dx <= radius; dx++)
-                {
-                    //solo el borde del anillo; el interior ya se reviso con radios menores
-                    if (Mathf.Max(Mathf.Abs(dx), Mathf.Abs(dy)) != radius) continue;
-
-                    GraphNode<Vector2Int> candidate = GetNode(block.x + dx, block.y + dy);
-                    if (candidate == null) continue;
-                    if (!pickCheapest) return candidate;
-
-                    int cost = CostToPlayer(candidate);
-                    if (best == null || cost < bestCost)
-                    {
-                        best = candidate;
-                        bestCost = cost;
-                    }
-                }
-            }
-
-            if (best != null) return best;
-        }
-
-        return null;
-    }
-
-    private int CostToPlayer(GraphNode<Vector2Int> node)
-    {
-        if (table != null && table.TryGetValue(node, out Edge<GraphNode<Vector2Int>> data)) return data.weight;
-        return int.MaxValue;
-    }
-
-    //----- linea recta: hay algo en el medio? (se revisa celda por celda, sin usar fisicas) -----
-
-    //se revisan 3 lineas (el centro y los dos costados del cuerpo) para que el enemigo no roce esquinas
-    private bool HasClearPath(Vector2 from, Vector2 to)
-    {
-        Vector2 side = Vector2.Perpendicular((to - from).normalized) * bodyRadius;
-        return LineIsClear(from, to) && LineIsClear(from + side, to + side) && LineIsClear(from - side, to - side);
-    }
-
-    private bool LineIsClear(Vector2 from, Vector2 to)
-    {
-        // Usamos la celda más chica para no saltear obstáculos en tilemaps
-        // rectangulares (por ejemplo, cellSize.x != cellSize.y).
-        float step = Mathf.Min(floorTilemap.cellSize.x, floorTilemap.cellSize.y) * 0.5f;
-        if (step <= 0f) return false;
-        int samples = Mathf.CeilToInt(Vector2.Distance(from, to) / step);
-
-        for (int i = 0; i <= samples; i++)
-        {
-            float t = samples == 0 ? 0f : (float)i / samples;
-            if (!IsWalkableAt(Vector2.Lerp(from, to, t))) return false;
-        }
-        return true;
-    }
-
-    private bool IsWalkableAt(Vector2 worldPosition)
-    {
-        Vector3Int cell = floorTilemap.WorldToCell(worldPosition);
-        int x = cell.x - originX;
-        int y = cell.y - originY;
-        if (x < 0 || x >= cellsWide || y < 0 || y >= cellsHigh) return false;
-        return walkableCells[y * cellsWide + x];
-    }
-
     //Seleccionando este objeto en Play: rojo = celda bloqueada, amarillo = nodo del grafo,
     //verde = hacia que nodo va un enemigo que esta en cada nodo
     private void OnDrawGizmosSelected()
@@ -359,8 +276,8 @@ public class PathfindingManager : MonoBehaviour
         {
             for (int x = 0; x < cellsWide; x++)
             {
-                if (walkableCells[y * cellsWide + x]) continue;
-                Gizmos.color = new Color(1f, 0f, 0f, 0.35f);
+                if (walkableCells[y * cellsWide + x]) continue; //solo dibujo si walkableCells = false
+                Gizmos.color = new Color(1f, 0f, 0f, 0.25f); //dibujo de color rojo
                 Gizmos.DrawCube(floorTilemap.GetCellCenterWorld(new Vector3Int(originX + x, originY + y, 0)), Vector3.one * 0.9f);
             }
         }

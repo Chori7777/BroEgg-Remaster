@@ -184,9 +184,10 @@ GameObject:
   - component: {fileID: 2084273607909480935}
   - component: {fileID: 4497216553159694743}
   - component: {fileID: 4995110320169485163}
+  - component: {fileID: 2842065692432401623}
   m_Layer: 0
   m_Name: TwoHeaded
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -200,7 +201,7 @@ Transform:
   m_GameObject: {fileID: 4828770110567254403}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.927, y: 7.379, z: 0}
+  m_LocalPosition: {x: -9.49, y: 6.72, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -324,7 +325,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TwoHeadedEnemy
   id: TwoHeaded
   stats: {fileID: 3035988993324379530}
-  hitFlash: {fileID: 4995110320169485163}
   cutDistance: 3
   chaseDuration: 2
   minChaseDistance: 2
@@ -396,7 +396,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.0065555573}
+  m_Offset: {x: 0.014401436, y: -0.24307966}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -406,7 +406,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.2853432, y: 1.364007}
+  m_Size: {x: 0.7572689, y: 0.86473656}
   m_EdgeRadius: 0
 --- !u!114 &4995110320169485163
 MonoBehaviour:
@@ -423,6 +423,18 @@ MonoBehaviour:
   sprite: {fileID: 7571878619334051148}
   flashColor: {r: 1, g: 0, b: 0, a: 1}
   duration: 0.12
+--- !u!114 &2842065692432401623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4828770110567254403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0b6a26b98ddf084792879b0028099c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyFacade
 --- !u!1 &4836804166108093414
 GameObject:
   m_ObjectHideFlags: 0

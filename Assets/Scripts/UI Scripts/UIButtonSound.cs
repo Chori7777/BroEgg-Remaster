@@ -10,7 +10,7 @@ public class UIButtonSound : MonoBehaviour
     {
         GetComponent<Button>().onClick.AddListener(() =>
         {
-            AudioManager.Instance.PlaySFX(sound);
+           if(AudioManager.Instance != null) AudioManager.Instance.PlaySFX(sound);
         });
     }
 }

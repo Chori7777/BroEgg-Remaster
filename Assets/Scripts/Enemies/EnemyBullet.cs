@@ -18,7 +18,7 @@ public class EnemyBullet : MonoBehaviour
         this.damage = damage;
         rb.linearVelocity = direction * speed;
         this.pool = pool;
-        //Destroy(gameObject, lifeTime);              // si no pega, se destruye solo
+        pool.RecycleByTimer(this, lifeTime);              // si no pega, se destruye solo
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -29,6 +29,18 @@ public class EnemyBullet : MonoBehaviour
         if (damageable != null)
         {
             damageable.TakeDamage(damage);
+            pool.Recycle(this);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("ObstacleGrid"))
+        {
+            pool.Recycle(this);
+        }
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
             pool.Recycle(this);
         }
     }

@@ -16,9 +16,10 @@ GameObject:
   - component: {fileID: 4055961782309863409}
   - component: {fileID: 6992501191158701788}
   - component: {fileID: 8697266300547905552}
+  - component: {fileID: 4665940612234300291}
   m_Layer: 0
   m_Name: ChaserEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32,7 +33,7 @@ Transform:
   m_GameObject: {fileID: 1299782827581222588}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.528, y: -0.42, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -131,7 +132,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DasherEnemy
   id: Chaser
   stats: {fileID: 7670398972254414182}
-  hitFlash: {fileID: 8697266300547905552}
   detectionRange: 7
   alertDuration: 0.6
   dashDuration: 0.5
@@ -251,6 +251,18 @@ MonoBehaviour:
   sprite: {fileID: 6218427601624390350}
   flashColor: {r: 1, g: 0, b: 0, a: 1}
   duration: 0.12
+--- !u!114 &4665940612234300291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299782827581222588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0b6a26b98ddf084792879b0028099c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyFacade
 --- !u!1 &3594916878869573518
 GameObject:
   m_ObjectHideFlags: 0

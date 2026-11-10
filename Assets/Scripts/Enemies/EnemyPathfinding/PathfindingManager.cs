@@ -1,119 +1,305 @@
+using ED262C;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-// Singleton que arma la grilla a partir de los Tilemaps, recalcula el FlowField cuando el jugador
-// cambia de celda y le dice a los enemigos hacia donde caminar.
-[DefaultExecutionOrder(-50)]
+// Singleton que le dice a los enemigos hacia donde caminar para esquivar obstaculos.
+//
+// COMO FUNCIONA (4 pasos):
+//  1) Lee los Tilemaps y arma un mapa de celdas: cada celda es "caminable" o "bloqueada".
+//  2) Agrupa las celdas en bloques de blockSize x blockSize. Cada bloque totalmente libre es un
+//     GraphNode, y los bloques vecinos se conectan con aristas en un ListGraph.
+//  3) Cuando el jugador cambia de bloque, DijkstraSolver calcula los caminos desde el nodo del jugador.
+//     Devuelve una tabla: para cada nodo, "cuanto cuesta llegar al jugador" y "cual es el nodo anterior
+//     del camino" (que es justo el siguiente paso para un enemigo que viene desde ese nodo).
+//  4) Cada enemigo pregunta GetDirection(): si no hay nada en el medio va en linea recta,
+//     y si hay un obstaculo camina hacia el centro del siguiente nodo del camino.
 public class PathfindingManager : MonoBehaviour
 {
+    //Singleton (igual que LevelManager)
     private static PathfindingManager instance;
     public static PathfindingManager Instance => instance;
 
+    [Header("Tilemaps")]
     [SerializeField] private Tilemap floorTilemap;      // PapuMap: el piso (donde se puede caminar)
     [SerializeField] private Tilemap obstacleTilemap;   // Objects: paredes y obstaculos
 
-    [SerializeField] private float checkInterval = 0.1f;
+    [Header("Ajustes")]
+    [Tooltip("Celdas por lado de cada nodo. Con 2 hay unos 4 veces menos nodos que con 1, y Dijkstra es mucho mas rapido")]
+    [SerializeField] private int blockSize = 2;
+    [Tooltip("Cada cuantos segundos como maximo se vuelve a correr Dijkstra")]
+    [SerializeField] private float recalculateInterval = 0.25f;
+    [Tooltip("Mitad del ancho del enemigo: sirve para saber si puede ir en linea recta sin rozar una esquina")]
     [SerializeField] private float bodyRadius = 0.8f;
     [SerializeField] private bool drawGizmos = true;
 
-    private Path grid;
-    private FlowField field;
+    //----- el mapa celda por celda -----
+    private bool[] walkableCells;   // true = se puede caminar. Indice = y * cellsWide + x
+    private int cellsWide;
+    private int cellsHigh;
+    private int originX;            // celda del Tilemap que corresponde a la esquina (0, 0) del mapa
+    private int originY;
+
+    //----- el grafo (un nodo por bloque libre) -----
+    private int blocksWide;
+    private int blocksHigh;
+    private GraphNode<Vector2Int>[] nodes;   // nodes[bx + by * blocksWide]. null = bloque bloqueado
+    private readonly IGraph<GraphNode<Vector2Int>> graph = new ListGraph<GraphNode<Vector2Int>>();
+    private readonly IPathFindingSolver<Vector2Int> solver = new DijkstraSolver<Vector2Int>();
+
+    //----- resultado de Dijkstra -----
+    private ISimpleDictionary<GraphNode<Vector2Int>, Edge<GraphNode<Vector2Int>>> table;
+    private GraphNode<Vector2Int> playerNode;   // nodo desde el que se calculo la tabla
+
     private Transform playerTransform;
     private float timer;
-    private int targetX = int.MinValue;
-    private int targetY = int.MinValue;
-    private bool ready;
 
     private void Awake()
     {
-        if (instance != null && instance != this)
+        if (instance == null)
         {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (instance != this)
+        {
+            // Conservamos el manager que ya construyó su grafo. Destruir "instance"
+            // aquí eliminaba el objeto original y dejaba el singleton apuntando a un
+            // componente destruido.
             Destroy(gameObject);
             return;
         }
-        instance = this;
 
-        BuildGrid();
+        blockSize = Mathf.Max(1, blockSize);
+        ReadTilemaps();
+        BuildGraph();
     }
 
-    private void OnDestroy()
-    {
-        if (instance == this) instance = null;
-    }
-
-    // Una celda es caminable si tiene piso y NO tiene obstaculo.
-    // Los obstaculos no se mueven, asi que esto se hace una sola vez.
-    private void BuildGrid()
+    //PASO 1: leemos los Tilemaps. Una celda es caminable si tiene piso y NO tiene obstaculo.
+    private void ReadTilemaps()
     {
         BoundsInt bounds = floorTilemap.cellBounds;
-        bool[] walkable = new bool[bounds.size.x * bounds.size.y];
+        cellsWide = bounds.size.x;
+        cellsHigh = bounds.size.y;
+        originX = bounds.xMin;
+        originY = bounds.yMin;
 
-        for (int y = 0; y < bounds.size.y; y++)
+        walkableCells = new bool[cellsWide * cellsHigh];
+
+        for (int y = 0; y < cellsHigh; y++)
         {
-            for (int x = 0; x < bounds.size.x; x++)
+            for (int x = 0; x < cellsWide; x++)
             {
-                Vector3Int cell = new Vector3Int(bounds.xMin + x, bounds.yMin + y, 0);
+                Vector3Int cell = new Vector3Int(originX + x, originY + y, 0);
                 bool hasFloor = floorTilemap.HasTile(cell);
                 bool hasObstacle = obstacleTilemap.HasTile(cell);
-                walkable[y * bounds.size.x + x] = hasFloor && !hasObstacle;
+                walkableCells[y * cellsWide + x] = hasFloor && !hasObstacle; //walkableCell es true si el tile es un floor y no tiene obstaculo
+            }
+        }
+    }
+
+    //PASO 2: armamos el grafo. Se hace una sola vez porque los obstaculos no se mueven.
+    private void BuildGraph()
+    {
+        //division entera: si sobra una fila o columna de celdas, esa franja queda sin nodos
+        blocksWide = cellsWide / blockSize;
+        blocksHigh = cellsHigh / blockSize;
+        nodes = new GraphNode<Vector2Int>[blocksWide * blocksHigh];
+
+        //2a) un nodo por cada bloque libre. El valor del nodo es la posicion del bloque.
+        for (int by = 0; by < blocksHigh; by++)
+        {
+            for (int bx = 0; bx < blocksWide; bx++)
+            {
+                if (!IsBlockFree(bx, by)) continue;
+
+                GraphNode<Vector2Int> node = new GraphNode<Vector2Int>(new Vector2Int(bx, by));
+                nodes[bx + by * blocksWide] = node;
+                graph.AddVertex(node);
             }
         }
 
-        grid = new Path(bounds.size.x, bounds.size.y, bounds.xMin, bounds.yMin, walkable);
-        field = new FlowField(grid);
+        //2b) aristas: cada nodo se conecta con sus 8 vecinos. Costo 10 en recto y 14 en diagonal (1 y 1.4 por 10).
+        //Se usan enteros porque el peso de las aristas y de la PriorityQueue es int.
+        for (int by = 0; by < blocksHigh; by++)
+        {
+            for (int bx = 0; bx < blocksWide; bx++)
+            {
+                GraphNode<Vector2Int> node = GetNode(bx, by);
+                if (node == null) continue;
+
+                for (int dy = -1; dy <= 1; dy++)
+                {
+                    for (int dx = -1; dx <= 1; dx++)
+                    {
+                        if (dx == 0 && dy == 0) continue;
+
+                        GraphNode<Vector2Int> neighbour = GetNode(bx + dx, by + dy);
+                        if (neighbour == null) continue;
+
+                        //en diagonal, los dos bloques de al lado tambien tienen que estar libres.
+                        //Si no, el enemigo estaria cortando la esquina de un obstaculo.
+                        bool diagonal = dx != 0 && dy != 0;
+                        if (diagonal && (GetNode(bx + dx, by) == null || GetNode(bx, by + dy) == null)) continue;
+
+                        graph.AddEdge(node, neighbour, diagonal ? 14 : 10);
+                    }
+                }
+            }
+        }
     }
 
+    //un bloque esta libre si TODAS sus celdas son caminables
+    private bool IsBlockFree(int bx, int by)
+    {
+        for (int dy = 0; dy < blockSize; dy++)
+        {
+            for (int dx = 0; dx < blockSize; dx++)
+            {
+                int cellX = bx * blockSize + dx;
+                int cellY = by * blockSize + dy;
+                if (!walkableCells[cellY * cellsWide + cellX]) return false;
+            }
+        }
+        return true;
+    }
+
+    //PASO 3: recalculamos los caminos cuando el jugador cambia de bloque
     private void Update()
     {
-        if (grid == null) return;
+        if (nodes == null) return;
 
         if (playerTransform == null)
         {
-            GameObject playerObject = GameObject.FindGameObjectWithTag("Player"); //esto es como un cast de Unreal
+            GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
             if (playerObject == null) return;
             playerTransform = playerObject.transform;
         }
 
         timer -= Time.deltaTime;
         if (timer > 0f) return;
-        timer = checkInterval;
 
-        // Celda donde esta el jugador. Si pisa una pared, usamos la celda libre mas cercana.
-        Vector3Int playerCell = floorTilemap.WorldToCell(playerTransform.position);
-        if (!grid.FindNearestWalkable(grid.ToGridX(playerCell.x), grid.ToGridY(playerCell.y), 3, out int x, out int y)) return;
+        // Incluso si el jugador sigue en el mismo bloque, no necesitamos comprobarlo
+        // todos los frames. El intervalo limita solamente el coste de esa comprobación;
+        // Dijkstra solo se ejecuta cuando cambia el nodo origen.
+        timer = Mathf.Max(0f, recalculateInterval);
 
-        // Si sigue en la misma celda, el campo ya esta bien: no hace falta recalcular
-        if (x == targetX && y == targetY) return;
+        //el nodo del jugador (si esta pisando un bloque bloqueado, usamos el nodo libre mas cercano)
+        GraphNode<Vector2Int> origin = FindNodeNear(WorldToBlock(playerTransform.position), false);
 
-        targetX = x;
-        targetY = y;
-        field.Compute(x, y);
-        ready = true;
+        //si no hay nodo, o el jugador sigue en el mismo bloque, la tabla que ya tenemos sigue sirviendo
+        if (origin == null || origin == playerNode) return;
+
+        playerNode = origin;
+        table = solver.GetAllShortestPath(playerNode, graph);
     }
 
-    // Direccion (ya normalizada) para ir de "from" hasta "to" esquivando obstaculos.
+    //PASO 4: direccion (ya normalizada) para ir de "from" hasta "to" esquivando obstaculos
     public Vector2 GetDirection(Vector3 from, Vector3 to)
     {
         Vector2 straight = ((Vector2)(to - from)).normalized;
 
-        if (!ready) return straight;
+        //todavia no hay tabla: vamos en linea recta
+        if (table == null) return straight;
 
-        // Si no hay nada en el medio, vamos en linea recta (se ve mas natural)
+        //si no hay nada en el medio, vamos en linea recta (se ve mas natural)
         if (HasClearPath(from, to)) return straight;
 
-        // Si hay obstaculo, seguimos el campo: vamos al centro de la celda vecina de menor costo
-        Vector3Int cell = floorTilemap.WorldToCell(from);
-        if (!field.TryGetNextStep(grid.ToGridX(cell.x), grid.ToGridY(cell.y), out int nextX, out int nextY))
+        Vector2Int block = WorldToBlock(from);
+        GraphNode<Vector2Int> current = GetNode(block.x, block.y);
+
+        //el enemigo esta en un bloque sin nodo (pegado a un obstaculo): va al nodo vecino mas barato
+        if (current == null)
         {
-            return straight;   // ya esta en el destino, o su celda no se puede alcanzar
+            GraphNode<Vector2Int> near = FindNodeNear(block, true);
+            if (near == null) return straight;
+            return DirectionTo(from, BlockToWorld(near.value));
         }
 
-        Vector3Int nextCell = new Vector3Int(grid.originX + nextX, grid.originY + nextY, 0);
-        Vector3 nextCenter = floorTilemap.GetCellCenterWorld(nextCell);
-        return ((Vector2)(nextCenter - from)).normalized;
+        //buscamos la entrada del nodo en la tabla de Dijkstra
+        if (!table.TryGetValue(current, out Edge<GraphNode<Vector2Int>> data)) return straight;
+
+        //data.to es el nodo anterior del camino jugador -> enemigo, o sea el siguiente paso hacia el jugador.
+        //Si es null, este es el nodo del jugador o no hay camino hasta el.
+        if (data.to == null) return straight;
+
+        return DirectionTo(from, BlockToWorld(data.to.value));
     }
 
-    // Revisa 3 lineas (centro y los dos costados del cuerpo) para que el enemigo no roce esquinas
+    private Vector2 DirectionTo(Vector3 from, Vector3 target)
+    {
+        return ((Vector2)(target - from)).normalized;
+    }
+
+    //----- ayudas para pasar de un lado a otro: mundo <-> bloque <-> nodo -----
+
+    private GraphNode<Vector2Int> GetNode(int bx, int by)
+    {
+        if (bx < 0 || bx >= blocksWide || by < 0 || by >= blocksHigh) return null;
+        return nodes[bx + by * blocksWide];
+    }
+
+    //posicion del mundo -> bloque donde esta
+    private Vector2Int WorldToBlock(Vector3 worldPosition)
+    {
+        Vector3Int cell = floorTilemap.WorldToCell(worldPosition);
+        int x = cell.x - originX;
+        int y = cell.y - originY;
+        return new Vector2Int(Mathf.FloorToInt((float)x / blockSize), Mathf.FloorToInt((float)y / blockSize));
+    }
+
+    //bloque -> posicion del mundo de su centro
+    private Vector3 BlockToWorld(Vector2Int block)
+    {
+        //centro de la primera celda del bloque, corrido medio bloque para quedar en el medio
+        Vector3 firstCell = floorTilemap.GetCellCenterWorld(new Vector3Int(originX + block.x * blockSize, originY + block.y * blockSize, 0));
+        float shift = (blockSize - 1) * 0.5f;
+        return firstCell + new Vector3(shift * floorTilemap.cellSize.x, shift * floorTilemap.cellSize.y, 0f);
+    }
+
+    //busca el nodo mas cercano a un bloque, mirando en anillos cada vez mas grandes (radio 0, 1, 2).
+    //pickCheapest = true: entre los nodos del anillo elige el de menor costo hacia el jugador.
+    private GraphNode<Vector2Int> FindNodeNear(Vector2Int block, bool pickCheapest)
+    {
+        for (int radius = 0; radius <= 2; radius++)
+        {
+            GraphNode<Vector2Int> best = null;
+            int bestCost = int.MaxValue;
+
+            for (int dy = -radius; dy <= radius; dy++)
+            {
+                for (int dx = -radius; dx <= radius; dx++)
+                {
+                    //solo el borde del anillo; el interior ya se reviso con radios menores
+                    if (Mathf.Max(Mathf.Abs(dx), Mathf.Abs(dy)) != radius) continue;
+
+                    GraphNode<Vector2Int> candidate = GetNode(block.x + dx, block.y + dy);
+                    if (candidate == null) continue;
+                    if (!pickCheapest) return candidate;
+
+                    int cost = CostToPlayer(candidate);
+                    if (best == null || cost < bestCost)
+                    {
+                        best = candidate;
+                        bestCost = cost;
+                    }
+                }
+            }
+
+            if (best != null) return best;
+        }
+
+        return null;
+    }
+
+    private int CostToPlayer(GraphNode<Vector2Int> node)
+    {
+        if (table != null && table.TryGetValue(node, out Edge<GraphNode<Vector2Int>> data)) return data.weight;
+        return int.MaxValue;
+    }
+
+    //----- linea recta: hay algo en el medio? (se revisa celda por celda, sin usar fisicas) -----
+
+    //se revisan 3 lineas (el centro y los dos costados del cuerpo) para que el enemigo no roce esquinas
     private bool HasClearPath(Vector2 from, Vector2 to)
     {
         Vector2 side = Vector2.Perpendicular((to - from).normalized) * bodyRadius;
@@ -122,7 +308,10 @@ public class PathfindingManager : MonoBehaviour
 
     private bool LineIsClear(Vector2 from, Vector2 to)
     {
-        float step = floorTilemap.cellSize.x * 0.5f;
+        // Usamos la celda más chica para no saltear obstáculos en tilemaps
+        // rectangulares (por ejemplo, cellSize.x != cellSize.y).
+        float step = Mathf.Min(floorTilemap.cellSize.x, floorTilemap.cellSize.y) * 0.5f;
+        if (step <= 0f) return false;
         int samples = Mathf.CeilToInt(Vector2.Distance(from, to) / step);
 
         for (int i = 0; i <= samples; i++)
@@ -136,6 +325,42 @@ public class PathfindingManager : MonoBehaviour
     private bool IsWalkableAt(Vector2 worldPosition)
     {
         Vector3Int cell = floorTilemap.WorldToCell(worldPosition);
-        return grid.IsWalkable(grid.ToGridX(cell.x), grid.ToGridY(cell.y));
+        int x = cell.x - originX;
+        int y = cell.y - originY;
+        if (x < 0 || x >= cellsWide || y < 0 || y >= cellsHigh) return false;
+        return walkableCells[y * cellsWide + x];
+    }
+
+    //Seleccionando este objeto en Play: rojo = celda bloqueada, amarillo = nodo del grafo,
+    //verde = hacia que nodo va un enemigo que esta en cada nodo
+    private void OnDrawGizmosSelected()
+    {
+        if (!drawGizmos || nodes == null) return;
+
+        for (int y = 0; y < cellsHigh; y++)
+        {
+            for (int x = 0; x < cellsWide; x++)
+            {
+                if (walkableCells[y * cellsWide + x]) continue;
+                Gizmos.color = new Color(1f, 0f, 0f, 0.35f);
+                Gizmos.DrawCube(floorTilemap.GetCellCenterWorld(new Vector3Int(originX + x, originY + y, 0)), Vector3.one * 0.9f);
+            }
+        }
+
+        for (int i = 0; i < nodes.Length; i++)
+        {
+            GraphNode<Vector2Int> node = nodes[i];
+            if (node == null) continue;
+
+            Vector3 center = BlockToWorld(node.value);
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireCube(center, Vector3.one * blockSize * 0.5f);
+
+            if (table != null && table.TryGetValue(node, out Edge<GraphNode<Vector2Int>> data) && data.to != null)
+            {
+                Gizmos.color = Color.green;
+                Gizmos.DrawLine(center, BlockToWorld(data.to.value));
+            }
+        }
     }
 }

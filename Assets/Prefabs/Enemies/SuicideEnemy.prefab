@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 1112460552934594893}
   m_Layer: 0
   m_Name: SuicideEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -34,7 +34,7 @@ Transform:
   m_GameObject: {fileID: 1459994291635418208}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1.4, y: -0.03, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -170,7 +170,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.08457905, y: -0.46719778}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -180,7 +180,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.796875, y: 1.859375}
+  m_Size: {x: 0.8222054, y: 0.82831836}
   m_EdgeRadius: 0
 --- !u!50 &7053605173848810060
 Rigidbody2D:
@@ -257,7 +257,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   knockbackDuration: 0.25
-  logTreeInfo: 0
 --- !u!114 &7592887024213213813
 MonoBehaviour:
   m_ObjectHideFlags: 0

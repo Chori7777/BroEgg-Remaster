@@ -1,7 +1,7 @@
 // Mapa de costos hacia un destino (el jugador), calculado con Dijkstra.
 // Cada celda guarda "cuanto cuesta llegar desde aca hasta el jugador".
 // Un enemigo solo tiene que moverse hacia el vecino de menor costo.
-public class FlowField
+/*public class FlowField
 {
     public const int Unreachable = int.MaxValue;
 
@@ -122,4 +122,4 @@ public class FlowField
             cost[i] = Unreachable;
         }
     }
-}
+}*/

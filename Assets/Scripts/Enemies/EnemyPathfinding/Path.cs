@@ -1,6 +1,6 @@
 // Grilla de celdas caminables.
 // No usa nada de Unity: solo guarda datos y hace cuentas con enteros (asi se puede probar facil).
-public class Path
+/*public class Path
 {
     // Costo extra para las celdas pegadas a una pared: hace que los enemigos se alejen de las esquinas
     public const int WallPenalty = 20;
@@ -90,4 +90,4 @@ public class Path
         }
         return false;
     }
-}
+}*/

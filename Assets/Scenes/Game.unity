@@ -458,11 +458,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 654379129981789283, guid: 355c7db4a7aca63459dba81972b9fde0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.55
+      value: -5.52
       objectReference: {fileID: 0}
     - target: {fileID: 654379129981789283, guid: 355c7db4a7aca63459dba81972b9fde0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.1
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 654379129981789283, guid: 355c7db4a7aca63459dba81972b9fde0, type: 3}
       propertyPath: m_LocalPosition.z
@@ -524,6 +524,14 @@ PrefabInstance:
       propertyPath: playerStats
       value: 
       objectReference: {fileID: 50457971}
+    - target: {fileID: 1910313940880621095, guid: 355c7db4a7aca63459dba81972b9fde0, type: 3}
+      propertyPath: m_Size.y
+      value: 0.74825644
+      objectReference: {fileID: 0}
+    - target: {fileID: 1910313940880621095, guid: 355c7db4a7aca63459dba81972b9fde0, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.01880379
+      objectReference: {fileID: 0}
     - target: {fileID: 2161614962555069863, guid: 355c7db4a7aca63459dba81972b9fde0, type: 3}
       propertyPath: orthographic size
       value: 10.667317
@@ -16110,9 +16118,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PathfindingManager
   floorTilemap: {fileID: 1535322035}
   obstacleTilemap: {fileID: 277609088}
-  blockSize: 2
-  recalculateInterval: 0.25
-  bodyRadius: 0.8
+  blockSize: 1
+  recalculateInterval: 0.2
+  bodyRadius: 1.25
   drawGizmos: 1
 --- !u!1 &1296118797
 GameObject:

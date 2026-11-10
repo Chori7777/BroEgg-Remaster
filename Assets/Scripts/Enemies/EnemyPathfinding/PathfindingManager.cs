@@ -136,24 +136,23 @@ public class PathfindingManager : MonoBehaviour
 
                         GraphNode<Vector2Int> neighbour = GetNode(bx + dx, by + dy);
 
-                    //    [  ↖  ][  ↑  ][  ↗  ]----------------- (dx = -1, dy = 1)  (dx = 0, dy = 1)  (dx = 1, dy = 1)
+                    //    [  x  ][  x  ][  x  ]----------------- (dx = -1, dy = 1)  (dx = 0, dy = 1)  (dx = 1, dy = 1)
 
-                    //    [  ←  ][CENTRO][  →  ]---------------- (dx = -1, dy = 0)  (GetNode(bx, by)  (dx = 1, dy = 0)
+                    //    [  x  ][CENTRO][ x  ]---------------- (dx = -1, dy = 0)  (GetNode(bx, by)  (dx = 1, dy = 0)
 
-                    //    [  ↙  ][  ↓  ][  ↘  ]----------------- (dx = -1, dy = -1) (dx = 0, dy = -1) (dx = 1, dy = -1)
+                    //    [  x  ][  x  ][  x  ]----------------- (dx = -1, dy = -1) (dx = 0, dy = -1) (dx = 1, dy = -1)
 
                         if (neighbour == null) continue;
 
-                        //en diagonal, los dos bloques de al lado tambien tienen que estar libres.
-                        //Si no, el enemigo estaria cortando la esquina de un obstaculo.
-                        bool diagonal = dx != 0 && dy != 0; 
-                        if (diagonal && (GetNode(bx + dx, by) == null || GetNode(bx, by + dy) == null)) continue;
+                        bool diagonal = dx != 0 && dy != 0; //si dx o dy es 0, significa que esta derecha, arriba, abajo ou izquierda
+
+                        if (diagonal && (GetNode(bx + dx, by) == null || GetNode(bx, by + dy) == null)) continue; //esto se asegura que no este en el centro
 
                         int weight;
                         if (diagonal == true) weight = 14; //pesa mas ir en diagonal que ir derecho
                         else weight = 10;
 
-                        graph.AddEdge(node, neighbour, weight);
+                        graph.AddEdge(node, neighbour, weight); //añado arista
                     }
                 }
             }
@@ -161,9 +160,9 @@ public class PathfindingManager : MonoBehaviour
     }
 
     //un bloque esta libre si TODAS sus celdas son caminables
-    private bool IsBlockFree(int bx, int by)
+    private bool IsBlockFree(int bx, int by) //devuelve true si un
     {
-        for (int dy = 0; dy < blockSize; dy++)
+        /*for (int dy = 0; dy < blockSize; dy++)
         {
             for (int dx = 0; dx < blockSize; dx++)
             {
@@ -172,6 +171,10 @@ public class PathfindingManager : MonoBehaviour
                 if (!walkableCells[cellY * cellsWide + cellX]) return false;
             }
         }
+        return true;*/
+
+        if (!walkableCells[by * cellsWide + bx]) return false;
+
         return true;
     }
 
@@ -202,13 +205,15 @@ public class PathfindingManager : MonoBehaviour
         if (origin == null || origin == playerNode) return;
 
         playerNode = origin;
-        table = solver.GetAllShortestPath(playerNode, graph);
+        table = solver.GetAllShortestPath(playerNode, graph); //El algoritmo devuelve una tabla gigante que contiene, para cada nodo del mapa, dos datos cruciales
+                                                              //1 - Cuánto cuesta llegar al jugador desde ese nodo.
+                                                              //2 - Cuál es el nodo siguiente al que hay que moverse(el "próximo paso").
     }
 
     //PASO 4: direccion (ya normalizada) para ir de "from" hasta "to" esquivando obstaculos
-    public Vector2 GetDirection(Vector3 from, Vector3 to)
+    public Vector2 GetDirection(Vector3 from, Vector3 to) //Esto se llama en Enemy, from = player.transform.position y to = player.transform.position
     {
-        Vector2 straight = ((Vector2)(to - from)).normalized;
+        Vector2 straight = ((Vector2)(to - from)).normalized; //direccion de ir para adelante
 
         //todavia no hay tabla: vamos en linea recta
         if (table == null) return straight;
@@ -217,7 +222,7 @@ public class PathfindingManager : MonoBehaviour
         if (HasClearPath(from, to)) return straight;
 
         Vector2Int block = WorldToBlock(from);
-        GraphNode<Vector2Int> current = GetNode(block.x, block.y);
+        GraphNode<Vector2Int> current = GetNode(block.x, block.y); //nodo actual que esta pisando el wachin del enemigo
 
         //el enemigo esta en un bloque sin nodo (pegado a un obstaculo): va al nodo vecino mas barato
         if (current == null)
@@ -244,14 +249,15 @@ public class PathfindingManager : MonoBehaviour
 
     //----- ayudas para pasar de un lado a otro: mundo <-> bloque <-> nodo -----
 
-    private GraphNode<Vector2Int> GetNode(int bx, int by)
+    private GraphNode<Vector2Int> GetNode(int bx, int by) //devuelve un nodo en una posicion del array
     {
         if (bx < 0 || bx >= blocksWide || by < 0 || by >= blocksHigh) return null;
         return nodes[bx + by * blocksWide];
     }
 
     //posicion del mundo -> bloque donde esta
-    private Vector2Int WorldToBlock(Vector3 worldPosition)
+    private Vector2Int WorldToBlock(Vector3 worldPosition) //full vibecoding esto, Convierte esa posición mundial en coordenadas lógicas de bloques del tilemap
+                                                           //No me pidan que lo explique.
     {
         Vector3Int cell = floorTilemap.WorldToCell(worldPosition);
         int x = cell.x - originX;

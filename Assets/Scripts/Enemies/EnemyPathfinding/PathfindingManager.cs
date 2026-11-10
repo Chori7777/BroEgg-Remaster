@@ -1,6 +1,7 @@
 using ED262C;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using static UnityEngine.EventSystems.EventTrigger;
 
 // Singleton que le dice a los enemigos hacia donde caminar para esquivar obstaculos.
 //
@@ -25,29 +26,28 @@ public class PathfindingManager : MonoBehaviour
 
     [Header("Ajustes")]
     [Tooltip("Celdas por lado de cada nodo. Con 2 hay unos 4 veces menos nodos que con 1, y Dijkstra es mucho mas rapido")]
-    [SerializeField] private int blockSize = 2;
+    [SerializeField] private int blockSize = 1;
     [Tooltip("Cada cuantos segundos como maximo se vuelve a correr Dijkstra")]
     [SerializeField] private float recalculateInterval = 0.25f;
     [Tooltip("Mitad del ancho del enemigo: sirve para saber si puede ir en linea recta sin rozar una esquina")]
     [SerializeField] private float bodyRadius = 0.8f;
     [SerializeField] private bool drawGizmos = true;
 
-    //----- el mapa celda por celda -----
-    private bool[] walkableCells;   // true = se puede caminar. Indice = y * cellsWide + x
+    //el mapa celda por celda
+    private bool[] walkableCells;   // si hay un tile sin nada en la pos 5, la pos [4] = true (esto es un mero ejemplo), sino es [4] = false
     private int cellsWide;
     private int cellsHigh;
-    private int originX;            // celda del Tilemap que corresponde a la esquina (0, 0) del mapa
+    private int originX;            // celda del Tilemap que corresponde a la esquina superior izquierda (0, 0) del mapa, si no entienden esto los mato
     private int originY;
 
-    //----- el grafo (un nodo por bloque libre) -----
+    // el grafo (un nodo por bloque libre)
     private int blocksWide;
     private int blocksHigh;
-    private GraphNode<Vector2Int>[] nodes;   // nodes[bx + by * blocksWide]. null = bloque bloqueado
-    private readonly IGraph<GraphNode<Vector2Int>> graph = new ListGraph<GraphNode<Vector2Int>>();
-    private readonly IPathFindingSolver<Vector2Int> solver = new DijkstraSolver<Vector2Int>();
+    private GraphNode<Vector2Int>[] nodes;
+    private readonly IGraph<GraphNode<Vector2Int>> graph = new ListGraph<GraphNode<Vector2Int>>(); // acuerdense que el grafo es el mapeado de nodos conectados entre si y poderados
+    private readonly IPathFindingSolver<Vector2Int> solver = new DijkstraSolver<Vector2Int>(); //esto es lo que va a operar sobre el grafo para darle la capacidad de a partide un nodo (pos del jugador) los enemigos puedan calcular el mejor camino
 
-    //----- resultado de Dijkstra -----
-    private ISimpleDictionary<GraphNode<Vector2Int>, Edge<GraphNode<Vector2Int>>> table;
+    private ISimpleDictionary<GraphNode<Vector2Int>, Edge<GraphNode<Vector2Int>>> table; // resultado de Dijkstra
     private GraphNode<Vector2Int> playerNode;   // nodo desde el que se calculo la tabla
 
     private Transform playerTransform;
@@ -62,14 +62,10 @@ public class PathfindingManager : MonoBehaviour
         }
         else if (instance != this)
         {
-            // Conservamos el manager que ya construyó su grafo. Destruir "instance"
-            // aquí eliminaba el objeto original y dejaba el singleton apuntando a un
-            // componente destruido.
             Destroy(gameObject);
             return;
         }
 
-        blockSize = Mathf.Max(1, blockSize);
         ReadTilemaps();
         BuildGraph();
     }
@@ -77,7 +73,7 @@ public class PathfindingManager : MonoBehaviour
     //PASO 1: leemos los Tilemaps. Una celda es caminable si tiene piso y NO tiene obstaculo.
     private void ReadTilemaps()
     {
-        BoundsInt bounds = floorTilemap.cellBounds;
+        BoundsInt bounds = floorTilemap.cellBounds; //representa las bounds de una celda en AABB
         cellsWide = bounds.size.x;
         cellsHigh = bounds.size.y;
         originX = bounds.xMin;
@@ -93,6 +89,8 @@ public class PathfindingManager : MonoBehaviour
                 bool hasFloor = floorTilemap.HasTile(cell);
                 bool hasObstacle = obstacleTilemap.HasTile(cell);
                 walkableCells[y * cellsWide + x] = hasFloor && !hasObstacle; //walkableCell es true si el tile es un floor y no tiene obstaculo
+                //COSAS A ACLARAR
+                //hacer walkableCells[y * cellsWide + x] es lo mismo que hacer walkableCells[cellsHigh ,cellsWide] si fuera bidimensional, pero de esta forma es mas optimo, mas prolijo de escribir y mas seguro de manejar
             }
         }
     }
@@ -100,21 +98,24 @@ public class PathfindingManager : MonoBehaviour
     //PASO 2: armamos el grafo. Se hace una sola vez porque los obstaculos no se mueven.
     private void BuildGraph()
     {
-        //division entera: si sobra una fila o columna de celdas, esa franja queda sin nodos
+        //esto lo dejo asi, pero basicamente lo que hace esto es que la variable blockSize agrupe tiles para que la busqueda de caminos sea menos pasada para el juego
+        //eso puede generar problemas pero ahorra memoria, para que funcione bien bien, yo pongo la variable en el inspector = 1, por eso es que esta dividion es inutil
+        //pero de momento la voy a dejar por las dudas, OK?
         blocksWide = cellsWide / blockSize;
         blocksHigh = cellsHigh / blockSize;
-        nodes = new GraphNode<Vector2Int>[blocksWide * blocksHigh];
+
+        nodes = new GraphNode<Vector2Int>[blocksWide * blocksHigh]; //creo X cantidad de espacios dentro del array, por X cantidad de tiles dentro del array
 
         //2a) un nodo por cada bloque libre. El valor del nodo es la posicion del bloque.
         for (int by = 0; by < blocksHigh; by++)
         {
             for (int bx = 0; bx < blocksWide; bx++)
             {
-                if (!IsBlockFree(bx, by)) continue;
+                if (!IsBlockFree(bx, by)) continue; //si el tile esta libre
 
-                GraphNode<Vector2Int> node = new GraphNode<Vector2Int>(new Vector2Int(bx, by));
+                GraphNode<Vector2Int> node = new GraphNode<Vector2Int>(new Vector2Int(bx, by)); //creamos un nodo ahi mismito
                 nodes[bx + by * blocksWide] = node;
-                graph.AddVertex(node);
+                graph.AddVertex(node); //añado
             }
         }
 
@@ -124,24 +125,35 @@ public class PathfindingManager : MonoBehaviour
         {
             for (int bx = 0; bx < blocksWide; bx++)
             {
-                GraphNode<Vector2Int> node = GetNode(bx, by);
+                GraphNode<Vector2Int> node = GetNode(bx, by); //GetNode(bx, by) me devuelve una posicion del array, ponele nodes[67]
                 if (node == null) continue;
 
                 for (int dy = -1; dy <= 1; dy++)
                 {
-                    for (int dx = -1; dx <= 1; dx++)
+                    for (int dx = -1; dx <= 1; dx++) //este doble for me sirve para esto (preparense)
                     {
                         if (dx == 0 && dy == 0) continue;
 
                         GraphNode<Vector2Int> neighbour = GetNode(bx + dx, by + dy);
+
+                    //    [  ↖  ][  ↑  ][  ↗  ]----------------- (dx = -1, dy = 1)  (dx = 0, dy = 1)  (dx = 1, dy = 1)
+
+                    //    [  ←  ][CENTRO][  →  ]---------------- (dx = -1, dy = 0)  (GetNode(bx, by)  (dx = 1, dy = 0)
+
+                    //    [  ↙  ][  ↓  ][  ↘  ]----------------- (dx = -1, dy = -1) (dx = 0, dy = -1) (dx = 1, dy = -1)
+
                         if (neighbour == null) continue;
 
                         //en diagonal, los dos bloques de al lado tambien tienen que estar libres.
                         //Si no, el enemigo estaria cortando la esquina de un obstaculo.
-                        bool diagonal = dx != 0 && dy != 0;
+                        bool diagonal = dx != 0 && dy != 0; 
                         if (diagonal && (GetNode(bx + dx, by) == null || GetNode(bx, by + dy) == null)) continue;
 
-                        graph.AddEdge(node, neighbour, diagonal ? 14 : 10);
+                        int weight;
+                        if (diagonal == true) weight = 14; //pesa mas ir en diagonal que ir derecho
+                        else weight = 10;
+
+                        graph.AddEdge(node, neighbour, weight);
                     }
                 }
             }

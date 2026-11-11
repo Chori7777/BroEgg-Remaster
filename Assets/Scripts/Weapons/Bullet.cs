@@ -6,7 +6,7 @@ public class Bullet : MonoBehaviour
     Rigidbody2D rb;
     public BulletPool pool; //publica para acceder desde las weapons
     Collider2D bulletCollider;
-    float timer;
+    [SerializeField] float timer = 3f;
     private int damage;
     private void Awake()
     {
@@ -16,12 +16,12 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
-        timer += Time.deltaTime;
+        timer -= Time.deltaTime;
 
-        if (timer >= 2)
+        if (timer <= 0)
         {
             pool.Recycle(this);
-            timer = 0;
+            timer = 3;
         }
     }
 
@@ -49,15 +49,16 @@ public class Bullet : MonoBehaviour
             damageable.TakeDamage(damage);
 
             pool.Recycle(this);
-            timer = 0;
+            timer = 3;
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("ObstacleGrid"))
+        if(collision.gameObject)
         {
             pool.Recycle(this);
+            timer = 3;
         }
     }
 }

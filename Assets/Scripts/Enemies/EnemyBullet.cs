@@ -30,18 +30,16 @@ public class EnemyBullet : MonoBehaviour
         {
             damageable.TakeDamage(damage);
             pool.Recycle(this);
+            lifeTime = 3f;
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("ObstacleGrid"))
+        if (collision.gameObject)
         {
             pool.Recycle(this);
-        }
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            pool.Recycle(this);
+            lifeTime = 3f;
         }
     }
 }

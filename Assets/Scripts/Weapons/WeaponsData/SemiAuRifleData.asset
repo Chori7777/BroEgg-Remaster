@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: SemiAuRifleData
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   tier: 0
+  shootingType: 0
   idWeapon: SemiAuRifle
-  baseDamage: 14
-  magazineSize: 12
+  baseDamage: 20
+  magazineSize: 8
   fireRate: 0.9
   reloadTime: 0.8
   weaponSprite: {fileID: -5483469642606233201, guid: 32bff1cb1917ccc42b20333da8ba2b46, type: 3}

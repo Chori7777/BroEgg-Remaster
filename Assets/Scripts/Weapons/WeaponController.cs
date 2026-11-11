@@ -1,14 +1,15 @@
+using System;
 using System.Collections;
-using UnityEngine;
 using Unity.Cinemachine;
-
-
+using UnityEngine;
 using static WeaponData;
 [RequireComponent(typeof(WeaponFeedbackFacade))]
 public class WeaponController : MonoBehaviour, IWeapon
 {
     [SerializeField] private WeaponData weaponData;
     private BulletPool bulletPool;
+
+    public event Action<int, int> OnAmmoChanged;
 
     private WeaponFeedbackFacade feedback;
     public WeaponData WeaponData => weaponData;
@@ -72,7 +73,7 @@ public class WeaponController : MonoBehaviour, IWeapon
         if (Time.time < nextFireTime) return; //cadencia de tiro
         TryInitStats(); //para saber las stats del player
 
-        if (currentAmmo <= 0)
+        if (currentAmmo <= 0 || Input.GetKeyDown(KeyCode.R))
         {
             StartCoroutine(Reload());
             return;
@@ -84,6 +85,9 @@ public class WeaponController : MonoBehaviour, IWeapon
         int damage = DamageCalculator.CalculateDamage(stats, weaponData.BaseDamage);
         behavior.Shoot(transform, damage, playerCollider, bulletPool);
         if (feedback != null) feedback.OnShoot();
+
+        //EVENTO PARA ACTUALIZAR EL HUD DE LAS BALAS
+        OnAmmoChanged?.Invoke(currentAmmo, weaponData.MagazineSize);
     }
 
     private IEnumerator Reload() //Funcion para recargar las armas
@@ -102,5 +106,9 @@ public class WeaponController : MonoBehaviour, IWeapon
     public void SetBulletPool(BulletPool pool)
     {
         bulletPool = pool;
+    }
+    public WeaponController GetWeaponController()
+    {
+        return this;
     }
 }

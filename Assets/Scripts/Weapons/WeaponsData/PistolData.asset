@@ -15,8 +15,8 @@ MonoBehaviour:
   tier: 0
   shootingType: 0
   idWeapon: Pistol
-  baseDamage: 8
+  baseDamage: 2
   magazineSize: 7
-  fireRate: 0.5
+  fireRate: 0.1
   reloadTime: 0.3
   weaponSprite: {fileID: 2860768655726451345, guid: 32bff1cb1917ccc42b20333da8ba2b46, type: 3}

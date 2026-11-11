@@ -1,3 +1,4 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using static WeaponData;
@@ -74,6 +75,7 @@ public class PlayerWeaponManager : MonoBehaviour
         if (isTriggering)
         {
             currentWeapon.shoot();
+
         }
     }
     // Chequeamos si esta el arma, el inventoryManager se encarga de eso buscando el id q le damos desde el ButtonLogic

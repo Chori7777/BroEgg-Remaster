@@ -5,38 +5,85 @@ public class HUDController : MonoBehaviour
 {
     [SerializeField] private PlayerHealth playerHealth;
     [SerializeField] private PlayerGold playerGold;
+    [SerializeField] private PlayerWeaponManager pwm;
+
+    private WeaponController wc;
 
     [SerializeField] private TMP_Text healthBar;
     [SerializeField] private TMP_Text goldText;
     [SerializeField] private TMP_Text roundText;
     [SerializeField] private TMP_Text timerText;
-    // Observers en Player health y Player Gold, en On Enable se suscribe el HUDController a los eventos de cambio de salud y oro, y en On Disable se desuscribe para evitar errores cuando el objeto se desactive.
+    [SerializeField] private TMP_Text weaponCurrentAmmo;
+
     private void OnEnable()
     {
-        playerHealth.OnHealthChanged += UpdateHealthText;
-        playerGold.OnGoldChanged += UpdateGoldText;
+        if (playerHealth != null) playerHealth.OnHealthChanged += UpdateHealthText;
+        if (playerGold != null) playerGold.OnGoldChanged += UpdateGoldText;
     }
 
     private void OnDisable()
     {
-        playerHealth.OnHealthChanged -= UpdateHealthText; 
-        playerGold.OnGoldChanged -= UpdateGoldText;
+        if (playerHealth != null) playerHealth.OnHealthChanged -= UpdateHealthText;
+        if (playerGold != null) playerGold.OnGoldChanged -= UpdateGoldText;
+        UnsubscribeCurrentWeapon();
+    }
+
+    private void UpdateActiveWeapon()
+    {
+        if (pwm == null || pwm.inventoryManager == null) return;
+
+        WeaponController newWeapon = pwm.inventoryManager.currentWeapon;
+
+        // Si el arma en la mano cambió, actualizamos las suscripciones
+        if (newWeapon != wc)
+        {
+            UnsubscribeCurrentWeapon();
+            wc = newWeapon;
+
+            if (wc != null)
+            {
+                wc.OnAmmoChanged += UpdateAmmoHUD;
+
+                UpdateAmmoHUD(wc.WeaponData.MagazineSize, wc.WeaponData.MagazineSize);
+            }
+            else
+            {
+                if (weaponCurrentAmmo != null) weaponCurrentAmmo.text = "-/-";
+            }
+        }
+    }
+
+    private void UnsubscribeCurrentWeapon()
+    {
+        if (wc != null)
+        {
+            wc.OnAmmoChanged -= UpdateAmmoHUD;
+        }
     }
 
     private void UpdateHealthText(int current, int max)
     {
-        healthBar.text = (current + "/" + max);
+        if (healthBar != null) healthBar.text = current + "/" + max;
     }
 
     private void UpdateGoldText(int amount)
     {
-               goldText.text = amount.ToString();
+        if (goldText != null) goldText.text = amount.ToString();
     }
+
+    private void UpdateAmmoHUD(int currentAmmo, int totalAmmo)
+    {
+        if (weaponCurrentAmmo != null) weaponCurrentAmmo.text = currentAmmo + "/" + totalAmmo;
+    }
+
     void Update()
     {
-        roundText.text = "Ronda" + LevelManager.Instance.CurrentRound;
-        // Otra vez cosas raras de Mathf, lo que hace CeilToInt es redondear hacia arriba, asi que si quedan 9.5 segundos, va a mostrar 10, y si quedan 9.1 segundos
-        // va a mostrar 10 tambien. Esto es para que el jugador vea un numero entero de tiempo restante y no un decimal!
-        timerText.text=Mathf.CeilToInt(LevelManager.Instance.TimeRemaining).ToString();
+        if (LevelManager.Instance != null)
+        {
+            if (roundText != null) roundText.text = "Ronda " + LevelManager.Instance.CurrentRound;
+            if (timerText != null) timerText.text = Mathf.CeilToInt(LevelManager.Instance.TimeRemaining).ToString();
+        }
+
+        UpdateActiveWeapon();
     }
 }

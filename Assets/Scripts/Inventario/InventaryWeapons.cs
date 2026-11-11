@@ -12,6 +12,7 @@ public class InventaryWeapons : MonoBehaviour
     Sprite[] defaultSprites; // Memento
     private Image[] emptySlotSprites;
 
+    public WeaponController currentWeapon;
     void Start()
     {
         defaultSprites = new Sprite[toTheList.Length]; //Esto para resetear los sprites del memento
@@ -185,6 +186,7 @@ public class InventaryWeapons : MonoBehaviour
             if (i == ItemActual)
             {
                 invImages[i].color = Color.red;
+                
             }
             else
             {
@@ -209,6 +211,15 @@ public class InventaryWeapons : MonoBehaviour
             }
 
             weaponTransform.gameObject.SetActive(i == ItemActual);
+        }
+
+        if (weapons.Count > 0 && ItemActual < weapons.Count && weapons[ItemActual] != null)
+        {
+            currentWeapon = weapons[ItemActual].GetWeaponController();
+        }
+        else
+        {
+            currentWeapon = null;
         }
     }
     public bool HasWeapon(string weaponId)

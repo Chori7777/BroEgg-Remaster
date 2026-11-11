@@ -18,5 +18,5 @@ MonoBehaviour:
   baseDamage: 9
   magazineSize: 30
   fireRate: 0.1
-  reloadTime: 0.6
+  reloadTime: 1
   weaponSprite: {fileID: -3391257396490946495, guid: 32bff1cb1917ccc42b20333da8ba2b46, type: 3}

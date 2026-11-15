@@ -8,6 +8,9 @@ public class Bullet : MonoBehaviour
     Collider2D bulletCollider;
     [SerializeField] float timer = 3f;
     private int damage;
+
+    public float Speed => defaultBulletSpeed;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();

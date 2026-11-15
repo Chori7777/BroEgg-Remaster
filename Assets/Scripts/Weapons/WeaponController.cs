@@ -22,6 +22,8 @@ public class WeaponController : MonoBehaviour, IWeapon
     private int currentAmmo;
     private bool isReloading = false;
 
+    private const float PassiveMultiplier = 0.5f; //las armas pasivas usan la mitad de todo
+
     public ShootingType GetShootingType()
     {
         if (weaponData != null)
@@ -88,6 +90,34 @@ public class WeaponController : MonoBehaviour, IWeapon
 
         //EVENTO PARA ACTUALIZAR EL HUD DE LAS BALAS
         OnAmmoChanged?.Invoke(currentAmmo, weaponData.MagazineSize);
+    }
+
+    public bool CanShoot => !isReloading && Time.time >= nextFireTime;
+
+    public void PassiveShoot(Vector2 targetPosition, Vector2 targetVelocity)
+    {
+        if (LevelManager.Instance != null && LevelManager.Instance.ControlsBlocked) return;
+        if (!CanShoot) return;
+        TryInitStats();
+        if (stats == null) return;
+
+        //cargador a la mitad: cuando disparo esa cantidad de balas, recarga
+        int passiveMagazine = Mathf.Max(1, Mathf.RoundToInt(weaponData.MagazineSize * PassiveMultiplier));
+        int shotsFired = weaponData.MagazineSize - currentAmmo;
+
+        if (shotsFired >= passiveMagazine)
+        {
+            StartCoroutine(Reload());
+            return;
+        }
+
+        //cadencia a la mitad: tarda el doble entre disparo y disparo
+        nextFireTime = Time.time + weaponData.FireRate / PassiveMultiplier;
+        currentAmmo--;
+
+        //daño a la mitad (minimo 1)
+        int damage = Mathf.Max(1, Mathf.RoundToInt(DamageCalculator.CalculateDamage(stats, weaponData.BaseDamage) * PassiveMultiplier));
+        behavior.ShootAtTarget(transform, targetPosition, targetVelocity, damage, playerCollider, bulletPool);
     }
 
     private IEnumerator Reload() //Funcion para recargar las armas

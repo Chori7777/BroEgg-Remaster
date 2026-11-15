@@ -12,6 +12,10 @@ public class InventaryWeapons : MonoBehaviour
     Sprite[] defaultSprites; // Memento
     private Image[] emptySlotSprites;
 
+    public int WeaponCount => weapons.Count;
+    public int SelectedIndex => ItemActual;
+    public IWeapon GetWeapon(int index) => weapons[index];
+
     public WeaponController currentWeapon;
     void Start()
     {
@@ -210,7 +214,7 @@ public class InventaryWeapons : MonoBehaviour
                 continue;
             }
 
-            weaponTransform.gameObject.SetActive(i == ItemActual);
+            weaponTransform.gameObject.SetActive(true); 
         }
 
         if (weapons.Count > 0 && ItemActual < weapons.Count && weapons[ItemActual] != null)

@@ -57,6 +57,10 @@ public class WeaponController : MonoBehaviour, IWeapon
 
         currentAmmo = weaponData.MagazineSize;
     }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R)) StartCoroutine(Reload());
+    }
     private void TryInitStats()
     {
         if (stats == null)
@@ -75,9 +79,10 @@ public class WeaponController : MonoBehaviour, IWeapon
         if (Time.time < nextFireTime) return; //cadencia de tiro
         TryInitStats(); //para saber las stats del player
 
-        if (currentAmmo <= 0 || Input.GetKeyDown(KeyCode.R))
+        if (currentAmmo <= 0 || isReloading)
         {
             StartCoroutine(Reload());
+            isReloading = false;
             return;
         }
 

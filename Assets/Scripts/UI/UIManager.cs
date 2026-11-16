@@ -12,34 +12,32 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
+        // Al volver a Main Menu, sus botones apuntan al UIManager de esa escena.
+        // Reemplazamos la instancia persistente para conservar esas referencias.
         if (Instance != null && Instance != this)
         {
-            Destroy(gameObject);
-            return;
+            Destroy(Instance.gameObject);
         }
-        else
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-            
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     private void Update()
     {
         if (LevelManager.Instance != null && LevelManager.Instance.IsPaused) return;
-        // Pequeño atajo guiño guiño
-        if (Input.GetKeyDown(KeyCode.Escape) && historyStack.Count != 0)
+        if (!Input.GetKeyDown(KeyCode.Escape)) return;
+
+        if (historyStack.Count != 0)
         {
             GoBack();
         }
-        if (Input.GetKeyDown(KeyCode.Escape) && historyStack.Count == 0)
+        else if (SceneManager.GetActiveScene().name == "Game")
         {
             OpenPanelByID("Pause");
             Time.timeScale = 0f;
         }
     }
-
     public void OpenPanelByID(string id) //el id hay que escribirlo en cada panel que tenga el script PanelUI
     {
         if (string.IsNullOrEmpty(id)) return;
@@ -131,11 +129,6 @@ public class UIManager : MonoBehaviour
         {
             PanelUI topPanel = historyStack.Pop();
             if (topPanel != null) topPanel.ClosePanel();
-        }
-
-        if (historyStack.Count == 1)
-        {
-            historyStack.Peek().OpenPanel();
         }
     }
 

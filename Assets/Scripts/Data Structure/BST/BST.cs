@@ -132,7 +132,7 @@ public class BST<T> where T : IComparable //hace que los genericos implementen l
     void InOrderDFS(TreeNode<T> current) //Muestra los elemntos ordenados de menor a mayor
     {
         if (current == null) return;
-
+        //Recursion a la izquierda, luego recursion a la derecha
         InOrderDFS(current.left);
         Debug.Log(current.value.ToString());
         InOrderDFS(current.right);
@@ -141,7 +141,7 @@ public class BST<T> where T : IComparable //hace que los genericos implementen l
     {
         if (current == null) return;
 
-        Debug.Log(current.value.ToString());
+        Debug.Log(current.value.ToString()); 
         PreOrderDFS(current.left);
         PreOrderDFS(current.right);
     }

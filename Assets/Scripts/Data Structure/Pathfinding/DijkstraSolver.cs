@@ -11,7 +11,7 @@ public class DijkstraSolver<T> : IPathFindingSolver<T>
     public ISimpleDictionary<GraphNode<T>, Edge<GraphNode<T>>> GetAllShortestPath(GraphNode<T> origin, IGraph<GraphNode<T>> graph)
     {
 
-        //tabla con todos los nodos del grafo
+        //tabla con todos los nodos del grafo, empieza siendo 0
         ISimpleDictionary<GraphNode<T>, Edge<GraphNode<T>>> result = new SimpleArrayDictionary<GraphNode<T>, Edge<GraphNode<T>>>();
 
         //PriorityQueue que guarda los nodos no seleccionados   
@@ -26,10 +26,11 @@ public class DijkstraSolver<T> : IPathFindingSolver<T>
         //inicializamos la tabla con el primero teniendo prev = null y su peso es infinito
         for (int i = 0; i < vertices.Length; i++)
         {
-            result.Add(vertices[i], new Edge<GraphNode<T>>(null, int.MaxValue)); //se le agrega al diccionario todos los vertices y una arista con(to == null y un peso maximo) 
+            result.Add(vertices[i], new Edge<GraphNode<T>>(null, int.MaxValue)); 
+            //se le agrega al diccionario todos los vertices y una arista con(to == null y un peso maximo) 
         }
 
-        //CAMBIO: si el origen no esta en el grafo no hay nada que calcular (antes tiraba KeyNotFoundException)
+        //si el origen no esta en el grafo no hay nada que calcular (antes tiraba KeyNotFoundException)
         if (origin == null || !result.ContainsKey(origin)) return result;
 
         //el primer nodo no tiene costo
@@ -46,7 +47,7 @@ public class DijkstraSolver<T> : IPathFindingSolver<T>
             //si ya lo visitamos, lo saltemaos
             if (visited.Contains(current)) continue; //si fuera hash seria O(1)
 
-            //CAMBIO: guardamos el costo del nodo actual una sola vez (antes se buscaba en el diccionario en cada vecino)
+            // guardamos el costo del nodo actual una sola vez (antes se buscaba en el diccionario en cada vecino)
             int currentWeight = result[current].weight;
 
             //guardamos los vecinos en una lista para evaluar
@@ -59,7 +60,7 @@ public class DijkstraSolver<T> : IPathFindingSolver<T>
                 //suamamos el costo total hasta el nodo actual
                 int totalWeight = neighbours[i].weight + currentWeight;
 
-                //CAMBIO: buscamos al vecino en la tabla una sola vez y trabajamos con esa entrada
+                // buscamos al vecino en la tabla una sola vez y trabajamos con esa entrada
                 Edge<GraphNode<T>> neighbourData = result[neighbour];
 
                 //Si el costo total es menor al que esta en la tabla para llegar al vecino
@@ -68,11 +69,11 @@ public class DijkstraSolver<T> : IPathFindingSolver<T>
                 {
                     neighbourData.weight = totalWeight;
 
-                    //CAMBIO: antes faltaba esta linea. Guardamos de que nodo venimos (el "anterior"),
+                    //antes faltaba esta linea. Guardamos de que nodo venimos (el "anterior"),
                     //sin esto la tabla tiene costos pero no se puede reconstruir ningun camino
                     neighbourData.to = current;
 
-                    //CAMBIO: encolamos al vecino solo si mejoramos su costo (antes se encolaba siempre)
+                    // encolamos al vecino solo si mejoramos su costo (antes se encolaba siempre)
                     unvisited.Enqueue(neighbour, totalWeight);
                 }
             }

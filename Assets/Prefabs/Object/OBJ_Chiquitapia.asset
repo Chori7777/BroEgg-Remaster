@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c7f0311132eba124c97c28bdbf0a271d, type: 3}
-  m_Name: OBJ_Pancho
+  m_Name: OBJ_Chiquitapia
   m_EditorClassIdentifier: Assembly-CSharp::ObjectShopData
-  id: Pancho
-  displayName: Pancho
+  id: 
+  displayName: Dominno
   description: 
-  icon: {fileID: -2043600030600106530, guid: 7b38289d101773543b9c7485d8e87647, type: 3}
-  price: 10
+  icon: {fileID: -2228281330929224783, guid: f5c3e6da6fb423947a3451955c542dd2, type: 3}
+  price: 145
   objectType: 0
   baseHealth: 0
   baseArmor: 0
-  baseHealthRegeneration: 0
-  baseDamage: 15
+  baseHealthRegeneration: -5
+  baseDamage: 12
   baseCritDamage: 0
-  baseCriticalChance: 0
-  baseSpeed: 10
+  baseCriticalChance: 5
+  baseSpeed: 0
   baseDodgeChance: 0
   baseHarvesting: 0
   baseCurse: 0

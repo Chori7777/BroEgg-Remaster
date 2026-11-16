@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c7f0311132eba124c97c28bdbf0a271d, type: 3}
-  m_Name: OBJ_Chicha
+  m_Name: OBJ_Zifhrina
   m_EditorClassIdentifier: Assembly-CSharp::ObjectShopData
-  id: Chicha
-  displayName: Chicha
-  description: Rico suplemento Venezolano abierto para exportaciones nacionales
-  icon: {fileID: -2228281330929224783, guid: f5c3e6da6fb423947a3451955c542dd2, type: 3}
-  price: 10
-  objectType: 3
+  id: 
+  displayName: Zifhrina
+  description: 
+  icon: {fileID: -7349606042115111091, guid: 7fcceda30353c4b48b73aa4e7a3ceb26, type: 3}
+  price: 40
+  objectType: 1
   baseHealth: 20
-  baseArmor: 2
-  baseHealthRegeneration: 1
+  baseArmor: 0
+  baseHealthRegeneration: 0
   baseDamage: 0
-  baseCritDamage: 0
+  baseCritDamage: 3
   baseCriticalChance: 0
   baseSpeed: 0
-  baseDodgeChance: 0
+  baseDodgeChance: 10
   baseHarvesting: 0
   baseCurse: 0
   sellPriceRatio: 0.5

@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c7f0311132eba124c97c28bdbf0a271d, type: 3}
-  m_Name: OBJ_Vela
+  m_Name: OBJ_Cinturon de Juani
   m_EditorClassIdentifier: Assembly-CSharp::ObjectShopData
-  id: Vela
-  displayName: Vela
+  id: Cinturon de Alturista
+  displayName: Cinturon de Alturista
   description: 
-  icon: {fileID: -4936644330148155580, guid: 7011bd63b30e94342b01bd24f1da1f40, type: 3}
-  price: 10
-  objectType: 3
-  baseHealth: 0
+  icon: {fileID: -3092852093837215433, guid: ff101bf996fce2f49adcd4474e85f587, type: 3}
+  price: 75
+  objectType: 2
+  baseHealth: 35
   baseArmor: 0
-  baseHealthRegeneration: 15
-  baseDamage: 0
-  baseCritDamage: 20
+  baseHealthRegeneration: 0
+  baseDamage: 3
+  baseCritDamage: -8
   baseCriticalChance: 0
   baseSpeed: 0
-  baseDodgeChance: 0
+  baseDodgeChance: 12
   baseHarvesting: 0
   baseCurse: 0
   sellPriceRatio: 0.5

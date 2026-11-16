@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c7f0311132eba124c97c28bdbf0a271d, type: 3}
-  m_Name: OBJ_Sal
+  m_Name: OBJ_Pancho
   m_EditorClassIdentifier: Assembly-CSharp::ObjectShopData
-  id: Sal
-  displayName: Sal
+  id: Pancho
+  displayName: Pancho
   description: 
-  icon: {fileID: -722884648397021377, guid: 47d15ca978955274b99db90139c371a6, type: 3}
-  price: 10
+  icon: {fileID: -2043600030600106530, guid: 7b38289d101773543b9c7485d8e87647, type: 3}
+  price: 18
   objectType: 0
-  baseHealth: 20
-  baseArmor: 20
+  baseHealth: 0
+  baseArmor: -1
   baseHealthRegeneration: 0
-  baseDamage: 0
+  baseDamage: 3
   baseCritDamage: 0
   baseCriticalChance: 0
-  baseSpeed: 0
+  baseSpeed: 1
   baseDodgeChance: 0
   baseHarvesting: 0
   baseCurse: 0

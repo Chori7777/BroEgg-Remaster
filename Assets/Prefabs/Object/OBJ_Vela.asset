@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c7f0311132eba124c97c28bdbf0a271d, type: 3}
-  m_Name: OBJ_Nave de Juani
+  m_Name: OBJ_Vela
   m_EditorClassIdentifier: Assembly-CSharp::ObjectShopData
-  id: Nave de Juani
-  displayName: Nave de Juani
+  id: Vela
+  displayName: Vela
   description: 
-  icon: {fileID: -7349606042115111091, guid: 7fcceda30353c4b48b73aa4e7a3ceb26, type: 3}
-  price: 10
-  objectType: 1
-  baseHealth: 20
-  baseArmor: 0
-  baseHealthRegeneration: 0
+  icon: {fileID: -4936644330148155580, guid: 7011bd63b30e94342b01bd24f1da1f40, type: 3}
+  price: 150
+  objectType: 3
+  baseHealth: -25
+  baseArmor: -2
+  baseHealthRegeneration: 15
   baseDamage: 0
-  baseCritDamage: 0
-  baseCriticalChance: 0
+  baseCritDamage: 50
+  baseCriticalChance: 12
   baseSpeed: 0
   baseDodgeChance: 0
   baseHarvesting: 0

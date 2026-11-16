@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7f0311132eba124c97c28bdbf0a271d, type: 3}
+  m_Name: OBJ_Pelo de Dante
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectShopData
+  id: PaBellion
+  displayName: PaBellion
+  description: 
+  icon: {fileID: 5408683728928281880, guid: 858c3952169c9a847a398a5518ced4e5, type: 3}
+  price: 22
+  objectType: 0
+  baseHealth: -10
+  baseArmor: 0
+  baseHealthRegeneration: 0
+  baseDamage: 0
+  baseCritDamage: 0
+  baseCriticalChance: 8
+  baseSpeed: 2
+  baseDodgeChance: 0
+  baseHarvesting: 0
+  baseCurse: 0
+  sellPriceRatio: 0.5

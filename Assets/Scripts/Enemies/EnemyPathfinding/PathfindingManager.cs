@@ -74,9 +74,9 @@ public class PathfindingManager : MonoBehaviour
     private void ReadTilemaps()
     {
         BoundsInt bounds = floorTilemap.cellBounds; //representa las bounds de una celda en AABB
-        cellsWide = bounds.size.x;
+        cellsWide = bounds.size.x; //tamaño total de los tiles en x e y
         cellsHigh = bounds.size.y;
-        originX = bounds.xMin;
+        originX = bounds.xMin; // origenes x e y de la celda superior izquierda del mapa
         originY = bounds.yMin;
 
         walkableCells = new bool[cellsWide * cellsHigh];
@@ -85,9 +85,13 @@ public class PathfindingManager : MonoBehaviour
         {
             for (int x = 0; x < cellsWide; x++)
             {
+                // 1. Traduce el índice local (0.3, 0.2) a coordenada real del Tilemap
                 Vector3Int cell = new Vector3Int(originX + x, originY + y, 0);
+                // 2. Pregunta a los dos Tilemaps de Unity qué hay en esa coordenada
                 bool hasFloor = floorTilemap.HasTile(cell);
                 bool hasObstacle = obstacleTilemap.HasTile(cell);
+                // 3. Guarda true solo si hay piso Y NO hay obstáculo, en el cajón único
+
                 walkableCells[y * cellsWide + x] = hasFloor && !hasObstacle; //walkableCell es true si el tile es un floor y no tiene obstaculo
                 //COSAS A ACLARAR
                 //hacer walkableCells[y * cellsWide + x] es lo mismo que hacer walkableCells[cellsHigh ,cellsWide] si fuera bidimensional, pero de esta forma es mas optimo, mas prolijo de escribir y mas seguro de manejar
@@ -98,7 +102,7 @@ public class PathfindingManager : MonoBehaviour
     //PASO 2: armamos el grafo. Se hace una sola vez porque los obstaculos no se mueven.
     private void BuildGraph()
     {
-        //esto lo dejo asi, pero basicamente lo que hace esto es que la variable blockSize agrupe tiles para que la busqueda de caminos sea menos pasada para el juego
+        //esto lo dejo asi, pero basicamente lo que hace esto es que la variable blockSize agrupe tiles para que la busqueda de caminos sea menos pesada para el juego
         //eso puede generar problemas pero ahorra memoria, para que funcione bien bien, yo pongo la variable en el inspector = 1, por eso es que esta dividion es inutil
         //pero de momento la voy a dejar por las dudas, OK?
         blocksWide = cellsWide / blockSize;
@@ -121,6 +125,7 @@ public class PathfindingManager : MonoBehaviour
 
         //2b) aristas: cada nodo se conecta con sus 8 vecinos. Costo 10 en recto y 14 en diagonal (1 y 1.4 por 10).
         //Se usan enteros porque el peso de las aristas y de la PriorityQueue es int.
+        //se hacen 2 for con indices de grilla hasta el ancho y alto del mapa
         for (int by = 0; by < blocksHigh; by++)
         {
             for (int bx = 0; bx < blocksWide; bx++)
@@ -128,11 +133,14 @@ public class PathfindingManager : MonoBehaviour
                 GraphNode<Vector2Int> node = GetNode(bx, by); //GetNode(bx, by) me devuelve una posicion del array, ponele nodes[67]
                 if (node == null) continue;
 
+                //los dos nodos interiores buscan vecinos que ya existen para conectarlos mediante aristas
+                // si no existen, no hacen nada. Por eso es que primero se crean todos los nodos y despues se conectan entre si.
+
                 for (int dy = -1; dy <= 1; dy++)
                 {
                     for (int dx = -1; dx <= 1; dx++) //este doble for me sirve para esto (preparense)
                     {
-                        if (dx == 0 && dy == 0) continue;
+                        if (dx == 0 && dy == 0) continue; //aca se asegura que no este en el centro
 
                         GraphNode<Vector2Int> neighbour = GetNode(bx + dx, by + dy);
 
@@ -146,7 +154,7 @@ public class PathfindingManager : MonoBehaviour
 
                         bool diagonal = dx != 0 && dy != 0; //si dx o dy es 0, significa que esta derecha, arriba, abajo ou izquierda
 
-                        if (diagonal && (GetNode(bx + dx, by) == null || GetNode(bx, by + dy) == null)) continue; //esto se asegura que no este en el centro
+                        if (diagonal && (GetNode(bx + dx, by) == null || GetNode(bx, by + dy) == null)) continue; 
 
                         int weight;
                         if (diagonal == true) weight = 14; //pesa mas ir en diagonal que ir derecho
@@ -248,8 +256,7 @@ public class PathfindingManager : MonoBehaviour
     }
 
     //posicion del mundo -> bloque donde esta
-    private Vector2Int WorldToBlock(Vector3 worldPosition) //full vibecoding esto, Convierte esa posición mundial en coordenadas lógicas de bloques del tilemap
-                                                           //No me pidan que lo explique.
+    private Vector2Int WorldToBlock(Vector3 worldPosition) // Convierte esa posición mundial en coordenadas lógicas de bloques del tilemap
     {
         Vector3Int cell = floorTilemap.WorldToCell(worldPosition);
         int x = cell.x - originX;

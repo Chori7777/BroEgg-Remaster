@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbbf12d7d1765eb4089e1c316cffba5d, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: Assembly-CSharp::PlayerData
-  baseHealth: 2788
+  baseHealth: 100
   baseArmor: 1
   baseHealthRegeneration: 1
   baseDamage: 5
   baseCritDamage: 0
   baseMagicDamage: 0
   baseCriticalChance: 0
-  baseSpeed: 5
+  baseSpeed: 4
   baseDodgeChance: 0
   baseHarvesting: 0
   baseCurse: 0

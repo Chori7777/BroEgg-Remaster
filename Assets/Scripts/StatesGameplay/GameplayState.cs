@@ -9,11 +9,11 @@ public class GameplayState : IState
 
     public void Enter()
     {
-            GameFacade.AdvanceWave();
-            levelManager.TimeRemaining = levelManager.CurrentWave.Time;
+        GameFacade.AdvanceWave();
+        levelManager.TimeRemaining = levelManager.CurrentWave.Time;
         spawnTimer = levelManager.CurrentWave.WaveRate;
 
-        if (CheckpointManager.Instance != null) // Sin esto nunca se guarda un checkpoint
+        if (CheckpointManager.Instance != null)
         {
             CheckpointManager.Instance.SaveCheckpoint();
         }
@@ -25,7 +25,18 @@ public class GameplayState : IState
 
         if (levelManager.TimeRemaining <= 0)
         {
-            levelManager.levelStateMachine.ChangeState(levelManager.levelStateMachine.Shop);
+            // AQUÍ ESTÁ EL CAMBIO CLAVE:
+            if (levelManager.HasMoreWaves())
+            {
+                // Todavía hay juego por delante: ir a la tienda
+                levelManager.shopPanel.gameObject.SetActive(true);
+                levelManager.levelStateMachine.ChangeState(levelManager.levelStateMachine.Shop);
+            }
+            else
+            {
+                // Se acabaron las oleadas: Pantalla de Victoria
+                levelManager.levelStateMachine.ChangeState(levelManager.levelStateMachine.Victory);
+            }
             return;
         }
 
@@ -33,10 +44,8 @@ public class GameplayState : IState
 
         if (spawnTimer <= 0)
         {
-
             levelManager.enemySpawnerManager.spawnWave(levelManager.CurrentWave.EnemiesPerWave, levelManager.CurrentWave.enemyProbabilities);
             spawnTimer = levelManager.CurrentWave.WaveRate;
-            
         }
     }
 

@@ -17,6 +17,12 @@ public class LevelManager : MonoBehaviour
     public bool changeMusic;   // ¿esta wave cambia la música?
     public SoundID music;      // cuál suena
 
+
+    [Header("UI de Victoria")]
+    [SerializeField] private GameObject victoryPanel;
+    public GameObject VictoryPanel => victoryPanel;
+
+
     //  COLA
     private ISimpleQueue<WaveData> waveQueue = new SimpleArrayQueue<WaveData>();
 
@@ -128,7 +134,11 @@ public class LevelManager : MonoBehaviour
             }
         }
     }
-
+    public bool HasMoreWaves()
+    {
+        // Compara el round actual con el total de waves configuradas en el Inspector
+        return currentRound < waveList.Count;
+    }
     public void RestoreToRound(int round)
     {
         waveQueue.Clear();
@@ -152,5 +162,21 @@ public class LevelManager : MonoBehaviour
         if (IsPaused) return;
         shopPanel.gameObject.SetActive(false);
         levelStateMachine.ChangeState(levelStateMachine.Gameplay);
+    }
+
+    public void CheckRoundProgression()
+    {
+        if (waveQueue.Count == 0)
+        {
+            // No hay más oleadas en la cola: Victoria
+            levelStateMachine.ChangeState(levelStateMachine.Victory);
+        }
+        else
+        {
+            // Todavía hay contenido: Avanzar a la tienda
+            AdvanceToNextWave();
+            shopPanel.gameObject.SetActive(true);
+            levelStateMachine.ChangeState(levelStateMachine.Shop);
+        }
     }
 }

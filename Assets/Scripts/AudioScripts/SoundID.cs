@@ -7,6 +7,8 @@ public enum SoundID //Esto simplemente es una lista de nombres que vos aca vas a
     MusicRound1,
     MusicRound3,
     MusicRound5,
+    Shoot,
+    PassiveShoot,
 
 
 

@@ -13,8 +13,6 @@ public class PlayerWeaponManager : MonoBehaviour
     void Start()
     {
         GiveWeapon("Pistol");
-        GiveWeapon("AutoRifle");
-        GiveWeapon("Shotgun");
     }   
 
     public WeaponController GiveWeapon(string weaponId) //ehora este metodo devuelve un arma, cosa que siempre tuvo que haber sido asi

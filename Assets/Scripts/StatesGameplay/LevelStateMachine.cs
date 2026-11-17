@@ -1,9 +1,10 @@
 using UnityEngine;
 
-public class LevelStateMachine 
+public class LevelStateMachine
 {
     public IState Shop;
     public IState Gameplay;
+    public IState Victory; 
     public IState CurrentState;
     public IState Paused { get; private set; }
     private IState suspendedState;
@@ -14,9 +15,9 @@ public class LevelStateMachine
         Shop = new ShopState(levelManager);
         Gameplay = new GameplayState(levelManager);
         Paused = new PausedState(levelManager);
+        Victory = new VictoryState(levelManager); 
 
         CurrentState = Gameplay;
-
         CurrentState.Enter();
     }
 
@@ -26,7 +27,6 @@ public class LevelStateMachine
         CurrentState.Exit();
         CurrentState = state;
         CurrentState.Enter();
-
     }
 
     public void UpdateMachine()
@@ -37,7 +37,6 @@ public class LevelStateMachine
     public void Pause()
     {
         if (IsPaused) return;
-        // Suspender no ejecuta Exit: conserva la tienda y la oleada.
         suspendedState = CurrentState;
         CurrentState = Paused;
         CurrentState.Enter();
@@ -47,7 +46,6 @@ public class LevelStateMachine
     {
         if (!IsPaused) return;
         CurrentState.Exit();
-        // No ejecutar Enter: Gameplay.Enter inicia otra oleada.
         CurrentState = suspendedState;
         suspendedState = null;
     }

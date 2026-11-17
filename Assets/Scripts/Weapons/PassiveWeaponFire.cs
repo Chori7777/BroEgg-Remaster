@@ -76,6 +76,7 @@ public class PassiveWeaponFire : MonoBehaviour
             if (weapon.CanShoot)
             {
                 weapon.PassiveShoot(targetPosition, GetVelocity(target));
+                AudioManager.Instance.PlaySFX(SoundID.PassiveShoot);
             }
         }
     }

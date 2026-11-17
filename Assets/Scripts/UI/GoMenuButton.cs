@@ -16,6 +16,7 @@ public class GoMenuButton : MonoBehaviour
         {
             UIManager.Instance.ClearToRoot();
             Time.timeScale = 1f;
+            UnityEngine.Cursor.visible = true;
             SceneManager.LoadScene("Main Menu");
         }
         else

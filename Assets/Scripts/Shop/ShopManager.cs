@@ -195,7 +195,7 @@ public class ShopManager : MonoBehaviour
        
     }
 
-    public void Refund()
+    public void Refund() //boton
     {
         if (!IsOpen) return;
 

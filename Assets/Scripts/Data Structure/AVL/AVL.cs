@@ -21,7 +21,7 @@ public class AVL<T> : BST<T> where T : IComparable
 
     TreeNode<T> RebalanceNode(TreeNode<T> node)
     {
-        
+            
         int BF = GetNodeBalanceFactor(node);
 
         //caso Lx

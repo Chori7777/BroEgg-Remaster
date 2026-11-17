@@ -117,9 +117,9 @@ public class SimpleArrayDictionary<TKey, TValue> : ISimpleDictionary<TKey, TValu
 
         int index = indexOf(key);
 
-        if (index >= 0)
+        if (index >= 0) //si existe la key
         {
-            value = internalArray[index].Value;
+            value = internalArray[index].Value; //gusrdamos en esa variable el value del key
             return true;
         }
 

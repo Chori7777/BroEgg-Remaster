@@ -24,13 +24,15 @@ public class ExplosionTarget : IComparable
         int byDistance = distance.CompareTo(other.distance);
         if (byDistance != 0) return byDistance; //aca puede dar 1 o -1 
 
-        // El BST descarta los valores que dan CompareTo == 0. Si dos objetivos estan exactamente
-        // a la misma distancia, desempatamos por id para no perder a ninguno.
-        return collider.GetInstanceID().CompareTo(other.collider.GetInstanceID());
+        return collider.GetInstanceID().CompareTo(other.collider.GetInstanceID()); //aca desempatamos usando el ID en vez de la distancia, por las duvidas que hayan objetivos a la misma distancia 
     }
 }
 
-// Una capa concentrica de la explosion.
+
+
+
+
+
 [Serializable]
 public class ExplosionLayer //Una clase de una capa invisible de explosion que tiene una distacia max, un multiplicador daño, y una fureza de empuje
 {
@@ -47,13 +49,16 @@ public class ExplosionLayer //Una clase de una capa invisible de explosion que t
 }
 
 
+
+
+
 public class KamikazeExplosion : MonoBehaviour
 {
     [Header("Capas (de adentro hacia afuera)")] //un array de 3 capas
     [SerializeField] private ExplosionLayer[] layers =
     {
         new ExplosionLayer(1.5f, 1.00f, 18f), // Capa 1: muy cerca, daño maximo y knockback fuerte
-        new ExplosionLayer(3.0f, 0.50f, 0f),  // Capa 2: distancia media, daño moderado
+        new ExplosionLayer(3.0f, 0.50f, 5f),  // Capa 2: distancia media, daño moderado
         new ExplosionLayer(4.5f, 0.25f, 0f)   // Capa 3: borde, daño bajo
     };
 
@@ -63,10 +68,14 @@ public class KamikazeExplosion : MonoBehaviour
     private EnemyStats stats;
     private bool exploded;
 
+
+
     private void Awake()
     {
         stats = GetComponent<EnemyStats>(); //obtiene las stats
     }
+
+
 
     public void Explode()
     {
@@ -80,7 +89,7 @@ public class KamikazeExplosion : MonoBehaviour
         float radius = layers[layers.Length - 1].maxDistance; //la longitud del centro del circulo hasta el borde de la 3ra capa -> radio = 4.5f
         Collider2D[] hits = Physics2D.OverlapCircleAll(epicenter, radius, targetLayers); //Guardo todas las colisiones que esten en el capa deseada
 
-        // 2) Un objeto puede tener varios colliders: nos quedamos con el mas cercano de cada uno
+      
         Dictionary<IDamageable, ExplosionTarget> closestByTarget = new Dictionary<IDamageable, ExplosionTarget>(); //el diccionario evita que los colliders se dupliquen
 
         for (int i = 0; i < hits.Length; i++) //recorro todos los hits detectados, y por cada uno de ellos...
@@ -120,7 +129,8 @@ public class KamikazeExplosion : MonoBehaviour
 
         ExplosionLayer layer = GetLayer(target.distance); //obtenemos la capa donde ocurre la chicha
 
-        int damage = Mathf.RoundToInt(stats.Damage * layer.damageMultiplier); //un entero que se redondea (25 * capa 1: 1f) = 25 => 25 AURA
+        int damage = Mathf.RoundToInt(stats.Damage * layer.damageMultiplier); //un entero que se redondea
+                                                                              //(25 * capa 1: 1f) = 25 => 25 AURA
                                                                               //(25 * capa 2: 0.5f) = 12.5 => 12 AURA
                                                                               //(25 * capa 3: 0.25f) = 6.25 => 6 AURA
         if (damage > 0)

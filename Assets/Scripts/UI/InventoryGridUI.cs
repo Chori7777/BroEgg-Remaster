@@ -1,3 +1,4 @@
+using System;
 using ED262C;
 using TMPro;
 using UnityEngine;
@@ -14,8 +15,7 @@ public class InventoryGridUI : MonoBehaviour
 
     private readonly SimpleArrayList<ObjectShopData> visibleItems = new SimpleArrayList<ObjectShopData>();
     private int currentPage;
-    private int PageCount => cells == null || cells.Length == 0
-        ? 1 : Mathf.Max(1, (visibleItems.Count + cells.Length - 1) / cells.Length);
+    private int PageCount => cells == null || cells.Length == 0 ? 1 : Mathf.Max(1, (visibleItems.Count + cells.Length - 1) / cells.Length);
 
     private void OnEnable()
     {
@@ -38,10 +38,10 @@ public class InventoryGridUI : MonoBehaviour
         ShowPage();
     }
 
-    private static int CompareByRarity(ObjectShopData a, ObjectShopData b)
+    private static int CompareByRarity(ObjectShopData a, ObjectShopData b) 
     {
         // Mayor rareza primero: Legendary, Epic, Uncommon, Comun.
-        return b.Rarity.CompareTo(a.Rarity);
+        return b.Rarity.CompareTo(a.Rarity);                      
     }
 
     public void PreviousPage()

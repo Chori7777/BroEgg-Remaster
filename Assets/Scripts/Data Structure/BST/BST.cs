@@ -71,7 +71,7 @@ public class BST<T> where T : IComparable //hace que los genericos implementen l
             current.left = RemoveRecursive(current.left, value);
         }
 
-        //Si son iguales encontramos el valor
+        //Si son iguales encontramos el valor (CASO BASE)
         if (comparison == 0)
         {
             count--; //count-- porque removemos
@@ -148,11 +148,11 @@ public class BST<T> where T : IComparable //hace que los genericos implementen l
 
     void PostOrderDFS(TreeNode<T> current) //Va de abajo hacia arriba, procesa primero los hijos de los nodos antes que los nodos padres
     {
-        if (current == null) return;
+        if (current == null) return; //caso base
 
         PostOrderDFS(current.left);
         PostOrderDFS(current.right);
-        Debug.Log(current.value.ToString());
+        Debug.Log(current.value.ToString()); //caso base
     }
 
     public void PreOrder() //DFS
@@ -232,24 +232,21 @@ public class BST<T> where T : IComparable //hace que los genericos implementen l
 
     private bool IsValidBSTRecursive(TreeNode<T> current, T minValue, T maxValue, bool hasMin, bool hasMax)
     {
-        // 1. Caso base: si llegamos a un nodo vacío, es válido hasta ahí
+        
         if (current == null) return true;
 
-        // 2. Validar contra el límite mínimo (si está activo)
+       
         if (hasMin && current.value.CompareTo(minValue) <= 0)
             return false;
 
-        // 3. Validar contra el límite máximo (si está activo)
         if (hasMax && current.value.CompareTo(maxValue) >= 0)
             return false;
 
-        // 4. Llamadas recursivas:
-        // - Izquierda: el valor máximo permitido ahora pasa a ser el del nodo actual.
-        // - Derecha: el valor mínimo permitido ahora pasa a ser el del nodo actual.
+        
         bool leftValid = IsValidBSTRecursive(current.left, minValue, current.value, hasMin, true);
         bool rightValid = IsValidBSTRecursive(current.right, current.value, maxValue, true, hasMax);
 
-        // 5. Retornar true SOLO si ambos subárboles son válidos
+        
         return leftValid && rightValid;
     }
 }

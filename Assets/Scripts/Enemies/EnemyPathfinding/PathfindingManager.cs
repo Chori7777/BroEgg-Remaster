@@ -46,7 +46,6 @@ public class PathfindingManager : MonoBehaviour
     private GraphNode<Vector2Int>[] nodes;
     private readonly IGraph<GraphNode<Vector2Int>> graph = new ListGraph<GraphNode<Vector2Int>>(); // acuerdense que el grafo es el mapeado de nodos conectados entre si y poderados
     private readonly IPathFindingSolver<Vector2Int> solver = new DijkstraSolver<Vector2Int>(); //esto es lo que va a operar sobre el grafo para darle la capacidad de a partide un nodo (pos del jugador) los enemigos puedan calcular el mejor camino
-
     private ISimpleDictionary<GraphNode<Vector2Int>, Edge<GraphNode<Vector2Int>>> table; // resultado de Dijkstra
     private GraphNode<Vector2Int> playerNode;   // nodo desde el que se calculo la tabla
 
@@ -108,18 +107,18 @@ public class PathfindingManager : MonoBehaviour
         blocksWide = cellsWide / blockSize;
         blocksHigh = cellsHigh / blockSize;
 
-        nodes = new GraphNode<Vector2Int>[blocksWide * blocksHigh]; //creo X cantidad de espacios dentro del array, por X cantidad de tiles dentro del array
+        nodes = new GraphNode<Vector2Int>[walkableCells.Length]; //creo X cantidad de espacios dentro del array, por X cantidad de tiles dentro del array
 
         //2a) un nodo por cada bloque libre. El valor del nodo es la posicion del bloque.
         for (int by = 0; by < blocksHigh; by++)
         {
             for (int bx = 0; bx < blocksWide; bx++)
             {
-                if (!IsBlockFree(bx, by)) continue; //si el tile esta libre
+                if (!IsBlockFree(bx, by)) continue; //si el tile esta libre, que haga lo de abajo, sino que salta al proximo bucle
 
-                GraphNode<Vector2Int> node = new GraphNode<Vector2Int>(new Vector2Int(bx, by)); //creamos un nodo ahi mismito
-                nodes[bx + by * blocksWide] = node;
-                graph.AddVertex(node); //añado
+                GraphNode<Vector2Int> node = new GraphNode<Vector2Int>(new Vector2Int(bx, by)); //creamos un nodo 
+                nodes[bx + by * blocksWide] = node; //lo agregamos a sus posiciones dentro del array de nodos
+                graph.AddVertex(node); //y por ultimo lo añado al grafo 
             }
         }
 
@@ -138,7 +137,7 @@ public class PathfindingManager : MonoBehaviour
 
                 for (int dy = -1; dy <= 1; dy++)
                 {
-                    for (int dx = -1; dx <= 1; dx++) //este doble for me sirve para esto (preparense)
+                    for (int dx = -1; dx <= 1; dx++) //este doble for me sirve para esto ver sus 8 vecinos
                     {
                         if (dx == 0 && dy == 0) continue; //aca se asegura que no este en el centro
 
@@ -167,20 +166,8 @@ public class PathfindingManager : MonoBehaviour
         }
     }
 
-    //un bloque esta libre si TODAS sus celdas son caminables
-    private bool IsBlockFree(int bx, int by) //devuelve true si un
+    private bool IsBlockFree(int bx, int by) //devuelve true si una celda es true
     {
-        /*for (int dy = 0; dy < blockSize; dy++)
-        {
-            for (int dx = 0; dx < blockSize; dx++)
-            {
-                int cellX = bx * blockSize + dx;
-                int cellY = by * blockSize + dy;
-                if (!walkableCells[cellY * cellsWide + cellX]) return false;
-            }
-        }
-        return true;*/
-
         if (!walkableCells[by * cellsWide + bx]) return false;
 
         return true;
@@ -198,20 +185,14 @@ public class PathfindingManager : MonoBehaviour
             playerTransform = playerObject.transform;
         }
 
-        timer -= Time.deltaTime;
-        if (timer > 0f) return;
+        timer -= Time.deltaTime; //todo el tiempo va bajando timer y en el mistras ese timer sea mayor a 0 todo se detiene, no existe dijkstra
 
-        // Incluso si el jugador sigue en el mismo bloque, no necesitamos comprobarlo
-        // todos los frames. El intervalo limita solamente el coste de esa comprobación;
-        // Dijkstra solo se ejecuta cuando cambia el nodo origen.
-        timer = Mathf.Max(0f, recalculateInterval);
+        if (timer > 0f) return; 
 
-        
-        Vector2Int playerBlock = WorldToBlock(playerTransform.position);
-        GraphNode<Vector2Int> origin = GetNode(playerBlock.x, playerBlock.y);
+        timer = Mathf.Max(0f, recalculateInterval); //cuando llegue aca, timer vuelve a ser mayor a 0, pero hasta que vuelva al chequeo de arriba, tiene que ejecutar el dijkstra de abajo
 
-        //si no hay nodo, o el jugador sigue en el mismo bloque, la tabla que ya tenemos sigue sirviendo
-        if (origin == null || origin == playerNode) return;
+        Vector2Int playerBlock = WorldToBlock(playerTransform.position); // guardamos en un Vector2int donde esta el Player (origen del dijkstra)
+        GraphNode<Vector2Int> origin = GetNode(playerBlock.x, playerBlock.y); //pasamos ese Vector2int a una variable GraphNode
 
         playerNode = origin;
         table = solver.GetAllShortestPath(playerNode, graph); //El algoritmo devuelve una tabla gigante que contiene, para cada nodo del mapa, dos datos cruciales
@@ -222,24 +203,22 @@ public class PathfindingManager : MonoBehaviour
     //PASO 4: direccion (ya normalizada) para ir de "from" hasta "to" esquivando obstaculos
     public Vector2 GetDirection(Vector3 from, Vector3 to)
     {
-        Vector2 straight = ((Vector2)(to - from)).normalized;
+        Vector2 straight = ((Vector2)(to - from)).normalized; //un movimiento sin pathfinding, solo ir para adelante como un wachin
 
         if (table == null) return straight;
 
-        Vector2Int block = WorldToBlock(from);
-        GraphNode<Vector2Int> current = GetNode(block.x, block.y);
+        Vector2Int currentEnemyBlock = WorldToBlock(from);
+        GraphNode<Vector2Int> currentEnemyPosition = GetNode(currentEnemyBlock.x, currentEnemyBlock.y);
 
         // Si el enemigo esta en un bloque nulo (pared), va directo al jugador a lo bruto
-        if (current == null) return straight;
+        if (currentEnemyPosition == null) return straight;
 
-        // Buscamos el siguiente nodo en la tabla de Dijkstra
-        if (!table.TryGetValue(current, out Edge<GraphNode<Vector2Int>> data)) return straight;
+        if (!table.TryGetValue(currentEnemyPosition, out Edge<GraphNode<Vector2Int>> data)) return straight; //si no obtenemos el valor porque la key currentEnemyPosition no existe, vamos derechito
 
-        // Si no hay nodo siguiente, vamos en linea recta
-        if (data.to == null) return straight;
+        if (data.to == null) return straight;//si no hay un camino posible en la tabla, que vaya para adelante
 
         // Retorna la direccion hacia el centro del siguiente nodo del grafo
-        return DirectionTo(from, BlockToWorld(data.to.value));
+        return DirectionTo(from, BlockToWorld(data.to.value)); 
     }
 
     private Vector2 DirectionTo(Vector3 from, Vector3 target)
@@ -247,13 +226,9 @@ public class PathfindingManager : MonoBehaviour
         return ((Vector2)(target - from)).normalized;
     }
 
-    //----- ayudas para pasar de un lado a otro: mundo <-> bloque <-> nodo -----
 
-    private GraphNode<Vector2Int> GetNode(int bx, int by) //devuelve un nodo en una posicion del array
-    {
-        if (bx < 0 || bx >= blocksWide || by < 0 || by >= blocksHigh) return null;
-        return nodes[bx + by * blocksWide];
-    }
+
+    //----- ayudas para pasar de un lado a otro: mundo <-> bloque <-> nodo -----
 
     //posicion del mundo -> bloque donde esta
     private Vector2Int WorldToBlock(Vector3 worldPosition) // Convierte esa posición mundial en coordenadas lógicas de bloques del tilemap
@@ -272,6 +247,16 @@ public class PathfindingManager : MonoBehaviour
         float shift = (blockSize - 1) * 0.5f;
         return firstCell + new Vector3(shift * floorTilemap.cellSize.x, shift * floorTilemap.cellSize.y, 0f);
     }
+
+    
+    private GraphNode<Vector2Int> GetNode(int bx, int by) //devuelve un nodo en una posicion del array
+    {
+        if (bx < 0 || bx >= blocksWide || by < 0 || by >= blocksHigh) return null;
+        return nodes[bx + by * blocksWide];
+    }
+
+
+
 
     //Seleccionando este objeto en Play: rojo = celda bloqueada, amarillo = nodo del grafo,
     //verde = hacia que nodo va un enemigo que esta en cada nodo

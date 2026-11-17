@@ -220,37 +220,44 @@ namespace ED262C
             // Devolvemos el array completo
             return result;
         }
+
+
+        //------------SORTING-------------
+
+
         public void Sort(Comparison<T> criterion)
         {
             if (criterion == null) throw new ArgumentNullException(nameof(criterion));
             QuickSort(criterion, 0, count - 1);
         }
+
         public void QuickSort(Comparison<T> criterion, int low, int high)
         {
             // Un tramo vacio o de un elemento ya esta ordenado.
             if (low >= high) return;
 
-            int pivot = Partition(criterion, low, high);
+            int pivot = Partition(criterion, low, high); //esto es la pos 2 //TODO ESTO SUPUNIENDO UN ARRAY DE COUNT = 5 [3,2,5,8,7]
 
-            QuickSort(criterion, low, pivot - 1);
-            QuickSort(criterion, pivot + 1, high);
+            QuickSort(criterion, low, pivot - 1); //esto hace recursion de 3 a 2 --> 0 a 1 inclusive
+            QuickSort(criterion, pivot + 1, high); //esto hace recursion de 8 a 7 --> de 3 a 4 inclusive
         }
+
         int Partition(Comparison<T> criterion, int low, int high)
         {
-            T pivot = internalArray[high];
+            T pivot = internalArray[high]; //pivot = count - 1
 
-            int i = low - 1;
+            int i = low - 1; // i = -1
 
-            for(int j = low; j < high; j++)
+            for(int j = low; j < high; j++)  //recorro el array
             {
-                if (criterion(internalArray[j], pivot) < 0)
+                if (criterion(internalArray[j], pivot) < 0) //si el objeto que estoy analizando es menor al maximo de la lista
                 {
                     i++;
                     Swap(i, j);
                 }
             }
             Swap(i + 1, high);
-            return i + 1;
+            return i + 1; //retorna la posicion del pivote
         }
         private void Swap(int a, int b)
         {

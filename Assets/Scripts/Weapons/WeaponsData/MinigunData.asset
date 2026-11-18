@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   tier: 0
   shootingType: 1
+  bulletType: 3
   idWeapon: Minigun
   baseDamage: 6
   magazineSize: 80

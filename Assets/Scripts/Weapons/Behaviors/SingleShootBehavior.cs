@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class SingleShootBehavior : IWeaponBehavior
 {
-    public void Shoot(Transform weaponTransform, int damage, Collider2D shooterCollider, BulletPool bulletPool)
+    public void Shoot(Transform weaponTransform, int damage, Collider2D shooterCollider, BulletPool bulletPool, BulletType bulletType)
     {
         // Pedimos la bala al pool
         Bullet bullet = bulletPool.Get();
@@ -20,10 +20,10 @@ public class SingleShootBehavior : IWeaponBehavior
         Vector2 direction = (mousePosition - weaponTransform.position).normalized;
 
         // Mandamos la direccion y el daño a la bala
-        bullet.Setup(direction, damage, shooterCollider);
+        bullet.Setup(direction, damage, shooterCollider, bulletType);
     }
 
-    public void ShootAtTarget(Transform weaponTransform, Vector2 targetPosition, Vector2 targetVelocity, int damage, Collider2D shooterCollider, BulletPool bulletPool)
+    public void ShootAtTarget(Transform weaponTransform, Vector2 targetPosition, Vector2 targetVelocity, int damage, Collider2D shooterCollider, BulletPool bulletPool, BulletType bulletType)
     {
         if (bulletPool == null) return;
 
@@ -45,6 +45,6 @@ public class SingleShootBehavior : IWeaponBehavior
         bullet.transform.rotation = Quaternion.Euler(0, 0, angle);
 
         // Mandamos la direccion y el daño a la bala
-        bullet.Setup(direction, damage, shooterCollider);
+        bullet.Setup(direction, damage, shooterCollider, bulletType);
     }
 }

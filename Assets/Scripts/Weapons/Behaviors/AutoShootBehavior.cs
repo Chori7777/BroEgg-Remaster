@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class AutoShoot : IWeaponBehavior
 {
-    public void Shoot(Transform weaponTransform, int damage, Collider2D shooterCollider, BulletPool bulletPool)
+    public void Shoot(Transform weaponTransform, int damage, Collider2D shooterCollider, BulletPool bulletPool, BulletType bulletType)
     {
         if (bulletPool == null) return;
 
@@ -22,10 +22,10 @@ public class AutoShoot : IWeaponBehavior
         Vector2 direction = (mousePosition - weaponTransform.position).normalized;
 
         // Mandamos la dirección y el daño a la bala
-        bullet.Setup(direction, damage, shooterCollider);
+        bullet.Setup(direction, damage, shooterCollider, bulletType);
     }
 
-    public void ShootAtTarget(Transform weaponTransform, Vector2 targetPosition, Vector2 targetVelocity, int damage, Collider2D shooterCollider, BulletPool bulletPool)
+    public void ShootAtTarget(Transform weaponTransform, Vector2 targetPosition, Vector2 targetVelocity, int damage, Collider2D shooterCollider, BulletPool bulletPool, BulletType bulletType)
     {
         if (bulletPool == null) return;
 
@@ -47,6 +47,6 @@ public class AutoShoot : IWeaponBehavior
         bullet.transform.rotation = Quaternion.Euler(0, 0, angle);
 
         // Mandamos la dirección y el daño a la bala
-        bullet.Setup(direction, damage, shooterCollider);
+        bullet.Setup(direction, damage, shooterCollider, bulletType);
     }
 }

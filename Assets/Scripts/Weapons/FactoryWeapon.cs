@@ -6,7 +6,11 @@ public class FactoryWeapon : MonoBehaviour
     public List<WeaponController> weaponList = new List<WeaponController>();
     public Dictionary<string, WeaponController> weaponDictionary = new Dictionary<string, WeaponController>();
 
-    [SerializeField] private BulletPool bulletPool;
+    [Header("Pools de balas (uno por tipo)")]
+    [SerializeField] private BulletPool bulletPool;           // Normal (el que ya tenias)
+    [SerializeField] private BulletPool heavyBulletPool;      // Heavy
+    [SerializeField] private BulletPool piercingBulletPool;   // Piercing
+    [SerializeField] private BulletPool knockbackBulletPool;  // Knockback
 
     private void Awake()
     {
@@ -19,15 +23,31 @@ public class FactoryWeapon : MonoBehaviour
         if (weaponDictionary.ContainsKey(weaponId))
         {
             WeaponController weapon = Instantiate(weaponDictionary[weaponId], spawnPoint, Quaternion.identity);
-            weapon.SetBulletPool(bulletPool);
+
+            //cada arma recibe el pool del tipo de bala que dispara (WeaponData.BulletType)
+            weapon.SetBulletPool(GetPool(weapon.WeaponData.BulletType));
             return weapon;
         }
         else
         {
             Debug.LogWarning($"No se encontro un arma con id '{weaponId}' en el diccionario.");
             return null;
+        }
+    }
 
+    private BulletPool GetPool(BulletType type)
+    {
+        BulletPool pool = null;
+
+        switch (type)
+        {
+            case BulletType.Heavy: pool = heavyBulletPool; break;
+            case BulletType.Piercing: pool = piercingBulletPool; break;
+            case BulletType.Knockback: pool = knockbackBulletPool; break;
         }
 
+        //si todavia no hay un pool asignado para ese tipo, se usa la bala normal (asi nada se rompe mientras configuras)
+        if (pool == null) pool = bulletPool;
+        return pool;
     }
 }

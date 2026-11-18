@@ -205,6 +205,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Zombie
   id: Ghost
   stats: {fileID: 3686492368101557334}
+  normalDamageMultiplier: 1
+  heavyDamageMultiplier: 0.25
+  piercingDamageMultiplier: 1
+  knockbackDamageMultiplier: 1.5
 --- !u!95 &1669377629505622935
 Animator:
   serializedVersion: 7

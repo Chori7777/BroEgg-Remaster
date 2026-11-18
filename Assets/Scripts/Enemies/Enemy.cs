@@ -15,6 +15,12 @@ public class Enemy : MonoBehaviour, IDamageable
     // Estadisticas
     [SerializeField] protected EnemyStats stats;
 
+    [Header("Multiplicador de dano por tipo de bala")]
+    [SerializeField] private float normalDamageMultiplier = 1f;        //1 chaser, 1 ghost, 0.5 suicide, 0.5 two headed
+    [SerializeField] private float heavyDamageMultiplier = 1f;         //1.5 chaser, 0.25 ghost, 2 suicide, 0.5 two headed
+    [SerializeField] private float piercingDamageMultiplier = 1f;      //0.25 chaser, 1 ghost, 1.5 suicide, 2 two headed
+    [SerializeField] private float knockbackDamageMultiplier = 1f;     //2 chaser, 1.5 ghost, 0.5 suicide, 0.5 two headed
+
     //Referencias
     protected GameObject player;
     protected Rigidbody2D rb;
@@ -91,6 +97,29 @@ public class Enemy : MonoBehaviour, IDamageable
         {
             facade.OnHit();
         }
+    }
+
+    public void TakeDamage(int damage, BulletType bulletType)
+    {
+        float multiplier = 1f;
+
+        switch (bulletType)
+        {
+            case BulletType.Heavy:
+                multiplier = heavyDamageMultiplier;
+                break;
+            case BulletType.Piercing:
+                multiplier = piercingDamageMultiplier;
+                break;
+            case BulletType.Knockback:
+                multiplier = knockbackDamageMultiplier;
+                break;
+            case BulletType.Normal:
+                multiplier = normalDamageMultiplier;
+                break;
+        }
+
+        TakeDamage(Mathf.Max(0, Mathf.RoundToInt(damage * multiplier)));
     }
     // Esto es virtual por q la muerte puede variar segun el enemigo!
     protected virtual void Die()

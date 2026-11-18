@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   tier: 0
   shootingType: 1
+  bulletType: 0
   idWeapon: AutoRifle
   baseDamage: 9
   magazineSize: 30

@@ -325,6 +325,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TwoHeadedEnemy
   id: TwoHeaded
   stats: {fileID: 3035988993324379530}
+  normalDamageMultiplier: 0.5
+  heavyDamageMultiplier: 0.5
+  piercingDamageMultiplier: 2
+  knockbackDamageMultiplier: 0.5
   cutDistance: 3
   chaseDuration: 2
   minChaseDistance: 2

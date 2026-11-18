@@ -6,7 +6,7 @@ public class ShotgunBehavior : IWeaponBehavior
     private int pelletsCount = 6;
     private float spreadAngle = 20;
 
-    public void Shoot(Transform weaponTransform, int damage, Collider2D shooterCollider, BulletPool bulletPool)
+    public void Shoot(Transform weaponTransform, int damage, Collider2D shooterCollider, BulletPool bulletPool, BulletType bulletType)
     {
         if (bulletPool == null) return;
 
@@ -33,11 +33,11 @@ public class ShotgunBehavior : IWeaponBehavior
                 Mathf.Sin(finalAngle * Mathf.Deg2Rad));
 
             bullet.transform.rotation = Quaternion.Euler(0, 0, finalAngle);
-            bullet.Setup(pelletDirection, damagePerPellet, shooterCollider);
+            bullet.Setup(pelletDirection, damagePerPellet, shooterCollider, bulletType);
         }
     }
 
-    public void ShootAtTarget(Transform weaponTransform, Vector2 targetPosition, Vector2 targetVelocity, int damage, Collider2D shooterCollider, BulletPool bulletPool)
+    public void ShootAtTarget(Transform weaponTransform, Vector2 targetPosition, Vector2 targetVelocity, int damage, Collider2D shooterCollider, BulletPool bulletPool, BulletType bulletType)
     {
         if (bulletPool == null) return;
 
@@ -65,7 +65,7 @@ public class ShotgunBehavior : IWeaponBehavior
                 Mathf.Sin(finalAngle * Mathf.Deg2Rad));
 
             bullet.transform.rotation = Quaternion.Euler(0, 0, finalAngle);
-            bullet.Setup(pelletDirection, damagePerPellet, shooterCollider);
+            bullet.Setup(pelletDirection, damagePerPellet, shooterCollider, bulletType);
         }
     }
 }

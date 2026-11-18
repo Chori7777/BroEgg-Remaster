@@ -12,7 +12,7 @@ public class WeaponData : ScriptableObject
 
     [SerializeField] private WeaponTier tier;
     [SerializeField] private ShootingType shootingType;
-
+    public BulletType bulletType;
     [SerializeField] private string idWeapon;
 
     [SerializeField] private int baseDamage;
@@ -25,6 +25,7 @@ public class WeaponData : ScriptableObject
 
     public WeaponTier Tier => tier;
     public ShootingType GetShootingType => shootingType;
+    public BulletType BulletType => bulletType;
     public string IdWeapon => idWeapon;
     public int BaseDamage => baseDamage;
 

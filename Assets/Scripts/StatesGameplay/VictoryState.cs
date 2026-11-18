@@ -11,7 +11,8 @@ public class VictoryState : IState
     {
         if (levelManager.VictoryPanel != null)
         {
-            levelManager.VictoryPanel.SetActive(true);
+            //levelManager.VictoryPanel.SetActive(true);
+            UIManager.Instance.OpenPanelByID("Victory");
         }
         levelManager.ChangeTime(0f); // Congela el juego
 

@@ -132,6 +132,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DasherEnemy
   id: Chaser
   stats: {fileID: 7670398972254414182}
+  normalDamageMultiplier: 1
+  heavyDamageMultiplier: 1.5
+  piercingDamageMultiplier: 0.25
+  knockbackDamageMultiplier: 2
   detectionRange: 7
   alertDuration: 0.6
   dashDuration: 0.5

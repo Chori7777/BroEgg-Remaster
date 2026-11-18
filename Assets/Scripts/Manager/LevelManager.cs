@@ -76,7 +76,7 @@ public class LevelManager : MonoBehaviour
         
 
         // Cargamos todas las waves del Inspector a la cola, en orden
-        for (int i = 0; i < waveList.Count; i++)
+        for (int i = 0; i < 1; i++)
         {
             waveQueue.Enqueue(waveList[i]);
         }
@@ -137,7 +137,7 @@ public class LevelManager : MonoBehaviour
     public bool HasMoreWaves()
     {
         // Compara el round actual con el total de waves configuradas en el Inspector
-        return currentRound < waveList.Count;
+        return currentRound < waveQueue.Count;
     }
     public void RestoreToRound(int round)
     {
@@ -148,6 +148,7 @@ public class LevelManager : MonoBehaviour
 
         PlayLastMusicUpTo(round - 1); // música correcta al reintentar
         levelStateMachine.ChangeState(levelStateMachine.Gameplay);
+        UIManager.Instance.ClearToRoot();
     }
 
     public void ChangeTime(float time)

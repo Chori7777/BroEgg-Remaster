@@ -8,7 +8,6 @@ public class WeaponController : MonoBehaviour, IWeapon
 {
     [SerializeField] private WeaponData weaponData;
     private BulletPool bulletPool;
-
     public event Action<int, int> OnAmmoChanged;
 
     private WeaponFeedbackFacade feedback;
@@ -59,7 +58,11 @@ public class WeaponController : MonoBehaviour, IWeapon
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R)) StartCoroutine(Reload());
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            StartCoroutine(Reload());
+        }
+        
     }
     private void TryInitStats()
     {
@@ -88,9 +91,9 @@ public class WeaponController : MonoBehaviour, IWeapon
 
         nextFireTime = Time.time + weaponData.FireRate;
         currentAmmo--;
-        AudioManager.Instance.PlaySFX(SoundID.Shoot);
+        //AudioManager.Instance.PlaySFX(SoundID.Shoot);
         int damage = DamageCalculator.CalculateDamage(stats, weaponData.BaseDamage);
-        behavior.Shoot(transform, damage, playerCollider, bulletPool);
+        behavior.Shoot(transform, damage, playerCollider, bulletPool, weaponData.BulletType);
         if (feedback != null) feedback.OnShoot();
 
         //EVENTO PARA ACTUALIZAR EL HUD DE LAS BALAS
@@ -122,7 +125,7 @@ public class WeaponController : MonoBehaviour, IWeapon
 
         //daño a la mitad (minimo 1)
         int damage = Mathf.Max(1, Mathf.RoundToInt(DamageCalculator.CalculateDamage(stats, weaponData.BaseDamage) * PassiveMultiplier));
-        behavior.ShootAtTarget(transform, targetPosition, targetVelocity, damage, playerCollider, bulletPool);
+        behavior.ShootAtTarget(transform, targetPosition, targetVelocity, damage, playerCollider, bulletPool, weaponData.BulletType);
     }
 
     private IEnumerator Reload() //Funcion para recargar las armas
@@ -130,6 +133,7 @@ public class WeaponController : MonoBehaviour, IWeapon
         isReloading = true;
         yield return new WaitForSeconds(weaponData.ReloadTime);
         currentAmmo = weaponData.MagazineSize;
+        OnAmmoChanged?.Invoke(currentAmmo, weaponData.MagazineSize);
         isReloading = false;
     }
 

@@ -1043,6 +1043,32 @@ MonoBehaviour:
       Probability: 10
     - EnemyId: SuicideEnemy
       Probability: 10
+  - EnemiesPerWave: 35
+    Time: 40
+    WaveRate: 4
+    music: 5
+    enemyProbabilities:
+    - EnemyId: Ghost
+      Probability: 30
+    - EnemyId: Chaser
+      Probability: 30
+    - EnemyId: TwoHeaded
+      Probability: 30
+    - EnemyId: SuicideEnemy
+      Probability: 20
+  - EnemiesPerWave: 40
+    Time: 50
+    WaveRate: 4
+    music: 5
+    enemyProbabilities:
+    - EnemyId: Ghost
+      Probability: 30
+    - EnemyId: Chaser
+      Probability: 30
+    - EnemyId: TwoHeaded
+      Probability: 30
+    - EnemyId: SuicideEnemy
+      Probability: 20
   changeMusic: 0
   music: 0
   victoryPanel: {fileID: 2121423957}
@@ -1188,6 +1214,9 @@ MonoBehaviour:
   - {fileID: 6727152193817021128, guid: d8e468cdb2dbe34479885a7eabbf83ef, type: 3}
   - {fileID: 6727152193817021128, guid: a6cada9d5ecf7ab46b7771dc7bc84ebb, type: 3}
   bulletPool: {fileID: 1506191175}
+  heavyBulletPool: {fileID: 0}
+  piercingBulletPool: {fileID: 0}
+  knockbackBulletPool: {fileID: 0}
 --- !u!4 &244165717
 Transform:
   m_ObjectHideFlags: 0
@@ -36552,12 +36581,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 202338224}
         m_TargetAssemblyTypeName: LevelManager, Assembly-CSharp
-        m_MethodName: StopCoroutine
-        m_Mode: 5
+        m_MethodName: RestoreToRound
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 0
           m_BoolArgument: 0
@@ -37413,7 +37442,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -38935,6 +38964,7 @@ GameObject:
   - component: {fileID: 2121423958}
   - component: {fileID: 2121423960}
   - component: {fileID: 2121423959}
+  - component: {fileID: 2121423961}
   m_Layer: 5
   m_Name: VictoryPanel
   m_TagString: Untagged
@@ -38961,7 +38991,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.34212503, y: 0.26222223}
   m_AnchorMax: {x: 0.65787506, y: 0.7407778}
-  m_AnchoredPosition: {x: 0, y: 52.0461}
+  m_AnchoredPosition: {x: 0, y: 52.046143}
   m_SizeDelta: {x: 11.25, y: 117.7567}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2121423959
@@ -39002,6 +39032,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2121423957}
   m_CullTransparentMesh: 1
+--- !u!114 &2121423961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2121423957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f754c39496a7f748b319603e2760c58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PanelUI
+  panelID: Victory
 --- !u!1 &2128776989
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -38,6 +39,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         // Inicializar la salud del jugador al inicio del juego
         OnHealthChanged?.Invoke(playerStats.Health, playerStats.MaxHealth);
     }
+    
     public void TakeDamage(int damage)
     {
         if (isDead) return;
@@ -69,6 +71,15 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         isDead = true;
         Debug.Log("Murio el jugador");
         OnPlayerDied?.Invoke();
+
+        if (OnPlayerDied != null)
+        {
+            foreach (var d in OnPlayerDied.GetInvocationList())
+            {
+                Debug.Log($"Escuchando: {d.Target}.{d.Method.Name}");
+            }
+        }
+
     }
 
     public void Revive()

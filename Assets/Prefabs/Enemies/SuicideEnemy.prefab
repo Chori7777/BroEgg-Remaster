@@ -133,6 +133,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SuicideEnemy
   id: SuicideEnemy
   stats: {fileID: 6985379916404018086}
+  normalDamageMultiplier: 0.5
+  heavyDamageMultiplier: 2
+  piercingDamageMultiplier: 1.5
+  knockbackDamageMultiplier: 0.5
   eyePrefab: {fileID: 1272270320147426439, guid: 2bea55a5d39fb0845925472ecbc26dc4, type: 3}
   eyeCount: 3
   spawnRadius: 30

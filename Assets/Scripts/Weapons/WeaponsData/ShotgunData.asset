@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   tier: 0
   shootingType: 2
+  bulletType: 1
   idWeapon: Shotgun
   baseDamage: 10
   magazineSize: 8

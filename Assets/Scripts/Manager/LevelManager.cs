@@ -15,7 +15,7 @@ public class LevelManager : MonoBehaviour
 
     [Header("Música")]
     public bool changeMusic;   // ¿esta wave cambia la música?
-    public SoundID music;      // cuál suena
+    
 
 
     [Header("UI de Victoria")]
@@ -76,7 +76,7 @@ public class LevelManager : MonoBehaviour
         
 
         // Cargamos todas las waves del Inspector a la cola, en orden
-        for (int i = 0; i < 1; i++)
+        for (int i = 0; i < waveList.Count; i++)
         {
             waveQueue.Enqueue(waveList[i]);
         }
@@ -120,20 +120,7 @@ public class LevelManager : MonoBehaviour
         currentWave = waveQueue.Dequeue();
         currentRound++;
     }
-    private void PlayLastMusicUpTo(int waveIndex)
-    {
-        if (AudioManager.Instance == null) return;
-
-        // Busca hacia atrás la última wave que tenga música definida
-        for (int i = Mathf.Min(waveIndex, waveList.Count - 1); i >= 0; i--)
-        {
-            if (waveList[i].music != SoundID.None)
-            {
-                AudioManager.Instance.PlayMusic(waveList[i].music);
-                return;
-            }
-        }
-    }
+   
     public bool HasMoreWaves()
     {
         // Compara el round actual con el total de waves configuradas en el Inspector
@@ -146,7 +133,7 @@ public class LevelManager : MonoBehaviour
             waveQueue.Enqueue(waveList[i]);
         currentRound = round - 1;
 
-        PlayLastMusicUpTo(round - 1); // música correcta al reintentar
+        
         levelStateMachine.ChangeState(levelStateMachine.Gameplay);
         UIManager.Instance.ClearToRoot();
     }

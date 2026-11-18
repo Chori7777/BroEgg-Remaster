@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Floor_0
   m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.Tilemaps.Tile
   m_Sprite: {fileID: 199249360466117110, guid: b549264fa4f6e9c47b0fed9f12aa3cdc, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.4792453, g: 0.46568176, b: 0.46568176, a: 1}
   m_Transform:
     e00: 1
     e01: 0

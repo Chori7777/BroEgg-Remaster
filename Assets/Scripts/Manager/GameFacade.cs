@@ -8,10 +8,7 @@ public static class GameFacade
         level.AdvanceToNextWave();
         AchievementsManager.Instance.waveCount++;
         WaveData wave = level.CurrentWave;
-        if (wave != null && wave.music != SoundID.None && AudioManager.Instance != null)
-        {
-            AudioManager.Instance.PlayMusic(wave.music);
-        }
+        
     }
 
 }

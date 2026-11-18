@@ -12,7 +12,7 @@ public class PlayerWeaponManager : MonoBehaviour
 
     void Start()
     {
-        //GiveWeapon("Pistol");
+        GiveWeapon("Pistol");
         //GiveWeapon("Shotgun");
         //GiveWeapon("Minigun");
         //GiveWeapon("SemiAuRifle");

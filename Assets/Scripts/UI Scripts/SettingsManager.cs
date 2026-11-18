@@ -31,7 +31,7 @@ public static class SettingsManager
         {
             PlayerPrefs.SetFloat(KEY_MUSIC_VOLUME, Mathf.Clamp01(value));
             PlayerPrefs.Save();
-            AudioManager.Instance?.SetMusicVolume(Mathf.Clamp01(value));
+            
         }
     }
 
@@ -43,7 +43,7 @@ public static class SettingsManager
         {
             PlayerPrefs.SetFloat(KEY_SFX_VOLUME, Mathf.Clamp01(value));
             PlayerPrefs.Save();
-            AudioManager.Instance?.SetSFXVolume(Mathf.Clamp01(value));
+            
         }
     }
 
@@ -77,8 +77,7 @@ public static class SettingsManager
     /// </summary>
     public static void ApplyAllSettings()
     {
-        AudioManager.Instance?.SetMusicVolume(MusicVolume);
-        AudioManager.Instance?.SetSFXVolume(SFXVolume);
+        
         Screen.fullScreen = IsFullscreen;
     }
 }

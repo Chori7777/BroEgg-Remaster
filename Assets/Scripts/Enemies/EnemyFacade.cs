@@ -22,8 +22,5 @@ public class EnemyFacade : MonoBehaviour
         //PlaySound(SoundID.EnemyDeath);
     }
 
-    private void PlaySound(SoundID id)
-    {
-        if (AudioManager.Instance != null) AudioManager.Instance.PlaySFX(id);
-    }
+    
 }

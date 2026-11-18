@@ -30,7 +30,6 @@ public class GameOverUI : MonoBehaviour
         panel.SetActive(true);
         Time.timeScale = 0f;
 
-       if(AudioManager.Instance != null) AudioManager.Instance.PlaySFX(SoundID.GameOver);
     }
 
     private void OnRetryClicked()

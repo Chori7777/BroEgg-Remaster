@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class WeaponFeedbackFacade : MonoBehaviour
 {
-    [SerializeField] private SoundID shootSound = SoundID.None;
+   
     [SerializeField] private float shakeStrength = 0.1f;
 
 
@@ -29,9 +29,6 @@ public class WeaponFeedbackFacade : MonoBehaviour
         if (recoil != null) recoil.Kick();
         if (impulse!= null) impulse.GenerateImpulse(shakeStrength);
 
-        if(shootSound!= SoundID.None&& AudioManager.Instance!= null)
-        {
-            AudioManager.Instance.PlaySFX(shootSound);
-        }    
+       
     }
 }

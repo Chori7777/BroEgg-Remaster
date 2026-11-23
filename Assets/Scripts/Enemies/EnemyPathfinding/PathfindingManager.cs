@@ -4,16 +4,19 @@ using UnityEngine.Tilemaps;
 using static UnityEngine.Rendering.DebugUI;
 
 // Singleton que arma el grafo del mapa y calcula caminos con A* para los enemigos que lo piden (hoy, el Suicide).
-//
-// COMO FUNCIONA (4 pasos):
-//  1) Lee los Tilemaps y arma un mapa de celdas: cada celda es "caminable" o "bloqueada".
-//  2) Agrupa las celdas en bloques de blockSize x blockSize. Cada bloque totalmente libre es un
-//     GraphNode, y los bloques vecinos se conectan con aristas en un ListGraph.
-//  3) Cuando un enemigo llama a FindPath(desde, hasta), AStarSolver busca el camino mas corto entre el nodo
-//     donde esta el enemigo y el nodo donde esta el jugador, y devuelve la lista de nodos a recorrer.
-//  4) El enemigo (con su PathFollower) va caminando de nodo en nodo hacia el centro de cada uno.
-//
-// DIFERENCIA CON DIJKSTRA: Dijkstra calculaba UNA tabla con todos los caminos desde el jugador (sirve para muchos enemigos a la vez).
+
+// Lee los Tilemaps y arma un mapa de celdas: cada celda es "caminable" o "bloqueada".
+
+// Agrupa las celdas en bloques de blockSize x blockSize. Cada bloque totalmente libre es un
+// GraphNode, y los bloques vecinos se conectan con aristas en un ListGraph.
+
+// Cuando un enemigo llama a FindPath(desde, hasta), AStarSolver busca el camino mas corto entre el nodo
+// donde esta el enemigo y el nodo donde esta el jugador, y devuelve la lista de nodos a recorrer.
+
+// El enemigo (con su PathFollower) va caminando de nodo en nodo hacia el centro de cada uno.
+
+// DIFERENCIA CON DIJKSTRA, Dijkstra calculaba UNA tabla con todos los caminos desde el jugador (sirve para muchos enemigos a la vez).
+
 // A* calcula UN camino por enemigo, pero explora solo los nodos que parecen llevar al destino, asi que cada calculo es barato.
 public class PathfindingManager : MonoBehaviour
 {
@@ -67,7 +70,7 @@ public class PathfindingManager : MonoBehaviour
         solver = new AStarSolver<Vector2Int>(OctileDistance, maxExpandedNodes);
     }
 
-    //PASO 1: leemos los Tilemaps. Una celda es caminable si tiene piso y NO tiene obstaculo.
+    // leemos los Tilemaps. Una celda es caminable si tiene piso y NO tiene obstaculo.
     private void ReadTilemaps()
     {
         BoundsInt bounds = floorTilemap.cellBounds; //representa las bounds de una celda en AABB
@@ -82,21 +85,21 @@ public class PathfindingManager : MonoBehaviour
         {
             for (int x = 0; x < cellsWide; x++)
             {
-                // 1. Traduce el índice local (0.3, 0.2) a coordenada real del Tilemap
+                // Traduce el índice local (0.3, 0.2) a coordenada real del Tilemap
                 Vector3Int cell = new Vector3Int(originX + x, originY + y, 0);
-                // 2. Pregunta a los dos Tilemaps de Unity qué hay en esa coordenada
+                // Pregunta a los dos Tilemaps de Unity qué hay en esa coordenada
                 bool hasFloor = floorTilemap.HasTile(cell);
                 bool hasObstacle = obstacleTilemap.HasTile(cell);
-                // 3. Guarda true solo si hay piso Y NO hay obstáculo, en el cajón único
+                // Guarda true solo si hay piso Y NO hay obstáculo, en el cajón único
 
                 walkableCells[y * cellsWide + x] = hasFloor && !hasObstacle; //walkableCell es true si el tile es un floor y no tiene obstaculo
-                //COSAS A ACLARAR
+                
                 //hacer walkableCells[y * cellsWide + x] es lo mismo que hacer walkableCells[cellsHigh ,cellsWide] si fuera bidimensional, pero de esta forma es mas optimo, mas prolijo de escribir y mas seguro de manejar
             }
         }
     }
 
-    //PASO 2: armamos el grafo. Se hace una sola vez porque los obstaculos no se mueven.
+    // armamos el grafo. Se hace una sola vez porque los obstaculos no se mueven.
     private void BuildGraph()
     {
         //esto lo dejo asi, pero basicamente lo que hace esto es que la variable blockSize agrupe tiles para que la busqueda de caminos sea menos pesada para el juego
@@ -107,7 +110,7 @@ public class PathfindingManager : MonoBehaviour
 
         nodes = new GraphNode<Vector2Int>[walkableCells.Length]; //creo X cantidad de espacios dentro del array, por X cantidad de tiles dentro del array
 
-        //2a) un nodo por cada bloque libre. El valor del nodo es la posicion del bloque.
+        // un nodo por cada bloque libre. El valor del nodo es la posicion del bloque.
         for (int by = 0; by < blocksHigh; by++)
         {
             for (int bx = 0; bx < blocksWide; bx++)
@@ -120,7 +123,7 @@ public class PathfindingManager : MonoBehaviour
             }
         }
 
-        //2b) aristas: cada nodo se conecta con sus 8 vecinos. Costo 10 en recto y 14 en diagonal (1 y 1.4 por 10).
+        // aristas: cada nodo se conecta con sus 8 vecinos. Costo 10 en recto y 14 en diagonal (1 y 1.4 por 10).
         //Se usan enteros porque el peso de las aristas y de la PriorityQueue es int.
         //se hacen 2 for con indices de grilla hasta el ancho y alto del mapa
         for (int by = 0; by < blocksHigh; by++)
@@ -247,7 +250,7 @@ public class PathfindingManager : MonoBehaviour
     }
 
 
-    //PASO 3: camino A* entre dos posiciones del mundo. Devuelve la lista de nodos (el primero es donde esta el enemigo,
+    // camino A* entre dos posiciones del mundo. Devuelve la lista de nodos (el primero es donde esta el enemigo,
     //el ultimo es donde esta el jugador), o null si no hay camino.
     public ISimpleList<GraphNode<Vector2Int>> FindPath(Vector3 from, Vector3 to)
     {

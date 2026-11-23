@@ -2,12 +2,12 @@ using ED262C;
 using UnityEngine;
 
 // Sigue un camino A* hacia el jugador. Es una clase comun (no un MonoBehaviour): cada enemigo suicida tiene la suya.
-//
-// COMO FUNCIONA:
-//  - Cada "repathInterval" segundos le pide a PathfindingManager un camino nuevo (lista de nodos hasta el jugador).
-//  - Mientras tanto va de nodo en nodo: se mueve hacia el centro del siguiente y, cuando llega, pasa al que sigue.
-//  - Al llegar al ultimo nodo, va directo al jugador.
-//  - Si no hay camino (o el manager no existe), va en linea recta.
+
+
+//  Cada "repathInterval" segundos le pide a PathfindingManager un camino nuevo (lista de nodos hasta el jugador).
+//  Mientras tanto va de nodo en nodo: se mueve hacia el centro del siguiente y, cuando llega, pasa al que sigue.
+//  Al llegar al ultimo nodo, va directo al jugador.
+//  Si no hay camino (o el manager no existe), va en linea recta.
 public class PathFollower
 {
     private readonly float repathInterval;

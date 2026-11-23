@@ -88,7 +88,7 @@ public class WeaponController : MonoBehaviour, IWeapon
 
         nextFireTime = Time.time + weaponData.FireRate;
         currentAmmo--;
-        AudioManager.Instance.PlaySFX(SoundID.Shoot);
+        if (AudioManager.Instance != null) AudioManager.Instance.PlaySFX(SoundID.Shoot);
         int damage = DamageCalculator.CalculateDamage(stats, weaponData.BaseDamage);
         behavior.Shoot(transform, damage, playerCollider, bulletPool);
         if (feedback != null) feedback.OnShoot();

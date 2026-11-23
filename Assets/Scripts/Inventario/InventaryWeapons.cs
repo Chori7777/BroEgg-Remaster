@@ -12,6 +12,10 @@ public class InventaryWeapons : MonoBehaviour
     Sprite[] defaultSprites; // Memento
     private Image[] emptySlotSprites;
 
+    [Header("Giro de recarga")]
+    [Tooltip("Vueltas completas que da el arma mientras recarga")]
+    [SerializeField] private float spinsPerReload = 2f;
+
     public int WeaponCount => weapons.Count;
     public int SelectedIndex => ItemActual;
     public IWeapon GetWeapon(int index) => weapons[index];
@@ -131,27 +135,23 @@ public class InventaryWeapons : MonoBehaviour
         UpdateSelection();
         return true;
     }
+
     private void RefreshSlotSprites()
     {
-        WeaponController wc;
         for (int i = 0; i < invImages.Count; i++)
         {
-            if (i < weapons.Count && i > 0) //para que no tire null
-            {
-                wc = weapons[i] as WeaponController; //el AS es necesario porque el wachin dice que no se puede expresar porque weapons[i] es IWeapon no WeaponController
-            }
-            else
-            {
-                wc = null; //esto me lo dijo claude y no se por que, pero dejenlo ahi, aura
-            }
+            WeaponController wc = i < weapons.Count ? weapons[i] as WeaponController : null;
 
-            if(wc != null)
+            if (wc != null)
             {
-                invImages[i].sprite = wc.WeaponData.WeaponSprite; //al sprite en el que estamos le asignamos el sprite del arma
+                invImages[i].sprite = wc.WeaponData.WeaponSprite;
+                invImages[i].gameObject.SetActive(true);
             }
-            else
+            else if (i < defaultSprites.Length)
             {
-                invImages[i] = emptySlotSprites[i];//sino, ese sprite tiene que ser una imagen blanca
+                // slot vacio: vuelve al sprite original y se oculta, igual que en Start
+                invImages[i].sprite = defaultSprites[i];
+                invImages[i].gameObject.SetActive(false);
             }
         }
     }

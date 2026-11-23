@@ -5,10 +5,10 @@ public class ObjectShopData : ShopProductData
 {
     public enum ObjectType
     {
-        Comun,
-        Uncommon,
+        Legenendary,
         Epic,
-        Legendary,
+        Uncommon,
+        common,
     }
     [SerializeField] private ObjectType objectType;
     public ObjectType Rarity => objectType;

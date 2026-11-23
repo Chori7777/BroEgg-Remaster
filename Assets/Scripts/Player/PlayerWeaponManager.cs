@@ -68,13 +68,18 @@ public class PlayerWeaponManager : MonoBehaviour
                     break;
             }
         }
-            
 
         if (isTriggering)
         {
             currentWeapon.shoot();
-
         }
+
+        if (Input.GetKeyDown(KeyCode.R) && currentWeapon != null)
+        {
+            currentWeapon.GetWeaponController().StartReload();
+        }
+    
+
     }
     // Chequeamos si esta el arma, el inventoryManager se encarga de eso buscando el id q le damos desde el ButtonLogic
     public bool HasWeapon(string weaponId)

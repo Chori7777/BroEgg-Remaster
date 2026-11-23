@@ -41,7 +41,7 @@ public class InventoryGridUI : MonoBehaviour
     private static int CompareByRarity(ObjectShopData a, ObjectShopData b) 
     {
         // Mayor rareza primero: Legendary, Epic, Uncommon, Comun.
-        return b.Rarity.CompareTo(a.Rarity);                      
+        return a.Rarity.CompareTo(b.Rarity);                      
     }
 
     public void PreviousPage()

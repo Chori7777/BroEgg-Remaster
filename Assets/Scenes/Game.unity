@@ -974,7 +974,9 @@ MonoBehaviour:
     - EnemyId: Ghost
       Probability: 100
     - EnemyId: SuicideEnemy
-      Probability: 100
+      Probability: 50
+    - EnemyId: TwoHeaded
+      Probability: 70
   - EnemiesPerWave: 18
     Time: 20
     WaveRate: 5
@@ -13499,6 +13501,7 @@ MonoBehaviour:
   - {fileID: 995926839}
   - {fileID: 1110235963}
   invImages: []
+  spinsPerReload: 2
   currentWeapon: {fileID: 0}
 --- !u!4 &963326367
 Transform:
@@ -15201,6 +15204,7 @@ MonoBehaviour:
   blockSize: 1
   maxExpandedNodes: 1000
   drawGizmos: 1
+  recalculateInterval: 0.25
 --- !u!1 &1296118797
 GameObject:
   m_ObjectHideFlags: 0
@@ -37156,9 +37160,12 @@ MonoBehaviour:
   inventoryManager: {fileID: 963326366}
   detectionRange: 8
   refreshInterval: 0.2
+  coneAngle: 90
   orbitRadius: 1.2
   bobAmount: 0.1
   bobSpeed: 3
+  passiveAlpha: 0.5
+  heldOrderBoost: 1
 --- !u!1 &1651263867
 GameObject:
   m_ObjectHideFlags: 0

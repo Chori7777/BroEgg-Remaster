@@ -7,14 +7,14 @@ using UnityEngine;
 //
 //   prioridad de un nodo = g + h
 //     g = lo que ya costo llegar hasta ese nodo (lo mismo que el "weight" de Dijkstra)
-//     h = estimacion de lo que falta hasta el destino (la heuristica)
+//     h = estimacion de lo que falta hasta el destino
 //
 // REGLA: la heuristica nunca puede estimar de MAS de lo que falta realmente. Si cumple eso (y ademas es "consistente",
 // como la distancia octil en una grilla), A* devuelve el camino mas corto, igual que Dijkstra, pero explorando muchos menos nodos.
 public class AStarSolver<T> : IPathFindingSolver<T>
 {
     private readonly Func<GraphNode<T>, GraphNode<T>, int> heuristic; // (nodo, destino) -> estimacion de lo que falta
-    private readonly int maxExpandedNodes;                           // tope de nodos a explorar (evita cuelgues si el destino es inalcanzable)
+    private readonly int maxExpandedNodes;                           // tope de nodos a explorar
 
     public AStarSolver(Func<GraphNode<T>, GraphNode<T>, int> heuristic, int maxExpandedNodes = int.MaxValue)
     {
@@ -26,7 +26,8 @@ public class AStarSolver<T> : IPathFindingSolver<T>
     //Para eso hay que usar DijkstraSolver.
     public ISimpleDictionary<GraphNode<T>, Edge<GraphNode<T>>> GetAllShortestPath(GraphNode<T> origin, IGraph<GraphNode<T>> graph)
     {
-        throw new NotSupportedException("A* calcula el camino a un solo destino: usar GetShortestPath (o DijkstraSolver para todos los caminos)");
+        //DijkstraSolver para todos los caminos
+        return null;
     }
 
     //devuelve la lista de nodos desde origin hasta destination (los dos incluidos), o null si no hay camino
@@ -62,7 +63,7 @@ public class AStarSolver<T> : IPathFindingSolver<T>
             //si es el destino, listo: armamos el camino con los "anteriores"
             if (current == destination) return GeneratePath(destination, table);
 
-            //tope de seguridad: si exploramos demasiados nodos sin llegar, abandonamos
+            //si exploramos demasiados nodos sin llegar, abandonamos
             expanded++;
             if (expanded > maxExpandedNodes) return null;
 
@@ -79,7 +80,7 @@ public class AStarSolver<T> : IPathFindingSolver<T>
 
                 int newCost = currentCost + neighbours[i].weight;
 
-                //buscamos al vecino en la tabla; si es la primera vez que lo vemos, lo agregamos con costo "infinito"
+                //buscamos al vecino en la tabla, si es la primera vez que lo vemos, lo agregamos con costo infinito
                 Edge<GraphNode<T>> neighbourData;
                 if (!table.TryGetValue(neighbour, out neighbourData))
                 {
@@ -93,7 +94,7 @@ public class AStarSolver<T> : IPathFindingSolver<T>
                     neighbourData.weight = newCost;
                     neighbourData.to = current;
 
-                    //la diferencia con Dijkstra: la prioridad es el costo real + la estimacion de lo que falta
+                    //ahora la prioridad es el costo real + la estimacion de lo que falta
                     unvisited.Enqueue(neighbour, newCost + heuristic(neighbour, destination));
                 }
             }

@@ -967,7 +967,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LevelManager
   waveList:
   - EnemiesPerWave: 15
-    Time: 15
+    Time: 33
     WaveRate: 5
     music: 3
     enemyProbabilities:

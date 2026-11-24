@@ -57,7 +57,6 @@ public class PathfindingManager : MonoBehaviour
         ReadTilemaps();
         BuildGraph();
 
-        //A* necesita una heuristica: una funcion que estime cuanto falta entre dos nodos (OctileDistance, mas abajo)
         AStarSolver = new AStarSolver<Vector2Int>(OctileDistance, maxExpandedNodes);
         DijkstraSolver = new DijkstraSolver<Vector2Int>();
     }
@@ -94,9 +93,6 @@ public class PathfindingManager : MonoBehaviour
     // armamos el grafo. Se hace una sola vez porque los obstaculos no se mueven.
     private void BuildGraph()
     {
-        //esto lo dejo asi, pero basicamente lo que hace esto es que la variable blockSize agrupe tiles para que la busqueda de caminos sea menos pesada para el juego
-        //eso puede generar problemas pero ahorra memoria, para que funcione bien bien, yo pongo la variable en el inspector = 1, por eso es que esta dividion es inutil
-        //pero de momento la voy a dejar por las dudas, OK?
         blocksWide = cellsWide / blockSize;
         blocksHigh = cellsHigh / blockSize;
 
@@ -249,7 +245,7 @@ public class PathfindingManager : MonoBehaviour
         Vector3Int cell = floorTilemap.WorldToCell(worldPosition);
         int x = cell.x - originX;
         int y = cell.y - originY;
-        return new Vector2Int(Mathf.FloorToInt((float)x / blockSize), Mathf.FloorToInt((float)y / blockSize));
+        return new Vector2Int(x,y);
     }
 
 
@@ -257,11 +253,8 @@ public class PathfindingManager : MonoBehaviour
     private Vector3 BlockToWorld(Vector2Int block)
     {
         //centro de la primera celda del bloque, corrido medio bloque para quedar en el medio
-        Vector3 firstCell = floorTilemap.GetCellCenterWorld(new Vector3Int(originX + block.x * blockSize, originY + block.y * blockSize, 0));
-        float shift = (blockSize - 1) * 0.5f;
-        return firstCell + new Vector3(shift * floorTilemap.cellSize.x, shift * floorTilemap.cellSize.y, 0f);
+        return floorTilemap.GetCellCenterWorld(new Vector3Int(originX + block.x, originY + block.y, 0));
     }
-
 
     private GraphNode<Vector2Int> GetNode(int bx, int by) //devuelve un nodo en una posicion del array
     {
@@ -269,15 +262,7 @@ public class PathfindingManager : MonoBehaviour
         return nodes[bx + by * blocksWide];
     }
 
-
-
-
-
-
-
-
-    // camino A* entre dos posiciones del mundo. Devuelve la lista de nodos (el primero es donde esta el enemigo,
-    //el ultimo es donde esta el jugador), o null si no hay camino.
+    // camino A* entre dos posiciones del mundo. Devuelve la lista de nodos
     public ISimpleList<GraphNode<Vector2Int>> FindPath(Vector3 from, Vector3 to)
     {
         if (nodes == null) return null;
@@ -291,49 +276,11 @@ public class PathfindingManager : MonoBehaviour
         return AStarSolver.GetShortestPath(origin, destination, graph);
     }
 
-
-    //si el bloque tiene nodo lo devuelve; si es una pared, busca el nodo mas cercano mirando en anillos cada vez mas grandes (radio 1 y 2)
     private GraphNode<Vector2Int> FindNode(Vector2Int block)
     {
- 
         GraphNode<Vector2Int> candidate = GetNode(block.x, block.y);
         if (candidate != null) return candidate;
 
         return null;
-    }
-
-
-
-
-
-
-
-
-
-
-    //Seleccionando este objeto en Play: rojo = celda bloqueada, amarillo = nodo del grafo
-    //(el camino de cada Suicide se dibuja en verde al seleccionar al enemigo)
-    private void OnDrawGizmosSelected()
-    {
-        if (!drawGizmos || nodes == null) return;
-
-        for (int y = 0; y < cellsHigh; y++)
-        {
-            for (int x = 0; x < cellsWide; x++)
-            {
-                if (walkableCells[y * cellsWide + x]) continue; //solo dibujo si walkableCells = false
-                Gizmos.color = new Color(1f, 0f, 0f, 0.25f); //dibujo de color rojo
-                Gizmos.DrawCube(floorTilemap.GetCellCenterWorld(new Vector3Int(originX + x, originY + y, 0)), Vector3.one * 0.9f);
-            }
-        }
-
-        for (int i = 0; i < nodes.Length; i++)
-        {
-            GraphNode<Vector2Int> node = nodes[i];
-            if (node == null) continue;
-
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawWireCube(BlockToWorld(node.value), Vector3.one * blockSize * 0.5f);
-        }
     }
 }

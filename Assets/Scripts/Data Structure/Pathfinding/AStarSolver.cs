@@ -40,24 +40,24 @@ public class AStarSolver<T> : IPathFindingSolver<T>
         ISimpleDictionary<GraphNode<T>, Edge<GraphNode<T>>> table = new SimpleArrayDictionary<GraphNode<T>, Edge<GraphNode<T>>>();
 
         //PriorityQueue de nodos descubiertos pero todavia no explorados. Sale primero el de menor g + h
-        SimpleArrayPriorityQueue<GraphNode<T>> open = new SimpleArrayPriorityQueue<GraphNode<T>>();
+        SimpleArrayPriorityQueue<GraphNode<T>> unvisited = new SimpleArrayPriorityQueue<GraphNode<T>>();
 
         //Set de nodos ya explorados
-        SimpleArraySet<GraphNode<T>> closed = new SimpleArraySet<GraphNode<T>>();
+        SimpleArraySet<GraphNode<T>> visited = new SimpleArraySet<GraphNode<T>>();
 
         //el origen no tiene costo
         table.Add(origin, new Edge<GraphNode<T>>(null, 0));
-        open.Enqueue(origin, heuristic(origin, destination));
+        unvisited.Enqueue(origin, heuristic(origin, destination));
 
         int expanded = 0;
 
-        while (!open.IsEmpty)
+        while (!unvisited.IsEmpty)
         {
             //sacamos el nodo con menor g + h
-            GraphNode<T> current = open.Dequeue();
+            GraphNode<T> current = unvisited.Dequeue();
 
             //si ya lo exploramos, lo saltamos
-            if (closed.Contains(current)) continue;
+            if (visited.Contains(current)) continue;
 
             //si es el destino, listo: armamos el camino con los "anteriores"
             if (current == destination) return GeneratePath(destination, table);
@@ -75,7 +75,7 @@ public class AStarSolver<T> : IPathFindingSolver<T>
                 GraphNode<T> neighbour = neighbours[i].to;
 
                 //los ya explorados no se tocan (con una heuristica consistente su costo ya es el mejor)
-                if (closed.Contains(neighbour)) continue;
+                if (visited.Contains(neighbour)) continue;
 
                 int newCost = currentCost + neighbours[i].weight;
 
@@ -94,11 +94,11 @@ public class AStarSolver<T> : IPathFindingSolver<T>
                     neighbourData.to = current;
 
                     //la diferencia con Dijkstra: la prioridad es el costo real + la estimacion de lo que falta
-                    open.Enqueue(neighbour, newCost + heuristic(neighbour, destination));
+                    unvisited.Enqueue(neighbour, newCost + heuristic(neighbour, destination));
                 }
             }
 
-            closed.Add(current);
+            visited.Add(current);
         }
 
         //se acabaron los nodos y nunca llegamos al destino

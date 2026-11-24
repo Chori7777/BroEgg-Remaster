@@ -19,7 +19,7 @@ public class PathFollower
 
     public ISimpleList<GraphNode<Vector2Int>> CurrentPath => path; //para dibujarlo con Gizmos
 
-    public PathFollower(float repathInterval = 0.5f, float reachDistance = 0.4f)
+    public PathFollower(float repathInterval, float reachDistance)
     {
         this.repathInterval = repathInterval;
         this.reachDistance = reachDistance;
@@ -44,8 +44,8 @@ public class PathFollower
             nextIndex = 1; //el nodo 0 es donde el enemigo ya esta
         }
 
-        //sin camino, o con un solo nodo (ya estamos en el nodo del jugador): derecho al jugador
-        if (path == null || path.Count < 2) return straight;
+        //sin camino, derecho al jugador
+        if (path == null) return straight;
 
         //si llegamos al nodo al que ibamos, pasamos al siguiente
         while (nextIndex < path.Count && Vector2.Distance(from, manager.NodeToWorld(path[nextIndex])) < reachDistance)

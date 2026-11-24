@@ -7,6 +7,7 @@ public class SuicideEnemy : Enemy
     [SerializeField] private float spawnRadius = 0.5f;
     [Tooltip("Cada cuantos segundos pide un camino A* nuevo (el jugador se mueve y el camino se desactualiza)")]
     [SerializeField] private float repathInterval = 0.5f;
+    [SerializeField] private float reachDistance = 0.4f;
     private KamikazeExplosion explosion;
     private PathFollower pathFollower;
 
@@ -14,7 +15,7 @@ public class SuicideEnemy : Enemy
     {
         base.Start();
         explosion = GetComponent<KamikazeExplosion>(); //obtengo el script de la explosion
-        pathFollower = new PathFollower(repathInterval); //cada Suicide tiene su propio camino A*
+        pathFollower = new PathFollower(repathInterval, reachDistance); //cada Suicide tiene su propio camino A*
     }
 
     //Solo el Suicide esquiva obstaculos con A*: los demas enemigos usan la version de Enemy (linea recta)

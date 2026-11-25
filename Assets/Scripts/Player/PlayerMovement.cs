@@ -19,7 +19,9 @@ public class PlayerMovement : MonoBehaviour
     [field:SerializeField] public float DashForce = 20f;
 
     public float DashCooldown = 2f;
-    [field: SerializeField] public float DashDuration = 0.3f;
+    [field: SerializeField] public float DashDuration = 2f;
+    public float DashTimer { get; private set; }
+    public bool CanDash => DashTimer >= DashCooldown;
 
     public StateMachine statemachine;
 
@@ -29,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
     
     void Start()
     {
+        DashTimer = DashCooldown;
         rb = GetComponent<Rigidbody2D>();
         IdleState = new Idle(this);
         WalkState = new Walk(this);
@@ -45,6 +48,11 @@ public class PlayerMovement : MonoBehaviour
     {
         if (LevelManager.Instance != null && LevelManager.Instance.ControlsBlocked) return;
         DashCooldown += Time.deltaTime; //esto hace que se sume al cooldown asi lo puede usar, la condicion para usarlo esta en la clase walk
+
+        if (DashTimer < DashCooldown)
+        {
+            DashTimer = Mathf.Min(DashTimer + Time.deltaTime, DashCooldown);
+        }
 
         x = Input.GetAxisRaw("Horizontal");
         y = Input.GetAxisRaw("Vertical");

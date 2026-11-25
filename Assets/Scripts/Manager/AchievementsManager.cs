@@ -61,7 +61,7 @@ public class AchievementsManager : MonoBehaviour
     {
         foreach (var item in achievementsSet.ToArray())
         {
-            Debug.Log("<color=red>¡LOGRO DESBLOQUEADO!</color> " + item);
+            //Debug.Log("<color=red>¡LOGRO DESBLOQUEADO!</color> " + item);
         }
     }
 }

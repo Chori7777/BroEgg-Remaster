@@ -8,6 +8,7 @@ TagManager:
   - Bullet
   - Enemy
   - ObstacleGrid
+  - BorderMap
   layers:
   - Default
   - TransparentFX

@@ -24,6 +24,7 @@ public class Bullet : MonoBehaviour
         if (timer <= 0)
         {
             pool.Recycle(this);
+            Debug.Log("Me recicle por tiempo");
             timer = 3;
         }
     }
@@ -52,16 +53,27 @@ public class Bullet : MonoBehaviour
             damageable.TakeDamage(damage);
 
             pool.Recycle(this);
+            Debug.Log("Me recicle por enemigo");
             timer = 3;
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject)
+        if(!collision.gameObject.CompareTag("Bullet"))
         {
-            pool.Recycle(this);
-            timer = 3;
+            if (collision.gameObject.CompareTag("ObstacleGrid"))
+            {
+                timer = 3;
+                pool.Recycle(this);
+                Debug.Log("Me recicle por pegarle a el ObstacleMap");
+            }
+            if (collision.gameObject.CompareTag("BorderMap"))
+            {
+                timer = 3;
+                pool.Recycle(this);
+                Debug.Log("Me recicle por pegarle a el BorderMap");
+            }
         }
     }
 }

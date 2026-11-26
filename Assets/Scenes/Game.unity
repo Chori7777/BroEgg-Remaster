@@ -624,7 +624,7 @@ GameObject:
   - component: {fileID: 55910063}
   m_Layer: 0
   m_Name: Border (2)
-  m_TagString: Untagged
+  m_TagString: BorderMap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -638,7 +638,7 @@ Transform:
   m_GameObject: {fileID: 55910059}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -54.74, y: 5.6, z: 0}
+  m_LocalPosition: {x: -35.4, y: 5.6, z: 0}
   m_LocalScale: {x: 17.121786, y: 85.518654, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -973,10 +973,6 @@ MonoBehaviour:
     enemyProbabilities:
     - EnemyId: Ghost
       Probability: 100
-    - EnemyId: SuicideEnemy
-      Probability: 50
-    - EnemyId: TwoHeaded
-      Probability: 70
   - EnemiesPerWave: 18
     Time: 20
     WaveRate: 5
@@ -2664,7 +2660,7 @@ GameObject:
   - component: {fileID: 294533523}
   m_Layer: 0
   m_Name: Border
-  m_TagString: Untagged
+  m_TagString: BorderMap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2678,7 +2674,7 @@ Transform:
   m_GameObject: {fileID: 294533519}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3, y: -30.67, z: 0}
+  m_LocalPosition: {x: -3, y: -17.6, z: 0}
   m_LocalScale: {x: 90.58629, y: 13.474703, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14878,7 +14874,7 @@ GameObject:
   - component: {fileID: 1211840499}
   m_Layer: 0
   m_Name: Border (3)
-  m_TagString: Untagged
+  m_TagString: BorderMap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14892,7 +14888,7 @@ Transform:
   m_GameObject: {fileID: 1211840495}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 50.6, y: 4.6, z: 0}
+  m_LocalPosition: {x: 32.9, y: 4.6, z: 0}
   m_LocalScale: {x: 11.317924, y: 85.67742, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -16015,7 +16011,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletPool
   prefab: {fileID: 1588384275635876967, guid: f26900abd1941fc4e90851112dce64f6, type: 3}
-  initialSize: 100
+  initialSize: 10
 --- !u!4 &1506191176
 Transform:
   m_ObjectHideFlags: 0
@@ -16044,7 +16040,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBulletPool
   prefab: {fileID: 8746834659419627426, guid: 00a59ef1f3edcfa49bb06d2acdf2e76e, type: 3}
-  initialSize: 100
+  initialSize: 2
 --- !u!1 &1517450514
 GameObject:
   m_ObjectHideFlags: 0
@@ -36923,7 +36919,7 @@ GameObject:
   - component: {fileID: 1616015785}
   m_Layer: 0
   m_Name: Border (1)
-  m_TagString: Untagged
+  m_TagString: BorderMap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -36937,7 +36933,7 @@ Transform:
   m_GameObject: {fileID: 1616015781}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.74334, y: 43.3, z: 0}
+  m_LocalPosition: {x: -2.74334, y: 33.8, z: 0}
   m_LocalScale: {x: 90.58629, y: 15.558898, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

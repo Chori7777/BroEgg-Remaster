@@ -44,7 +44,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         bool dodged= UnityEngine.Random.Range(0,100)<playerStats.DodgeChance;
         if(dodged)
         {
-            Debug.Log("GG Ez no tuve ni que prender el monitor");
+            //Debug.Log("GG Ez no tuve ni que prender el monitor");
             return;
         }
         float armorReduction = Mathf.Clamp(playerStats.Armor, 0, 90);

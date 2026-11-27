@@ -51,7 +51,10 @@ public class VFXManager : MonoBehaviour
 
             // Rota las partículas para que salgan en la dirección de la normal del impacto
             Quaternion rotation = Quaternion.LookRotation(Vector3.forward, normal);
+
             GameObject particles = Instantiate(particle, position, rotation);
+
+            Debug.Log("PArticulas de explosion suicide");
 
             // Limpieza automática por si olvidaste poner Stop Action = Destroy en el prefab
             Destroy(particles.gameObject, duration);
@@ -77,7 +80,7 @@ public class VFXManager : MonoBehaviour
     {
         switch (type)
         {
-            case ImpactType.Blood:
+            case ImpactType.SuicideExplosion:
                 return suicideExplosion;
             default:
                 return null;

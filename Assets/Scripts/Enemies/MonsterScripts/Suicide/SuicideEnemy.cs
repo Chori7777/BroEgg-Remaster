@@ -41,7 +41,9 @@ public class SuicideEnemy : Enemy
             damageable.TakeDamage(stats.Damage);
         }
         explosion.Explode();
-        VFXManager.Instance.PlayPrefab(ImpactType.SuicideExplosion, transform.position, transform.position, 1.6f);
+
+        VFXManager.Instance.PlayPrefab(ImpactType.SuicideExplosion, transform.position, Vector2.up, 20f);
+
         SpawnEyes();
         Destroy(gameObject);
     }

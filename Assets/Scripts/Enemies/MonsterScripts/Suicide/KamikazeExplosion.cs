@@ -114,7 +114,6 @@ public class KamikazeExplosion : MonoBehaviour
         // LevelOrder() lanza NullReferenceException con el arbol vacio
         if (targets.IsEmpty) return;
 
-        
         // 3) BFS: se visita cada objetivo una vez. La capa sale de su distancia, no de su posicion en el recorrido.
         ISimpleList<ExplosionTarget> byLevels = targets.LevelOrder(); //se guarda en una variable de tipo lista lo que devuelve la funcion de LevelOrder()
         for (int i = 0; i < byLevels.Count; i++)

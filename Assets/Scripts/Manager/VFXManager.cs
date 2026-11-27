@@ -3,7 +3,8 @@ public enum ImpactType
 {
     Blood,
     WallSpark,
-    Dust
+    Dust,
+    SuicideExplosion
 }
 
 public class VFXManager : MonoBehaviour
@@ -15,6 +16,7 @@ public class VFXManager : MonoBehaviour
     [SerializeField] private ParticleSystem bloodPrefab;
     [SerializeField] private ParticleSystem wallSparkPrefab;
     [SerializeField] private ParticleSystem dustPrefab;
+    [SerializeField] private GameObject suicideExplosion;
 
     private void Awake()
     {
@@ -30,18 +32,33 @@ public class VFXManager : MonoBehaviour
 
     public void PlayImpact(ImpactType type, Vector2 position, Vector2 normal)
     {
-        ParticleSystem prefab = GetPrefab(type);
-        if (prefab == null) return;
+        ParticleSystem particle = GetParticles(type);
+        if (particle == null) return;
 
         // Rota las partículas para que salgan en la dirección de la normal del impacto
         Quaternion rotation = Quaternion.LookRotation(Vector3.forward, normal);
-        ParticleSystem particles = Instantiate(prefab, position, rotation);
+        ParticleSystem particles = Instantiate(particle, position, rotation);
 
         // Limpieza automática por si olvidaste poner Stop Action = Destroy en el prefab
         Destroy(particles.gameObject, particles.main.duration + particles.main.startLifetime.constantMax);
     }
 
-    private ParticleSystem GetPrefab(ImpactType type)
+    public void PlayPrefab(ImpactType type, Vector2 position, Vector2 normal, float duration)
+    {
+        {
+            GameObject particle = GetPrefab(type);
+            if (particle == null) return;
+
+            // Rota las partículas para que salgan en la dirección de la normal del impacto
+            Quaternion rotation = Quaternion.LookRotation(Vector3.forward, normal);
+            GameObject particles = Instantiate(particle, position, rotation);
+
+            // Limpieza automática por si olvidaste poner Stop Action = Destroy en el prefab
+            Destroy(particles.gameObject, duration);
+        }
+    }
+
+    private ParticleSystem GetParticles(ImpactType type)
     {
         switch (type)
         {
@@ -51,6 +68,17 @@ public class VFXManager : MonoBehaviour
                 return wallSparkPrefab;
             case ImpactType.Dust:
                 return dustPrefab;
+            default:
+                return null;
+        }
+    }
+
+    private GameObject GetPrefab(ImpactType type)
+    {
+        switch (type)
+        {
+            case ImpactType.Blood:
+                return suicideExplosion;
             default:
                 return null;
         }

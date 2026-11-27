@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 7312224710804070554}
   - component: {fileID: 6985379916404018086}
   - component: {fileID: 3335877043237586076}
-  - component: {fileID: 5217208740290164964}
   - component: {fileID: 7053605173848810060}
   - component: {fileID: 4969363531777224815}
   - component: {fileID: -3897543040375515315}
   - component: {fileID: 7592887024213213813}
   - component: {fileID: 1112460552934594893}
+  - component: {fileID: 6336845541788621654}
   m_Layer: 0
   m_Name: SuicideEnemy
   m_TagString: Enemy
@@ -136,52 +136,8 @@ MonoBehaviour:
   eyePrefab: {fileID: 1272270320147426439, guid: 2bea55a5d39fb0845925472ecbc26dc4, type: 3}
   eyeCount: 3
   spawnRadius: 30
---- !u!61 &5217208740290164964
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1459994291635418208}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0.08457905, y: 0.11385353}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.796875, y: 1.859375}
-    newSize: {x: 1.15, y: 1.19}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 0.8222054, y: 0.7646419}
-  m_EdgeRadius: 0
+  repathInterval: 0.5
+  reachDistance: 0.4
 --- !u!50 &7053605173848810060
 Rigidbody2D:
   serializedVersion: 5
@@ -284,6 +240,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0b6a26b98ddf084792879b0028099c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyFacade
+--- !u!58 &6336845541788621654
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1459994291635418208}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.9296875
 --- !u!1 &6727454709628157274
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEngine.LowLevelPhysics2D.PhysicsShape;
 
 public class Bullet : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class Bullet : MonoBehaviour
     Collider2D bulletCollider;
     [SerializeField] float timer = 3f;
     private int damage;
+
 
     public float Speed => defaultBulletSpeed;
 
@@ -52,6 +54,11 @@ public class Bullet : MonoBehaviour
         {
             damageable.TakeDamage(damage);
 
+            if (VFXManager.Instance != null)
+            {
+                VFXManager.Instance.PlayImpact(ImpactType.Blood, transform.position, -rb.linearVelocity.normalized);
+            }
+
             pool.Recycle(this);
             Debug.Log("Me recicle por enemigo");
             timer = 3;
@@ -65,12 +72,28 @@ public class Bullet : MonoBehaviour
             if (collision.gameObject.CompareTag("ObstacleGrid"))
             {
                 timer = 3;
+
+                if (VFXManager.Instance != null)
+                {
+                    ContactPoint2D contact = collision.GetContact(0);
+                    VFXManager.Instance.PlayImpact(ImpactType.WallSpark, contact.point, contact.normal);
+                    VFXManager.Instance.PlayImpact(ImpactType.Dust, contact.point, contact.normal);
+                }
+
                 pool.Recycle(this);
                 Debug.Log("Me recicle por pegarle a el ObstacleMap");
             }
             if (collision.gameObject.CompareTag("BorderMap"))
             {
                 timer = 3;
+
+                if (VFXManager.Instance != null)
+                {
+                    ContactPoint2D contact = collision.GetContact(0);
+                    VFXManager.Instance.PlayImpact(ImpactType.WallSpark, contact.point, contact.normal);
+                    VFXManager.Instance.PlayImpact(ImpactType.Dust, contact.point, contact.normal);
+                }
+
                 pool.Recycle(this);
                 Debug.Log("Me recicle por pegarle a el BorderMap");
             }

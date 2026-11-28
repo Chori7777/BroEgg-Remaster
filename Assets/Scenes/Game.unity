@@ -1101,6 +1101,8 @@ MonoBehaviour:
     enemyProbabilities:
     - EnemyId: Ghost
       Probability: 100
+    - EnemyId: SuicideEnemy
+      Probability: 100
   - EnemiesPerWave: 18
     Time: 20
     WaveRate: 5
@@ -13790,11 +13792,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8453747333564666021, guid: c09051137392fb648bb7d4a400d8d086, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -6.0816045
+      value: -6.1800003
       objectReference: {fileID: 0}
     - target: {fileID: 8453747333564666021, guid: c09051137392fb648bb7d4a400d8d086, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -2.2881103
+      value: 0.5299995
       objectReference: {fileID: 0}
     - target: {fileID: 8453747333564666021, guid: c09051137392fb648bb7d4a400d8d086, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -14744,6 +14746,80 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1114360618}
   m_CullTransparentMesh: 1
+--- !u!1001 &1134075232
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1137718144742616327, guid: b627e4d6eca231f43886bc4a726fffbc, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.9959254
+      objectReference: {fileID: 0}
+    - target: {fileID: 1137718144742616327, guid: b627e4d6eca231f43886bc4a726fffbc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5572636
+      objectReference: {fileID: 0}
+    - target: {fileID: 1137718144742616327, guid: b627e4d6eca231f43886bc4a726fffbc, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1137718144742616327, guid: b627e4d6eca231f43886bc4a726fffbc, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1137718144742616327, guid: b627e4d6eca231f43886bc4a726fffbc, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1137718144742616327, guid: b627e4d6eca231f43886bc4a726fffbc, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1137718144742616327, guid: b627e4d6eca231f43886bc4a726fffbc, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1137718144742616327, guid: b627e4d6eca231f43886bc4a726fffbc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1137718144742616327, guid: b627e4d6eca231f43886bc4a726fffbc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1137718144742616327, guid: b627e4d6eca231f43886bc4a726fffbc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1695871158680900584, guid: b627e4d6eca231f43886bc4a726fffbc, type: 3}
+      propertyPath: m_Name
+      value: SuicideExplosion
+      objectReference: {fileID: 0}
+    - target: {fileID: 2338853068983324506, guid: b627e4d6eca231f43886bc4a726fffbc, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 2338853068983324506, guid: b627e4d6eca231f43886bc4a726fffbc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 7.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5601079669095489105, guid: b627e4d6eca231f43886bc4a726fffbc, type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 1.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 5601079669095489105, guid: b627e4d6eca231f43886bc4a726fffbc, type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.scalar
+      value: 39.54
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects:
+    - {fileID: 3959152926855846813, guid: b627e4d6eca231f43886bc4a726fffbc, type: 3}
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b627e4d6eca231f43886bc4a726fffbc, type: 3}
 --- !u!1 &1160731878
 GameObject:
   m_ObjectHideFlags: 0
@@ -15747,7 +15823,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'TIempo
+  m_text: 'Tiempo
 
 '
   m_isRightToLeft: 0
@@ -36620,11 +36696,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8453747333564666021, guid: dfcf04c0c9d04dd4ca9c0129659a7eaf, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -5.4666357
+      value: -7.7
       objectReference: {fileID: 0}
     - target: {fileID: 8453747333564666021, guid: dfcf04c0c9d04dd4ca9c0129659a7eaf, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0
+      value: 0.6499994
       objectReference: {fileID: 0}
     - target: {fileID: 8453747333564666021, guid: dfcf04c0c9d04dd4ca9c0129659a7eaf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -39843,7 +39919,7 @@ MonoBehaviour:
   bloodPrefab: {fileID: 3419029600371895221, guid: dfcf04c0c9d04dd4ca9c0129659a7eaf, type: 3}
   wallSparkPrefab: {fileID: 3419029600371895221, guid: 50198ee8a8325954ca09ef28b2f2f01e, type: 3}
   dustPrefab: {fileID: 3419029600371895221, guid: c09051137392fb648bb7d4a400d8d086, type: 3}
-  suicideExplosion: {fileID: 7069627213271928168, guid: 4b3a7ce79540e3a4182615cc95fd552d, type: 3}
+  suicideExplosion: {fileID: 1695871158680900584, guid: b627e4d6eca231f43886bc4a726fffbc, type: 3}
 --- !u!1 &2092075637
 GameObject:
   m_ObjectHideFlags: 0
@@ -40433,11 +40509,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8453747333564666021, guid: 50198ee8a8325954ca09ef28b2f2f01e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -4.51
+      value: -4.71
       objectReference: {fileID: 0}
     - target: {fileID: 8453747333564666021, guid: 50198ee8a8325954ca09ef28b2f2f01e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -2.26
+      value: 0.59
       objectReference: {fileID: 0}
     - target: {fileID: 8453747333564666021, guid: 50198ee8a8325954ca09ef28b2f2f01e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -40866,63 +40942,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIButtonSound
   sound: 0
---- !u!1001 &5463633126564019552
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3154115167533342637, guid: 4b3a7ce79540e3a4182615cc95fd552d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -4.08
-      objectReference: {fileID: 0}
-    - target: {fileID: 3154115167533342637, guid: 4b3a7ce79540e3a4182615cc95fd552d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.76
-      objectReference: {fileID: 0}
-    - target: {fileID: 3154115167533342637, guid: 4b3a7ce79540e3a4182615cc95fd552d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3154115167533342637, guid: 4b3a7ce79540e3a4182615cc95fd552d, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3154115167533342637, guid: 4b3a7ce79540e3a4182615cc95fd552d, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3154115167533342637, guid: 4b3a7ce79540e3a4182615cc95fd552d, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3154115167533342637, guid: 4b3a7ce79540e3a4182615cc95fd552d, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3154115167533342637, guid: 4b3a7ce79540e3a4182615cc95fd552d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3154115167533342637, guid: 4b3a7ce79540e3a4182615cc95fd552d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3154115167533342637, guid: 4b3a7ce79540e3a4182615cc95fd552d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7069627213271928168, guid: 4b3a7ce79540e3a4182615cc95fd552d, type: 3}
-      propertyPath: m_Name
-      value: SuicideExplosion
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4b3a7ce79540e3a4182615cc95fd552d, type: 3}
 --- !u!1001 &7862889200735666098
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41173,7 +41192,7 @@ SceneRoots:
   - {fileID: 1517450517}
   - {fileID: 899406642}
   - {fileID: 710665640}
-  - {fileID: 5463633126564019552}
   - {fileID: 2145928915}
   - {fileID: 950317242}
   - {fileID: 1538499716}
+  - {fileID: 1134075232}

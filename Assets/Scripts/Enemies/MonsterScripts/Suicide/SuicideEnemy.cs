@@ -43,6 +43,7 @@ public class SuicideEnemy : Enemy
         explosion.Explode();
 
         VFXManager.Instance.PlayPrefab(ImpactType.SuicideExplosion, transform.position, Vector2.up, 20f);
+        ScreenShake.Instance.Shake(0.2f, 0.2f);
 
         SpawnEyes();
         Destroy(gameObject);
